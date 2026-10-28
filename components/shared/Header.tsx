@@ -21,7 +21,7 @@ export function Header() {
   const [menu, setMenu] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '';
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -88,17 +88,25 @@ export function Header() {
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center justify-center gap-3 xl:flex">
-          {NAV_LINKS.map((l, i) => (
-            <span key={l.href} className="flex items-center gap-3">
-              {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
-              <Link
-                href={l.href}
-                className="nav-link inline-block whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.6px] text-content-brand transition-colors hover:text-brand-dark"
-              >
-                {l.label}
-              </Link>
-            </span>
-          ))}
+          {NAV_LINKS.map((l, i) => {
+            const active = pathname === l.href || pathname.startsWith(l.href + '/');
+            return (
+              <span key={l.href} className="flex items-center gap-3">
+                {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
+                <Link
+                  href={l.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={`nav-link inline-block whitespace-nowrap text-[13px] uppercase tracking-[0.6px] transition-colors ${
+                    active
+                      ? 'font-bold text-content-brand-secondary'
+                      : 'font-semibold text-content-brand hover:text-brand-dark'
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              </span>
+            );
+          })}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 xl:flex">

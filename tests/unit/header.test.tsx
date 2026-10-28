@@ -9,11 +9,15 @@ vi.mock('@/components/shared/nav-config.generated', () => ({
   HEADER_BG_IMAGE: 'linear-gradient(rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 100%), linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.55) 100%)',
 }));
 
+const pathnameMock = vi.hoisted(() => ({ value: null as string | null }));
+vi.mock('next/navigation', () => ({ usePathname: () => pathnameMock.value }));
+
 import { Header } from '@/components/shared/Header';
 
 afterEach(() => cleanup());
 
 beforeEach(() => {
+  pathnameMock.value = null;
   document.body.style.overflow = '';
 });
 
@@ -107,5 +111,25 @@ describe('Header', () => {
     } finally {
       window.matchMedia = original;
     }
+  });
+
+  it('marks only the current page link as active in the desktop nav', () => {
+    pathnameMock.value = '/schools';
+    render(<Header />);
+    const nav = screen.getByRole('navigation', { name: 'Primary' });
+    const current = nav.querySelectorAll('[aria-current="page"]');
+    expect(current).toHaveLength(1);
+    expect(current[0]).toHaveTextContent('Schools');
+    expect(current[0].className).toContain('text-content-brand-secondary');
+  });
+
+  it('keeps the parent link active on nested routes and none active elsewhere', () => {
+    pathnameMock.value = '/resources/research/abc';
+    const { unmount } = render(<Header />);
+    expect(screen.getByRole('link', { name: 'Resources' })).toHaveAttribute('aria-current', 'page');
+    unmount();
+    pathnameMock.value = '/';
+    render(<Header />);
+    expect(document.querySelectorAll('nav[aria-label="Primary"] [aria-current]')).toHaveLength(0);
   });
 });
