@@ -1,0 +1,754 @@
+@import "tailwindcss";
+
+@source not "../reference";
+@source not "../verify";
+@source not "../docs";
+
+/* `static`: always emit every token as a :root variable. Captured section markup
+   references them via var(--color-*) in inline styles, which Tailwind cannot see. */
+@theme static {
+  --color-brand-teal: #175f63;
+  --color-brand-teal-100: #ddf3f4;
+  --color-brand-dark: #10494c;
+  --color-content-brand: #207d82;
+  --color-content-brand-alt: #20797d;
+  --color-content-brand-secondary: #a14da5;
+  --color-content-secondary: #6b7280;
+  --color-content-knockout: #ffffff;
+  --color-brand-subtle-bg: #f1f8f8;
+  --color-background-brand-subtle: #eef9f9;
+  --color-background-success-subtle: #f0fdf4;
+  --color-background-error-subtle: #fef2f2;
+  --color-text-default: #101319;
+  --color-text-secondary: #374151;
+  --color-text-muted: #5b5563;
+  --color-border-subtle: #e4edea;
+  --color-bullet-marker: #93c4bc;
+  --color-carousel-dot-inactive: #c6c6c6;
+  --color-error: #cd423a;
+}
+
+@theme inline {
+  --font-heading: var(--font-nunito), "Nunito Fallback", Arial, sans-serif;
+  --font-sans: var(--font-open-sans), "Open Sans Fallback", Arial, sans-serif;
+}
+
+:root {
+  --gradient-hero: linear-gradient(
+    90deg,
+    rgba(147, 229, 125, 0.15) 0%,
+    rgba(93, 198, 243, 0.15) 50%,
+    rgba(181, 90, 186, 0.15) 100%
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Motion. CSS-only, except the Journey path (GSAP) and the scroll reveal (Reveal.tsx). */
+.reveal {
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+}
+.reveal[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.reveal[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-enter {
+  animation: hero-in 700ms ease-out both;
+}
+.hero-delay-1 {
+  animation-delay: 150ms;
+}
+.hero-delay-2 {
+  animation-delay: 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal[data-reveal="pending"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-enter {
+    animation: none;
+  }
+  .faq-plus-bar,
+  .btn svg {
+    transition: none;
+  }
+}
+
+body {
+  background: #fff;
+  color: var(--color-text-default);
+  font-family: var(--font-open-sans), "Open Sans Fallback", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Motion system (spec 2026-10-13) ===== */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Group entry: children rise once, staggered by position (max 6). */
+.reveal-group > * {
+  transition-property: opacity, transform, translate, box-shadow, background-color, border-color;
+  transition-duration: 600ms, 600ms, 200ms, 200ms, 250ms, 250ms;
+  transition-timing-function: var(--ease-out), var(--ease-out), ease, ease, ease, ease;
+  transition-delay: var(--stagger, 0ms), var(--stagger, 0ms), 0ms, 0ms, 0ms, 0ms;
+}
+.reveal-group[data-reveal-group="pending"] > * {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.reveal-group[data-reveal-group="shown"] > * {
+  opacity: 1;
+  transform: none;
+}
+.reveal-group > :nth-child(2) { --stagger: 80ms; }
+.reveal-group > :nth-child(3) { --stagger: 160ms; }
+.reveal-group > :nth-child(4) { --stagger: 240ms; }
+.reveal-group > :nth-child(5) { --stagger: 320ms; }
+.reveal-group > :nth-child(n+6) { --stagger: 400ms; }
+
+/* Images inside a revealed block fade in and settle from a slight zoom. */
+[data-motion-image] {
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+.reveal-group[data-reveal-group="pending"] [data-motion-image],
+.reveal[data-reveal="pending"] [data-motion-image] {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+/* Hero illustration: settles in on load. */
+@keyframes settle-in {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+.hero-settle {
+  animation: settle-in 800ms var(--ease-out) both;
+}
+
+/* Icons pop in once when the block around them is shown. "backwards" so a hover or
+   open-state transform on the same element takes over afterwards. */
+@keyframes icon-pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+.reveal-group[data-reveal-group="shown"] [data-icon],
+.reveal[data-reveal="shown"] [data-icon] {
+  animation: icon-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+/* Sign-in dropdown and cookie banner. */
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu-in {
+  animation: menu-in 200ms var(--ease-out) both;
+}
+@keyframes cookie-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cookie-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(24px); }
+}
+.cookie-in {
+  animation: cookie-in 400ms var(--ease-out) 600ms both;
+}
+.cookie-out {
+  animation: cookie-out 250ms ease-in both;
+}
+
+/* FAQ cards: colour changes fade, and the icon grows a little when its card is open. */
+.faq-card {
+  transition: background-color 250ms ease, border-color 250ms ease;
+}
+.faq-icon {
+  transition: transform 200ms var(--ease-out);
+}
+button[aria-expanded="true"] .faq-icon {
+  transform: scale(1.1);
+}
+
+/* Nav and footer links: underline draws from the left. The underline is a state, so it shows
+   instantly under reduced motion. */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Hover and press motion applies only when the visitor has not asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition-property: color, background-color, border-color, scale;
+    transition-duration: 150ms;
+  }
+  .btn svg {
+    transition: transform 200ms ease;
+  }
+  .btn:hover svg,
+  .btn:focus-visible svg {
+    transform: translateX(4px);
+  }
+  .btn:active {
+    scale: 0.98;
+  }
+  .card-lift,
+  .reveal-group > .card-lift {
+    transition-property: opacity, transform, translate, box-shadow, background-color, border-color;
+    transition-duration: 600ms, 600ms, 200ms, 200ms, 250ms, 250ms;
+    transition-timing-function: var(--ease-out), var(--ease-out), ease, ease, ease, ease;
+    transition-delay: var(--stagger, 0ms), var(--stagger, 0ms), 0ms, 0ms, 0ms, 0ms;
+  }
+  .card-lift:hover,
+  .card-lift:focus-visible {
+    translate: 0 -4px;
+    box-shadow: 0px 10px 28px -8px rgba(23, 94, 99, 0.18);
+  }
+  .social-lift {
+    transition: translate 200ms ease;
+  }
+  .social-lift:hover,
+  .social-lift:focus-visible {
+    translate: 0 -4px;
+  }
+  .img-hover-zoom > * {
+    transition: transform 500ms var(--ease-out);
+  }
+  .img-hover-zoom:hover > * {
+    transform: scale(1.05);
+  }
+  /* Avatars keep the reveal fade from [data-motion-image] and add a small scale and ring. */
+  .avatar-hover {
+    transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out), scale 250ms var(--ease-out), box-shadow 250ms ease;
+  }
+  .avatar-hover:hover {
+    scale: 1.04;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-teal) 25%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-group > *,
+  .reveal-group[data-reveal-group="pending"] > *,
+  .reveal-group > :nth-child(n) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+    --stagger: 0ms;
+  }
+  [data-motion-image],
+  .reveal-group[data-reveal-group="pending"] [data-motion-image],
+  .reveal[data-reveal="pending"] [data-motion-image] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  [data-icon],
+  .hero-settle,
+  .menu-in,
+  .cookie-in,
+  .cookie-out {
+    animation: none !important;
+  }
+  .nav-link::after,
+  .faq-card,
+  .faq-icon {
+    transition: none;
+  }
+}
+
+/* Horizontal scroller: a native scroll-snap row. --visible cards show at once (the fraction hints at
+   more); --gaps is the count of full gaps in view (floor of --visible). */
+.hscroll {
+  --gap: 12px;
+  /* Phone cards: about 210px at 390px wide (was 1.5 across, ~225px): 1.6 cards show, so the next one peeks. */
+  --visible: 1.6;
+  --gaps: 1;
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+}
+.hscroll::-webkit-scrollbar {
+  display: none;
+}
+.hscroll > * {
+  flex: 0 0 auto;
+  width: calc((100% - var(--gap) * var(--gaps)) / var(--visible));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+/* Below 640px every card is the same compact size, whatever the window width. */
+@media (max-width: 639px) {
+  .hscroll > * {
+    width: 211px;
+  }
+}
+/* Pinned scroll-through (fine pointer, motion allowed): the content sticks while the page scroll
+   moves the row. The row itself stops scrolling natively so the two never fight. */
+.hscroll-pinned > .hscroll-sticky {
+  position: sticky;
+  top: 112px; /* the component sets the exact value so the whole block stays on screen */
+}
+.hscroll-pinned .hscroll {
+  overflow-x: hidden;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  /* Narrow windows get the same compact card as touch (about 210px), not one card full width. */
+  --visible: 1.6;
+  --gaps: 1;
+}
+@media (min-width: 640px) {
+  .hscroll-pinned .hscroll {
+    --visible: 2;
+    --gaps: 1;
+  }
+}
+@media (min-width: 1024px) {
+  .hscroll-pinned .hscroll {
+    --visible: 4;
+    --gaps: 3;
+  }
+}
+.hscroll:focus-visible {
+  outline: 2px solid var(--color-brand-teal, #175f63);
+  outline-offset: 4px;
+}
+@media (min-width: 640px) {
+  .hscroll {
+    --visible: 2.5;
+    --gaps: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .hscroll {
+    --gap: 20px;
+    --visible: 4.5;
+    --gaps: 4;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hscroll {
+    scroll-behavior: auto;
+  }
+}
+@media (hover: none) {
+  .hscroll-arrows {
+    display: none;
+  }
+}
+
+/* ===== Journey rail (home growth path, rebuilt) =====
+   One <ol>, two layouts. Below 1280px: a compact vertical list, columns [rail | illustration | text].
+   From 1280px: five equal columns, illustration over a shared horizontal line over the card.
+   Each step owns the stretch of line that passes through its own node, so the geometry never depends
+   on image or text heights. JourneyRailMotion animates [data-jr-*] hooks only; it does not move layout. */
+.jr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.jr-step {
+  --jr-thumb: 80px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px var(--jr-thumb) minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: stretch;
+}
+.jr-rail {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The line a step owns: the whole row height, trimmed to the node centre on the first and last step. */
+.jr-track,
+.jr-path {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  translate: -50% 0;
+  pointer-events: none;
+}
+.jr-track {
+  background: #f0dff2;
+  border-radius: 9999px;
+}
+.jr-path {
+  z-index: 2;
+}
+.jr-step[data-pos="first"] .jr-track,
+.jr-step[data-pos="first"] .jr-path {
+  top: 50%;
+}
+.jr-step[data-pos="last"] .jr-track,
+.jr-step[data-pos="last"] .jr-path {
+  bottom: 50%;
+}
+.jr-line {
+  position: absolute;
+  inset: 0;
+  background: #c79acc;
+  border-radius: inherit;
+  transform-origin: top center;
+}
+.jr-orb {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 9999px;
+  background: #b55aba;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 9px rgba(181, 90, 186, 0.22);
+  opacity: 0;
+}
+.jr-node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  /* Same treatment as the desktop node: white disc, accent ring and numeral. */
+  background: #fff;
+  border: 2px solid var(--jr-accent, #c79acc);
+  color: var(--jr-accent, #9a3fa0);
+  font-family: var(--font-nunito), "Nunito Fallback", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+}
+.jr-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid #c79acc;
+  opacity: 0;
+  pointer-events: none;
+}
+.jr-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+.jr-image {
+  position: relative;
+  align-self: center;
+  width: var(--jr-thumb);
+  aspect-ratio: 1 / 1;
+  margin: 8px 0;
+  padding: 4px;
+  border-radius: 16px;
+  background: var(--jr-bg);
+}
+.jr-card {
+  align-self: center;
+  min-width: 0;
+  padding: 12px 0;
+}
+.jr-kicker {
+  margin-bottom: 2px;
+  font-family: var(--font-nunito), "Nunito Fallback", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 1.2px;
+  color: var(--jr-accent, var(--color-brand-teal));
+}
+.jr-title {
+  font-family: var(--font-nunito), "Nunito Fallback", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--color-brand-teal);
+  overflow-wrap: anywhere;
+}
+.jr-body {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--color-text-default);
+  overflow-wrap: anywhere;
+}
+.jr-stub {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .jr-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: 20px;
+  }
+  .jr-list[data-cols="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .jr-step {
+    display: flex;
+    flex-direction: column;
+  }
+  .jr-image {
+    order: 1;
+    width: 100%;
+    max-width: 176px;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+  .jr-rail {
+    order: 2;
+    height: 56px;
+    margin-top: 4px;
+  }
+  .jr-card {
+    order: 3;
+    position: relative;
+    flex: 1;
+    margin-top: 12px;
+    padding: 20px 18px;
+    border: 4px solid var(--jr-border);
+    border-radius: 20px;
+    background: var(--jr-bg);
+    align-self: stretch;
+  }
+  /* The line runs left to right through the node row, half a column gap past each column edge so
+     neighbouring steps meet exactly. */
+  .jr-track,
+  .jr-path {
+    top: 50%;
+    bottom: auto;
+    left: -10px;
+    right: -10px;
+    width: auto;
+    height: 3px;
+    translate: 0 -50%;
+  }
+  .jr-step[data-pos="first"] .jr-track,
+  .jr-step[data-pos="first"] .jr-path {
+    top: 50%;
+    left: 50%;
+  }
+  .jr-step[data-pos="last"] .jr-track,
+  .jr-step[data-pos="last"] .jr-path {
+    bottom: auto;
+    right: 50%;
+  }
+  .jr-line {
+    transform-origin: left center;
+  }
+  .jr-orb {
+    left: 0;
+    top: 50%;
+  }
+  .jr-node {
+    width: 56px;
+    height: 56px;
+    background: #fff;
+    border: 3px solid var(--jr-accent, #c79acc);
+    color: var(--jr-accent, #9a3fa0);
+    font-size: 28px;
+    box-shadow: 0 3px 8px 0 rgba(107, 64, 128, 0.16);
+  }
+  .jr-stub {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -12px;
+    height: 12px;
+    margin-left: -1px;
+    border-left: 2px dashed #9ca3af;
+    transform-origin: top center;
+  }
+  .jr-kicker {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .jr-title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  .jr-body {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-text-secondary);
+  }
+}
+
+/* Under reduced motion there is no orb, no sparks and no hover motion: the line is simply drawn. */
+@media (prefers-reduced-motion: reduce) {
+  .jr-orb,
+  .jr-spark {
+    display: none;
+  }
+}
+
+
+/* Journey rail hover (fine pointer, motion allowed). The illustration wiggles and the node ring pulses
+   once. No lift or shadow: these cards are not links, and lift implies clickable. The individual
+   transform properties (scale, rotate) stack with the transform GSAP sets during the entry. */
+@keyframes jr-ring-pulse {
+  from { transform: scale(1); opacity: 0.5; }
+  to { transform: scale(1.7); opacity: 0; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .jr-image {
+    transition: scale 350ms cubic-bezier(0.34, 1.56, 0.64, 1), rotate 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .jr-step:hover .jr-image {
+    scale: 1.06;
+    rotate: 2deg;
+  }
+  .jr-step:hover .jr-ring {
+    animation: jr-ring-pulse 700ms var(--ease-out);
+  }
+}
+
+
+/* Mobile tokens and touch utilities (docs/superpowers/specs/2026-10-17-mobile-experience-design.md). */
+:root {
+  --header-h: 74px;
+  --cookie-h: 0px;
+}
+
+/* Expands the tap area of a small, positioned element without changing layout. */
+.hit {
+  position: relative;
+}
+.hit::after {
+  content: "";
+  position: absolute;
+  inset: -12px 0;
+}
+.hit-sm::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+/* Keeps the last content clear of the fixed cookie bar on touch layouts. */
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: var(--cookie-h);
+  }
+}
+
+/* Touch press feedback: the touch twin of hover. */
+@custom-variant tap (&:is(:active, [data-active="true"], :focus-visible));
+@media (hover: none) {
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Every element that reacts to hover also reacts to a press on touch. */
+  [class*="hover:"]:active {
+    transform: scale(0.985);
+    transition: transform 120ms ease-out;
+  }
+}
+
+/* Phones: shorter travel and quicker reveals so fast scrolling never waits on animation. */
+@media (max-width: 1023px) {
+  .reveal {
+    transition-duration: 500ms;
+  }
+  .reveal[data-reveal="pending"] {
+    transform: translateY(16px);
+  }
+}
+
+/* Testimonial row: dim a card cut off by the row's edge, lift on hover. The transitions only switch on
+   (.tcard-ready) once the one-time entrance has finished, so they never fight it. */
+.tcard[data-edge="true"] {
+  opacity: 0.75;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tcard-ready .tcard {
+    transition: opacity 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tcard-ready .tthumb {
+    transition: transform 0.4s ease;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .tcard-ready .tcard:hover,
+  .tcard-ready .tcard:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -8px rgba(23, 94, 99, 0.16);
+  }
+  .tcard-ready .tcard:hover .tthumb,
+  .tcard-ready .tcard:focus-visible .tthumb {
+    transform: scale(1.03);
+  }
+}
+
+/* Active stage card with a stroke colour: half the usual 1.5px border. Browsers snap borders to whole device
+   pixels (evenly on all four sides), so the padding makes up the difference and the card keeps its size. */
+.stage-stroke {
+  border-width: 0.75px;
+}
+@media (min-resolution: 1.5dppx) {
+  .stage-stroke {
+    padding: 1px;
+  }
+}

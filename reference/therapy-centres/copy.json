@@ -1,0 +1,349 @@
+[
+  {
+    "index": 0,
+    "id": "",
+    "className": "relative overflow-hidden rounded-bl-[50%_24px] rounded-br-[50%_24px] pt-[116px] pb-10 lg:rounded-bl-[50%_120px] lg:rounded-br-[50%_120px] lg:pt-[150px] lg:pb-[100px]",
+    "height": 720,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "150px",
+    "paddingBottom": "100px",
+    "h1": [
+      "Intervention works best when it doesn’t stop at the clinic door."
+    ],
+    "h2": [],
+    "h3": [],
+    "p": [
+      "FOR CHILD DEVELOPMENT CENTERS",
+      "Supporting a child’s development takes more than good intervention. It takes continuity across the NGOs, centers, sessions and settings involved in their care.",
+      "JMIR Outcomes",
+      "Patented Technology",
+      "ISO Certification"
+    ],
+    "links": [
+      {
+        "text": "JMIR Outcomes",
+        "href": "https://neuro.jmir.org/2025/1/e70589"
+      },
+      {
+        "text": "Patented Technology",
+        "href": "https://d2gq2a16cq5v8g.cloudfront.net/documents/CognitiveBotics_India_Patent.pdf"
+      },
+      {
+        "text": "ISO Certification",
+        "href": "https://d2gq2a16cq5v8g.cloudfront.net/documents/Final-ISO-27001-Certificate-2026.pdf"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Hero_Image_afb2b2bfee.png",
+        "alt": "Therapy centre dashboard shown across tablet and phone devices",
+        "w": 600,
+        "h": 470,
+        "ratio": 1.277
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "id": "",
+    "className": "mx-auto flex max-w-[1440px] flex-col items-center gap-9 px-5 py-14 lg:flex-row lg:gap-16 lg:px-24 lg:py-24",
+    "height": 632,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "What we believe"
+    ],
+    "h3": [],
+    "p": [
+      "Progress can be difficult to see when goals, observations and outcomes are spread across sessions, therapists and settings, making it harder to understand what is working and where a child needs more support.",
+      "CognitiveBotics uses AI powered tools to help keep intervention connected across therapy, home and school, making it easier to reinforce learning, monitor progress and support meaningful skill generalisation."
+    ],
+    "links": [
+      {
+        "text": "Request a Platform Demo",
+        "href": "/try-demo"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/What_We_Believe_a94b647d08.png",
+        "alt": "A therapist working with a child",
+        "w": 508,
+        "h": 403,
+        "ratio": 1.261
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "id": "",
+    "className": "bg-white px-5 pt-14 pb-14 lg:px-24 lg:pt-8 lg:pb-24",
+    "height": 1046,
+    "bg": "rgb(255, 255, 255)",
+    "paddingTop": "32px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Skills empowering every child’s journey"
+    ],
+    "h3": [],
+    "p": [
+      "Reading & Writing",
+      "Fosters literacy by improving the ability to read, comprehend and write.",
+      "Arithmetic Skill",
+      "Enhances basic mathematical understanding and problem-solving abilities.",
+      "Visual Skill",
+      "Improves how children interpret and understand visual information from their environment.",
+      "Social Skill",
+      "Builds the ability to interact, communicate and engage positively with others.",
+      "Play Skill",
+      "Encourages imaginative play and the development of problem-solving and creative thinking.",
+      "Self-Help Skill",
+      "Promotes independence by teaching children essential daily living activities.",
+      "Attending Skill",
+      "Enhances a child’s ability to focus and maintain attention on tasks or instructions.",
+      "Imitation Skill",
+      "Helps children learn by observing and mimicking others’ actions or behaviors.",
+      "Receptive Skill",
+      "Strengthens the child’s ability to understand and process spoken language and instructions.",
+      "Expressive Skill",
+      "Develops the child’s capability to communicate thoughts, needs and emotions effectively."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/reading_and_writing_14x_15ed81f543.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/arithmetic_14x_aa48496600.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/visual_14x_4feb960905.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/Social_Icon_14x_b6e211e50c.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/play_14x_ba0fa26f5d.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/Self_Help_14x_11847fd3e8.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/attending_2_14x_fa54923d08.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/imitation_14x_38c4da05a6.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/receptive_14x_b24bf29afd.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/expressive_14x_50e9bf6473.webp",
+        "alt": "",
+        "w": 192,
+        "h": 180,
+        "ratio": 1.064
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 py-10 lg:py-16",
+    "height": 453,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "64px",
+    "paddingBottom": "64px",
+    "h1": [],
+    "h2": [
+      "Start With a Clearer Picture"
+    ],
+    "h3": [],
+    "p": [
+      "Understanding a child's developmental strengths and areas of need can help teams identify where closer attention may be helpful and guide the next conversation. Our 14-question developmental checklist provides an initial view across key developmental areas."
+    ],
+    "links": [
+      {
+        "text": "Start The Development Checklist",
+        "href": "/developmental-checklist"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 4,
+    "id": "",
+    "className": "px-5 py-14 lg:px-24 lg:py-20",
+    "height": 684,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "80px",
+    "paddingBottom": "80px",
+    "h1": [],
+    "h2": [
+      "Extending developmental care beyond location and means"
+    ],
+    "h3": [],
+    "p": [
+      "A single view to manage your caseload, personalise learning plans, track progress and stay connected to each child’s journey."
+    ],
+    "links": [
+      {
+        "text": "Explore the Dashboard",
+        "href": "https://atcapp.cognitivebotics.com/login"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Extending_Developmental_Care_4a19bf4431.png",
+        "alt": "CognitiveBotics dashboard",
+        "w": 669,
+        "h": 476,
+        "ratio": 1.405
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "id": "",
+    "className": "bg-brand-subtle-bg px-5 py-14 lg:px-24 lg:py-24",
+    "height": 793,
+    "bg": "rgb(241, 248, 248)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "12 months. 43 children. Measurable developmental progress."
+    ],
+    "h3": [],
+    "p": [
+      "CLINICAL EVIDENCE",
+      "A 12-month observational clinical study conducted in partnership with NIEPID evaluated outcomes among 43 children using the intervention.",
+      "Social Age",
+      "+56%",
+      "Improvement",
+      "Expressive Language",
+      "+60%",
+      "Improvement measured using REEL",
+      "Developmental Domains",
+      "P < 0.001",
+      "Significant improvement across all measured domains",
+      "Published in JMIR Neurotechnology."
+    ],
+    "links": [
+      {
+        "text": "View the Published Study",
+        "href": "https://doi.org/10.2196/70589"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Clinical_Evidence_13bfd2f867.png",
+        "alt": "",
+        "w": 377,
+        "h": 245,
+        "ratio": 1.539
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-5 py-14 lg:px-24 lg:py-24",
+    "height": 668,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Frequently Asked Questions"
+    ],
+    "h3": [],
+    "p": [
+      "QUESTIONS THERAPISTS ASK US",
+      "Is there published research behind this?",
+      "How does CognitiveBotics support a centre’s existing therapy process?",
+      "How does a centre join the CognitiveBotics platform?",
+      "Is CognitiveBotics suitable for NGOs, not just private therapy centres?",
+      "How does a centre sign up?"
+    ],
+    "links": [],
+    "buttons": [
+      "Is there published research behind this?+",
+      "How does CognitiveBotics support a centre’s existing therapy process?+",
+      "How does a centre join the CognitiveBotics platform?+",
+      "Is CognitiveBotics suitable for NGOs, not just private therapy centres?+",
+      "How does a centre sign up?+"
+    ],
+    "imgs": []
+  },
+  {
+    "index": 7,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 pt-0 pb-16 lg:pb-24",
+    "height": 400,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Bring greater clarity to every therapy journey"
+    ],
+    "h3": [],
+    "p": [
+      "Plan with precision. Track progress. Adapt care around every child."
+    ],
+    "links": [
+      {
+        "text": "Book a Demo",
+        "href": "/try-demo"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  }
+]

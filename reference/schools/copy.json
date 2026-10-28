@@ -1,0 +1,378 @@
+[
+  {
+    "index": 0,
+    "id": "",
+    "className": "relative overflow-hidden rounded-bl-[50%_24px] rounded-br-[50%_24px] pt-[116px] pb-16 lg:rounded-bl-[50%_120px] lg:rounded-br-[50%_120px] lg:pt-[150px] lg:pb-[100px]",
+    "height": 647,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "150px",
+    "paddingBottom": "100px",
+    "h1": [
+      "Making inclusive education work, every day"
+    ],
+    "h2": [],
+    "h3": [],
+    "p": [
+      "FOR SCHOOLS",
+      "Every school wants to create an environment where every child feels included, understood and able to thrive"
+    ],
+    "links": [
+      {
+        "text": "Book a School Demo",
+        "href": "/contact-us"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Hero_898ac2e65d.png",
+        "alt": "",
+        "w": 486,
+        "h": 397,
+        "ratio": 1.224
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "id": "",
+    "className": "mx-auto flex max-w-[1440px] flex-col items-center gap-9 px-5 py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:py-[88px] lg:px-24",
+    "height": 641,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "88px",
+    "paddingBottom": "88px",
+    "h1": [],
+    "h2": [
+      "Building inclusive schools starts with empowered educators"
+    ],
+    "h3": [],
+    "p": [
+      "Every school wants to create an environment where every child feels included, understood and able to thrive. However, making inclusive education work consistently can be challenging - and schools shouldn’t have to navigate this journey alone.",
+      "CognitiveBotics helps schools bring educators, specialists and families together through one connected platform, making it easier to personalise learning, track progress and support every child with confidence.",
+      "This helps schools spend less time trying to connect the dots, and more time helping children reach their potential."
+    ],
+    "links": [
+      {
+        "text": "Learn more about inclusive education",
+        "href": "/resources#blog"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/2_84c8f21a35.webp",
+        "alt": "",
+        "w": 608,
+        "h": 451,
+        "ratio": 1.348
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "id": "",
+    "className": "bg-brand-subtle-bg px-5 py-14 lg:px-24 lg:py-[88px]",
+    "height": 965,
+    "bg": "rgb(241, 248, 248)",
+    "paddingTop": "88px",
+    "paddingBottom": "88px",
+    "h1": [],
+    "h2": [
+      "How schools support inclusive education, more consistently"
+    ],
+    "h3": [],
+    "p": [
+      "A CONNECTED ECOSYSTEM",
+      "CognitiveBotics helps schools create a connected ecosystem where every interaction supports a child’s development, beyond the classroom",
+      "Practical support for teachers",
+      "Equip educators with neurodivergent-aware teaching strategies, guided classroom activities and practical resources that can be applied in everyday learning environments.",
+      "Individualised Education Plans (IEPs)",
+      "Create AI-assisted Individualised Education Plans that evolve with every child’s developmental progress, helping educators adapt goals as children grow.",
+      "Understand behaviour with confidence",
+      "Track in-session behavioural and emotional patterns to support timely regulation strategies before challenges escalate.",
+      "Keep everyone working towards the same goals",
+      "Enable teachers, special educators, therapists and school leadership to collaborate around shared developmental objectives, reducing fragmented support.",
+      "Reduce administrative work",
+      "Record observations, upload assessments, document interventions and generate progress reports in one place - giving educators more time to focus on children instead of paperwork.",
+      "Extend support beyond the school day",
+      "Connect structured school activities into home practice, giving caregivers the guidance they need to continue support beyond the classroom."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 3,
+    "id": "",
+    "className": "bg-[#fafcfb] px-5 py-14 lg:px-24 lg:py-[90px]",
+    "height": 590,
+    "bg": "rgb(250, 252, 251)",
+    "paddingTop": "90px",
+    "paddingBottom": "90px",
+    "h1": [],
+    "h2": [
+      "Tailored implementation, built around your school’s needs."
+    ],
+    "h3": [],
+    "p": [
+      "Every school is at a different stage of its inclusion journey. Some are building their first structured programme, while others are looking to strengthen and scale what already exists.",
+      "CognitiveBotics Bloom is a comprehensive implementation programme that combines technology, specialist expertise and ongoing support to help schools build sustainable, high-quality inclusive education programmes. We work alongside your team to ensure every child, educator and family receives the support they need."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/cognitivebotics_bloom_badge_7f7a1110fb.png",
+        "alt": "CognitiveBotics Bloom",
+        "w": 360,
+        "h": 42,
+        "ratio": 8.571
+      },
+      {
+        "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/1_1f9ed5ffa7.webp",
+        "alt": "",
+        "w": 558,
+        "h": 372,
+        "ratio": 1.5
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "id": "",
+    "className": "bg-[#fafcfb] px-5 pb-14 lg:px-24 lg:pb-[90px]",
+    "height": 834,
+    "bg": "rgb(250, 252, 251)",
+    "paddingTop": "0px",
+    "paddingBottom": "90px",
+    "h1": [],
+    "h2": [],
+    "h3": [],
+    "p": [
+      "We begin by understanding your school",
+      "We start by understanding your resources, student needs and inclusion goals",
+      "Specialist support that stays with your team",
+      "Specialists work alongside your team through visits, guidance and mentoring",
+      "Personalised support for every learner",
+      "Every learner gets developmentally appropriate, goal-aligned support",
+      "Families become active partners",
+      "Families join in through guided home activities and progress updates",
+      "Continuous monitoring and improvement",
+      "Regular reviews and outcome tracking help refine and strengthen practice."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Bloom_86ee9a58bd.png",
+        "alt": "",
+        "w": 567,
+        "h": 725,
+        "ratio": 0.782
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "id": "",
+    "className": "bg-white px-5 pt-9 pb-14 lg:px-24 lg:pt-12 lg:pb-[90px]",
+    "height": 797,
+    "bg": "rgb(255, 255, 255)",
+    "paddingTop": "48px",
+    "paddingBottom": "90px",
+    "h1": [],
+    "h2": [
+      "Every Bloom programme is designed to fit your school"
+    ],
+    "h3": [],
+    "p": [
+      "450+ learning objectives across 10 skill areas",
+      "1,800+ structured tasks to support individualised learning",
+      "20+ social stories to build communication and everyday skills",
+      "450+ guided parent training videos to extend practice into the home",
+      "Individualised learning plans aligned to each student’s needs",
+      "AI-powered learning experiences that adapt to student progress",
+      "Teacher onboarding and professional development with specialist mentoring",
+      "Progress tracking and outcome reporting to monitor implementation",
+      "Continuous implementation reviews to refine the programme as you evolve",
+      "Built to scale with your school",
+      "Choose the level of coverage, resource access and specialist support that fits your needs - from a single resource room to school-wide implementation."
+    ],
+    "links": [
+      {
+        "text": "Talk to our team",
+        "href": "/contact-us"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Book_d9813314a5.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Puzzle_966fade995.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Social_Stories_64c33f0b24.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/House_cdc2557f10.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Board_d7399d6cb6.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Brain_964f058bb1.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Cap_1f5d93943d.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Report_44d64c95c7.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Continuous_b54a6ddd0b.png",
+        "alt": "",
+        "w": 74,
+        "h": 60,
+        "ratio": 1.233
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Built_To_Scale_c2321f7464.png",
+        "alt": "",
+        "w": 483,
+        "h": 147,
+        "ratio": 3.286
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "id": "",
+    "className": "bg-brand-subtle-bg px-5 py-14 lg:px-24 lg:py-[90px]",
+    "height": 883,
+    "bg": "rgb(241, 248, 248)",
+    "paddingTop": "90px",
+    "paddingBottom": "90px",
+    "h1": [],
+    "h2": [
+      "Supporting inclusive education with evidence that matters"
+    ],
+    "h3": [],
+    "p": [
+      "THE EVIDENCE",
+      "Clinically backed",
+      "Developed through autism intervention research and evaluated through real-world clinical implementation, with research demonstrating measurable improvements across developmental domains.",
+      "Government validated",
+      "A study by the National Institute for the Empowerment of Persons with Intellectual Disabilities (NIEPID) validates CognitiveBotics as “an effective adjunct to conventional therapy, with measurable improvements in developmental and social domains.”",
+      "Patent protected",
+      "Built on proprietary AI technology designed specifically for early intervention, personalised learning and developmental support (Indian Patent No. 586929).",
+      "Designed around measurable outcomes",
+      "A 12-month observational study demonstrated statistically significant improvements across multiple developmental domains when CognitiveBotics was used consistently alongside existing intervention programmes."
+    ],
+    "links": [
+      {
+        "text": "Explore our Research Library",
+        "href": "/resources#research"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 7,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-5 py-14 lg:px-24 lg:py-24",
+    "height": 1076,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Frequently Asked Questions"
+    ],
+    "h3": [],
+    "p": [
+      "QUESTIONS SCHOOLS ASK US",
+      "How does CognitiveBotics support inclusive education in schools?",
+      "Is CognitiveBotics only designed for autistic learners?",
+      "Does CognitiveBotics replace special educators or school counsellors?",
+      "How does CognitiveBotics help teachers?",
+      "Does CognitiveBotics support Individualised Education Plans (IEPs)?",
+      "Does CognitiveBotics align with the National Education Policy (NEP) 2020?",
+      "How are parents involved in CognitiveBotics?",
+      "What is CognitiveBotics Bloom?",
+      "Can CognitiveBotics be implemented in any school?"
+    ],
+    "links": [],
+    "buttons": [
+      "How does CognitiveBotics support inclusive education in schools?+",
+      "Is CognitiveBotics only designed for autistic learners?+",
+      "Does CognitiveBotics replace special educators or school counsellors?+",
+      "How does CognitiveBotics help teachers?+",
+      "Does CognitiveBotics support Individualised Education Plans (IEPs)?+",
+      "Does CognitiveBotics align with the National Education Policy (NEP) 2020?+",
+      "How are parents involved in CognitiveBotics?+",
+      "What is CognitiveBotics Bloom?+",
+      "Can CognitiveBotics be implemented in any school?+"
+    ],
+    "imgs": []
+  },
+  {
+    "index": 8,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 pt-0 pb-16 lg:pb-24",
+    "height": 394,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Build a more inclusive school with confidence"
+    ],
+    "h3": [],
+    "p": [
+      "Support your educators. Empower your learners. Keep families connected."
+    ],
+    "links": [
+      {
+        "text": "Book a School Demo",
+        "href": "/contact-us"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  }
+]

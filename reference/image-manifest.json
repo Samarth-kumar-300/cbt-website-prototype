@@ -1,0 +1,551 @@
+[
+  {
+    "key": "hero_section_final_658d2efd38",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/medium_Hero_Section_final_658d2efd38.webp",
+    "alt": "Hero_Section",
+    "local": "/images/homepage/herosection-01.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "what_is_cbt_final_cf3f19e5b2",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_What_Is_CBT_final_cf3f19e5b2.webp",
+    "alt": "What_Is_CBT",
+    "local": "/images/homepage/whatiscbt.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "path_ribbon_1_2c850d9072",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Path_ribbon_1_2c850d9072.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "step1_fixed_9dbeda3f51",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step1_fixed_9dbeda3f51.webp",
+    "alt": "Observing and understanding a child’s unique needs",
+    "local": "/images/homepage/steps01.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "step2_fixed_ea61785e21",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step2_fixed_ea61785e21.webp",
+    "alt": "Turning observations into clearer developmental insights",
+    "local": "/images/homepage/steps02.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "step3_fixed_cf78fd9013",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step3_fixed_cf78fd9013.webp",
+    "alt": "Building learning activities around developmental goals",
+    "local": "/images/homepage/steps03.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "step4_fixed_bdb51530d2",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step4_fixed_bdb51530d2.webp",
+    "alt": "Adapting learning to a child’s pace and progress",
+    "local": "/images/homepage/steps04.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "step5_fixed_f3be60f042",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step5_fixed_f3be60f042.webp",
+    "alt": "Tracking meaningful progress over time",
+    "local": "/images/homepage/steps05.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "growth_looks_diff_final_80de6b50e2",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/medium_Growth_Looks_Diff_final_80de6b50e2.webp",
+    "alt": "Growth_Looks_Diff",
+    "local": "/images/homepage/growthlooksdiff.webp",
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "testimonial_quote_538468bf5d",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/testimonial_quote_538468bf5d.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "home"
+    ]
+  },
+  {
+    "key": "hero_image_afb2b2bfee",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Hero_Image_afb2b2bfee.png",
+    "alt": "Therapy centre dashboard shown across tablet and phone devices",
+    "local": "/images/therapy-centres/hero-devices.webp",
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "what_we_believe_a94b647d08",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/What_We_Believe_a94b647d08.png",
+    "alt": "A therapist working with a child",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "reading_and_writing_14x_15ed81f543",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/reading_and_writing_14x_15ed81f543.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "arithmetic_14x_aa48496600",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/arithmetic_14x_aa48496600.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "visual_14x_4feb960905",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/visual_14x_4feb960905.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "social_icon_14x_b6e211e50c",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/Social_Icon_14x_b6e211e50c.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "play_14x_ba0fa26f5d",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/play_14x_ba0fa26f5d.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "self_help_14x_11847fd3e8",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/Self_Help_14x_11847fd3e8.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "attending_2_14x_fa54923d08",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/attending_2_14x_fa54923d08.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "imitation_14x_38c4da05a6",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/imitation_14x_38c4da05a6.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "receptive_14x_b24bf29afd",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/receptive_14x_b24bf29afd.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "expressive_14x_50e9bf6473",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/expressive_14x_50e9bf6473.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "extending_developmental_care_4a19bf4431",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Extending_Developmental_Care_4a19bf4431.png",
+    "alt": "CognitiveBotics dashboard",
+    "local": "/images/therapy-centres/extending-development.webp",
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "clinical_evidence_13bfd2f867",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Clinical_Evidence_13bfd2f867.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "therapy-centres"
+    ]
+  },
+  {
+    "key": "hero_898ac2e65d",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Hero_898ac2e65d.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "2_84c8f21a35",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/2_84c8f21a35.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "cognitivebotics_bloom_badge_7f7a1110fb",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/cognitivebotics_bloom_badge_7f7a1110fb.png",
+    "alt": "CognitiveBotics Bloom",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "1_1f9ed5ffa7",
+    "src": "https://d3f7xx0s7xann8.cloudfront.net/uploads/1_1f9ed5ffa7.webp",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "bloom_86ee9a58bd",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Bloom_86ee9a58bd.png",
+    "alt": "",
+    "local": "/images/schools/tailored-implementation.webp",
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "book_d9813314a5",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Book_d9813314a5.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "puzzle_966fade995",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Puzzle_966fade995.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "social_stories_64c33f0b24",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Social_Stories_64c33f0b24.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "house_cdc2557f10",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/House_cdc2557f10.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "board_d7399d6cb6",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Board_d7399d6cb6.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "brain_964f058bb1",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Brain_964f058bb1.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "cap_1f5d93943d",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Cap_1f5d93943d.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "report_44d64c95c7",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Report_44d64c95c7.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "continuous_b54a6ddd0b",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Continuous_b54a6ddd0b.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "built_to_scale_c2321f7464",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Built_To_Scale_c2321f7464.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "schools"
+    ]
+  },
+  {
+    "key": "parent_hero_10aead3508",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Parent_Hero_10aead3508.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "early_differences_1_656821ce28",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Early_differences_1_656821ce28.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "age2_dbb52cca60",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age2_dbb52cca60.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "age3_4_a2ac9d3053",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age3_4_a2ac9d3053.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "age5_d623b0c0e2",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age5_d623b0c0e2.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "age6_7_69d00e131d",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age6_7_69d00e131d.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "learn_49a0420000",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Learn_49a0420000.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "learning_that_adapts_e8e3b7d403",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Learning_That_Adapts_e8e3b7d403.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "parents"
+    ]
+  },
+  {
+    "key": "knowledge_bank_ec85209257",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Knowledge_Bank_ec85209257.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "resources"
+    ]
+  },
+  {
+    "key": "v2_dd3657e2f7",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/V2_dd3657e2f7.jpg",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "resources"
+    ]
+  },
+  {
+    "key": "udaya_dintyala_b3fc9e2246",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Udaya_Dintyala_b3fc9e2246.png",
+    "alt": "Udaya kumar Dintyala",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "dr_ravindranath_kancherla_90a1f28480",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Dr_Ravindranath_Kancherla_90a1f28480.png",
+    "alt": "Dr. Ravindranath Kancherla",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "hunny_agarwal_eeb0c96178",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Hunny_Agarwal_eeb0c96178.png",
+    "alt": "Hunny Agarwal",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "sudheer_narra_398af24a63",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Sudheer_Narra_398af24a63.png",
+    "alt": "Sudheer Narra",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "anastasia_trofilova_ee9e0107b8",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Anastasia_Trofilova_ee9e0107b8.png",
+    "alt": "Anastasia Trofilova",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "zoya_belyaeva_fd9897ae47",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Zoya_Belyaeva_fd9897ae47.png",
+    "alt": "Zoya Belyaeva",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "dr_venkat_reddy_ee1ffe65eb",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Dr_Venkat_Reddy_ee1ffe65eb.png",
+    "alt": "Dr. Venkat Reddy",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "satish_kottapalli_b255c74a08",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Satish_Kottapalli_b255c74a08.png",
+    "alt": "Satish Kottapalli",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "venkat_nalam_7a8c714aed",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Venkat_Nalam_7a8c714aed.png",
+    "alt": "Venkat Nalam",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "dr_mark_aszkenasy_066aea8517",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Dr_Mark_Aszkenasy_066aea8517.png",
+    "alt": "Dr. Mark Aszkenasy",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "eugene_huang_bfaa0f9459",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Eugene_Huang_bfaa0f9459.png",
+    "alt": "Eugene Huang",
+    "local": null,
+    "pages": [
+      "about"
+    ]
+  },
+  {
+    "key": "cobo_flying_f9e92a3b0a",
+    "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Cobo_Flying_f9e92a3b0a.png",
+    "alt": "",
+    "local": null,
+    "pages": [
+      "contact-us"
+    ]
+  }
+]

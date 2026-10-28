@@ -1,0 +1,86 @@
+[
+  {
+    "path": "/images/homepage/cbt-navbar-logo.webp",
+    "file": "cbt-navbar-logo",
+    "folder": "homepage",
+    "w": 853,
+    "h": 124
+  },
+  {
+    "path": "/images/homepage/growthlooksdiff.webp",
+    "file": "growthlooksdiff",
+    "folder": "homepage",
+    "w": 2301,
+    "h": 2700
+  },
+  {
+    "path": "/images/homepage/herosection-01.webp",
+    "file": "herosection-01",
+    "folder": "homepage",
+    "w": 2253,
+    "h": 1761
+  },
+  {
+    "path": "/images/homepage/steps01.webp",
+    "file": "steps01",
+    "folder": "homepage",
+    "w": 1421,
+    "h": 1307
+  },
+  {
+    "path": "/images/homepage/steps02.webp",
+    "file": "steps02",
+    "folder": "homepage",
+    "w": 1370,
+    "h": 1403
+  },
+  {
+    "path": "/images/homepage/steps03.webp",
+    "file": "steps03",
+    "folder": "homepage",
+    "w": 1388,
+    "h": 1214
+  },
+  {
+    "path": "/images/homepage/steps04.webp",
+    "file": "steps04",
+    "folder": "homepage",
+    "w": 1357,
+    "h": 1295
+  },
+  {
+    "path": "/images/homepage/steps05.webp",
+    "file": "steps05",
+    "folder": "homepage",
+    "w": 1372,
+    "h": 1218
+  },
+  {
+    "path": "/images/homepage/whatiscbt.webp",
+    "file": "whatiscbt",
+    "folder": "homepage",
+    "w": 1704,
+    "h": 1032
+  },
+  {
+    "path": "/images/therapy-centres/extending-development.webp",
+    "file": "extending-development",
+    "folder": "therapy-centres",
+    "w": 2676,
+    "h": 1904
+  },
+  {
+    "path": "/images/therapy-centres/hero-devices.webp",
+    "file": "hero-devices",
+    "folder": "therapy-centres",
+    "w": 2608,
+    "h": 2096
+  },
+  {
+    "path": "/images/schools/tailored-implementation.webp",
+    "file": "tailored-implementation",
+    "folder": "schools",
+    "w": 2268,
+    "h": 2900
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "q": "How do I get started with CognitiveBotics?",
+    "a": "Your therapist invites you to CognitiveBotics and sets up your child's programme, so home activities are connected to your child's therapy plan from the very beginning."
+  },
+  {
+    "q": "Who creates my child’s learning plan?",
+    "a": "Your child's learning plan is created by their therapist based on their individual strengths, developmental needs and intervention goals."
+  },
+  {
+    "q": "Do I need training to run sessions at home?",
+    "a": "No. CognitiveBotics provides short, guided videos that show parents exactly how to support each activity, making home sessions easy to fit into everyday routines."
+  },
+  {
+    "q": "How will I know if early intervention is working?",
+    "a": "CognitiveBotics tracks your child's progress over time with clear, easy-to-understand reports, helping parents and therapists monitor developmental goals together.",
+    "source": [
+      "View the Research →"
+    ],
+    "links": [
+      {
+        "text": "View the Research →",
+        "href": "https://cognitivebotics.com/research/application-of-ai-based-learning-platform-for-children-with-asd-developmental-delay-and-intellectual-disability-a-prospective-cohort-study/"
+      },
+      {
+        "text": "View the Research →",
+        "href": "https://cognitivebotics.com/research/effectiveness-of-artificial-intelligence-based-platform-in-administering-therapies-for-children-with-autism-spectrum-disorder-12-month-observational-study/"
+      }
+    ]
+  },
+  {
+    "q": "Is giving my child screen time beneficial?",
+    "a": "Educational screen time can support learning when it is purposeful, interactive and developmentally appropriate. Research suggests the quality of screen time has a greater impact than the amount of time alone.",
+    "source": [
+      "Read the Published Study →",
+      "\"Vulnerabilities Prompting Use of Technology and Screen by Mothers of Autistic Children in India: Lived Experiences and Comparison to Scientific Literature\"",
+      "Published in Culture, Medicine, and Psychiatry (Springer Nature)"
+    ],
+    "links": [
+      {
+        "text": "Read the Published Study →",
+        "href": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9391205/"
+      }
+    ]
+  }
+]

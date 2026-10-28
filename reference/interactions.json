@@ -1,0 +1,140 @@
+{
+  "headerTop": {
+    "background": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 100%), linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.55) 100%)",
+    "backdrop": "blur(14px)",
+    "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(214, 251, 254, 0.16) 0px 12px 34px -8px",
+    "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.65)"
+  },
+  "headerScrolled": {
+    "background": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 100%), linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.55) 100%)",
+    "backdrop": "blur(14px)",
+    "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(214, 251, 254, 0.16) 0px 12px 34px -8px",
+    "border": "1px solid oklab(0.999994 0.0000455678 0.0000200868 / 0.65)"
+  },
+  "signInMenu": [
+    {
+      "label": "Professional sign in",
+      "href": "https://atcapp.cognitivebotics.com/login"
+    },
+    {
+      "label": "Parent sign in",
+      "href": "https://cognitivebotics.com/app/login"
+    }
+  ],
+  "faqMode": "single",
+  "carousel": [
+    "Previous testimonials",
+    "Go to testimonials page 1",
+    "Next testimonials"
+  ],
+  "faqColors": {
+    "heading": "rgb(23, 95, 99)",
+    "question": "rgb(32, 125, 130)"
+  },
+  "contactForm": {
+    "inputs": [
+      {
+        "tag": "input",
+        "name": "name",
+        "type": "text",
+        "placeholder": "",
+        "label": "Name*",
+        "required": false
+      },
+      {
+        "tag": "input",
+        "name": "email",
+        "type": "email",
+        "placeholder": "",
+        "label": "Email*",
+        "required": false
+      },
+      {
+        "tag": "input",
+        "name": "",
+        "type": "search",
+        "placeholder": "Search",
+        "label": "",
+        "required": false
+      },
+      {
+        "tag": "input",
+        "name": "",
+        "type": "tel",
+        "placeholder": "",
+        "label": "Phone number*",
+        "required": false
+      },
+      {
+        "tag": "input",
+        "name": "country",
+        "type": "text",
+        "placeholder": "Enter your country",
+        "label": "Country",
+        "required": false
+      },
+      {
+        "tag": "textarea",
+        "name": "message",
+        "type": "textarea",
+        "placeholder": "",
+        "label": "Message*",
+        "required": false
+      },
+      {
+        "tag": "input",
+        "name": "captcha",
+        "type": "text",
+        "placeholder": "Enter code",
+        "label": "Enter code shown*",
+        "required": false
+      }
+    ],
+    "buttons": [
+      "+91",
+      "",
+      "Choose one",
+      "",
+      "Submit"
+    ]
+  },
+  "contactSelect": [
+    "Therapist",
+    "Parent",
+    "Therapy Centre Admin",
+    "Psychiatrist",
+    "Other"
+  ],
+  "drawerLinks": [
+    {
+      "label": "THERAPY CENTRES",
+      "href": "/therapy-centres"
+    },
+    {
+      "label": "SCHOOLS",
+      "href": "/schools"
+    },
+    {
+      "label": "PARENTS",
+      "href": "/parents"
+    },
+    {
+      "label": "RESOURCES",
+      "href": "/resources"
+    },
+    {
+      "label": "ABOUT US",
+      "href": "/about"
+    },
+    {
+      "label": "GET IN TOUCH",
+      "href": "/contact-us"
+    },
+    {
+      "label": "TRY DEMO",
+      "href": "/try-demo"
+    }
+  ]
+}

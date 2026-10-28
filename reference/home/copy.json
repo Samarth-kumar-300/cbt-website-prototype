@@ -1,0 +1,335 @@
+[
+  {
+    "index": 0,
+    "id": "",
+    "className": "relative overflow-hidden rounded-bl-[50%_30px] rounded-br-[50%_30px] pt-[140px] pb-[75px] lg:rounded-bl-[50%_120px] lg:rounded-br-[50%_120px] lg:pt-[200px] lg:pb-[140px]",
+    "height": 1388,
+    "bg": "rgb(255, 255, 255)",
+    "paddingTop": "200px",
+    "paddingBottom": "140px",
+    "h1": [
+      "AI-powered early intervention platform for neurodivergent children, built to connect therapy, home and school"
+    ],
+    "h2": [
+      "What is CognitiveBotics?"
+    ],
+    "h3": [],
+    "p": [
+      "NIEPID Validated",
+      "JMIR-published 12-month outcomes",
+      "ISO 27001 certified",
+      "Patented early-intervention technology",
+      "CognitiveBotics empowers therapists, educators and caregivers with AI-driven tools and insights to deliver personalised, data-informed support across a child’s care ecosystem."
+    ],
+    "links": [
+      {
+        "text": "Find your path",
+        "href": "#find-your-path"
+      },
+      {
+        "text": "NIEPID Validated",
+        "href": "https://d2gq2a16cq5v8g.cloudfront.net/documents/NIEPID_Validation_Letter.pdf"
+      },
+      {
+        "text": "JMIR-published 12-month outcomes",
+        "href": "https://neuro.jmir.org/2025/1/e70589"
+      },
+      {
+        "text": "ISO 27001 certified",
+        "href": "https://d2gq2a16cq5v8g.cloudfront.net/documents/Final-ISO-27001-Certificate-2026.pdf"
+      },
+      {
+        "text": "Patented early-intervention technology",
+        "href": "https://d2gq2a16cq5v8g.cloudfront.net/documents/CognitiveBotics_India_Patent.pdf"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/medium_Hero_Section_final_658d2efd38.webp",
+        "alt": "Hero_Section",
+        "w": 608,
+        "h": 476,
+        "ratio": 1.277
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_What_Is_CBT_final_cf3f19e5b2.webp",
+        "alt": "What_Is_CBT",
+        "w": 426,
+        "h": 258,
+        "ratio": 1.651
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-6 pt-14 pb-24 lg:px-24 lg:pt-24 lg:pb-16",
+    "height": 2249,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "64px",
+    "h1": [],
+    "h2": [
+      "One shared path, from first questions to thriving"
+    ],
+    "h3": [],
+    "p": [
+      "A CHILD'S GROWTH PATH",
+      "MEET THE CHILD",
+      "Observe and understand each child’s unique needs and way of learning",
+      "ANSWER QUESTIONS",
+      "Turn observations into clearer insights about the child’s development",
+      "ASSIGN PLAN",
+      "Build the right learning activities around each child’s developmental goals",
+      "PERSONALISE LEARNING",
+      "Adapt learning to each child’s pace, needs, and progress",
+      "MONITOR GROWTH",
+      "Track meaningful progress and understand how skills are developing over time"
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Path_ribbon_1_2c850d9072.png",
+        "alt": "",
+        "w": 150,
+        "h": 1939,
+        "ratio": 0.077
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step1_fixed_9dbeda3f51.webp",
+        "alt": "Observing and understanding a child’s unique needs",
+        "w": 355,
+        "h": 327,
+        "ratio": 1.088
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step2_fixed_ea61785e21.webp",
+        "alt": "Turning observations into clearer developmental insights",
+        "w": 342,
+        "h": 351,
+        "ratio": 0.977
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step3_fixed_cf78fd9013.webp",
+        "alt": "Building learning activities around developmental goals",
+        "w": 347,
+        "h": 303,
+        "ratio": 1.143
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step4_fixed_bdb51530d2.webp",
+        "alt": "Adapting learning to a child’s pace and progress",
+        "w": 339,
+        "h": 324,
+        "ratio": 1.049
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/small_Step5_fixed_f3be60f042.webp",
+        "alt": "Tracking meaningful progress over time",
+        "w": 343,
+        "h": 304,
+        "ratio": 1.127
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "id": "",
+    "className": "",
+    "height": 916,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "0px",
+    "h1": [],
+    "h2": [
+      "Growth looks different for every child"
+    ],
+    "h3": [],
+    "p": [
+      "Finding their voice",
+      "With the right support, communication grows one expression at a time.",
+      "Building steadier days",
+      "Children thrive on consistency, understanding and shared goals.",
+      "Creating rhythms that work",
+      "Support that extends beyond sessions into the moments that shape daily life.",
+      "Feeling comfortable in the world",
+      "When sensory needs are understood, children explore with greater confidence.",
+      "Joining in with confidence",
+      "Connection grows through trust and opportunities to engage naturally."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/medium_Growth_Looks_Diff_final_80de6b50e2.webp",
+        "alt": "Growth_Looks_Diff",
+        "w": 600,
+        "h": 620,
+        "ratio": 0.968
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 py-10 lg:py-16",
+    "height": 426,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "64px",
+    "paddingBottom": "64px",
+    "h1": [],
+    "h2": [
+      "Could Your Child Benefit from Extra Support?"
+    ],
+    "h3": [],
+    "p": [
+      "Answer 14 questions to better understand your child's developmental needs and explore what you can do next."
+    ],
+    "links": [
+      {
+        "text": "Take the Developmental Checklist",
+        "href": "/developmental-checklist"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 4,
+    "id": "find-your-path",
+    "className": "mx-auto max-w-[1440px] scroll-mt-[120px] px-5 py-14 lg:px-24 lg:pt-[84px] lg:pb-[88px]",
+    "height": 435,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "84px",
+    "paddingBottom": "88px",
+    "h1": [],
+    "h2": [
+      "Find your path"
+    ],
+    "h3": [],
+    "p": [
+      "Where would you like to go next?",
+      "For Therapy Centres",
+      "Delivering consistent, high-quality care at scale.",
+      "For Parents",
+      "Understanding your child: guidance, clarity and support.",
+      "For Schools",
+      "Creating inclusive classrooms where every child belongs."
+    ],
+    "links": [
+      {
+        "text": "For Therapy CentresDelivering consistent, high-quality care at scale.Delivering consistent, high-quality care at scale.",
+        "href": "/therapy-centres"
+      },
+      {
+        "text": "For ParentsUnderstanding your child: guidance, clarity and support.Understanding your child: guidance, clarity and support.",
+        "href": "/parents"
+      },
+      {
+        "text": "For SchoolsCreating inclusive classrooms where every child belongs.Creating inclusive classrooms where every child belongs.",
+        "href": "/schools"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 5,
+    "id": "",
+    "className": "",
+    "height": 828,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "0px",
+    "h1": [],
+    "h2": [
+      "Real experiences from the families we support"
+    ],
+    "h3": [],
+    "p": [
+      "We noticed small positive changes - better engagement and improved attention during activities. Even small improvements felt like a big achievement to us. The app fits well with her ongoing therapies as it gives her extra practice at home, and it has helped us spend more structured and meaningful time together. I would say to other parents - be patient, because every child learns and improves differently. As a parent, I am always hopeful and learning along this journey with my daughter Nyra, and I am happy to support her growth in every possible way.",
+      "Mounila Thustam",
+      "Parent",
+      "This is very helpful to him. We have not seen so many different things in any other apps or in cartoons. This is an interesting subject to him and he is doing them very interestingly. I have seen him working with the app on his own. Things like telling his name, responding to questions and people have started in last 2 months.",
+      "Tejaswi Kumar",
+      "Parent"
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/testimonial_quote_538468bf5d.png",
+        "alt": "",
+        "w": 31,
+        "h": 25,
+        "ratio": 1.265
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/testimonial_quote_538468bf5d.png",
+        "alt": "",
+        "w": 31,
+        "h": 25,
+        "ratio": 1.265
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-5 py-14 lg:px-24 lg:py-24",
+    "height": 798,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Frequently Asked Questions"
+    ],
+    "h3": [],
+    "p": [
+      "What is CognitiveBotics?",
+      "Is CognitiveBotics clinically validated?",
+      "How does CognitiveBotics help parents understand their child's development?",
+      "How does CognitiveBotics support clinical assessment?",
+      "How does CognitiveBotics improve coordination across a therapy centre?",
+      "How does CognitiveBotics help schools support individual student needs?"
+    ],
+    "links": [],
+    "buttons": [
+      "What is CognitiveBotics?+",
+      "Is CognitiveBotics clinically validated?+",
+      "How does CognitiveBotics help parents understand their child's development?+",
+      "How does CognitiveBotics support clinical assessment?+",
+      "How does CognitiveBotics improve coordination across a therapy centre?+",
+      "How does CognitiveBotics help schools support individual student needs?+"
+    ],
+    "imgs": []
+  },
+  {
+    "index": 7,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 pt-0 pb-10 lg:pb-16",
+    "height": 339,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "64px",
+    "h1": [],
+    "h2": [
+      "Better outcomes begin when everyone works from the same understanding"
+    ],
+    "h3": [],
+    "p": [
+      "Discover how CognitiveBotics helps families, therapists, centres and schools turn everyday moments into meaningful progress"
+    ],
+    "links": [
+      {
+        "text": "Experience the Platform",
+        "href": "/try-demo"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  }
+]

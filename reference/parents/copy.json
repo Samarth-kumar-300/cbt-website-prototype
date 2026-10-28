@@ -1,0 +1,304 @@
+[
+  {
+    "index": 0,
+    "id": "",
+    "className": "relative overflow-hidden rounded-bl-[50%_23px] rounded-br-[50%_23px] pt-[150px] pb-[68px] lg:rounded-bl-[50%_120px] lg:rounded-br-[50%_120px] lg:pb-[102px]",
+    "height": 1125,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "150px",
+    "paddingBottom": "102px",
+    "h1": [
+      "Every child deserves care that’s made just for them"
+    ],
+    "h2": [
+      "Understanding Autism"
+    ],
+    "h3": [],
+    "p": [
+      "FOR PARENTS",
+      "Extend therapy beyond the clinic with guided activities that help caregivers continue their child’s learning at home between sessions.",
+      "WHAT IS AUTISM?",
+      "Autism is a neurodevelopmental condition that affects how a child communicates, interacts with others, experiences the world and learns. It does not look the same in every child and children can have a wide variety of developmental needs, including those associated with autism, ADHD, Down syndrome and other forms of neurodivergence. Understanding each child’s individual development is the first step towards providing the right support."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Parent_Hero_10aead3508.png",
+        "alt": "",
+        "w": 492,
+        "h": 489,
+        "ratio": 1.006
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-5 pt-[56px] pb-[56px] lg:px-24 lg:py-24",
+    "height": 1079,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Recognising Early Differences"
+    ],
+    "h3": [],
+    "p": [
+      "Connecting with others feels different",
+      "Children may respond differently to their name, make less eye contact or find social interaction more challenging.",
+      "Sensitive to everyday sensations",
+      "Autistic children may be more or less sensitive to sounds, lights, textures, touch or other sensory experiences.",
+      "Comfort in routine",
+      "Many autistic children prefer familiar routines and may find unexpected changes or transitions difficult.",
+      "Speech develops differently",
+      "Speech may develop later than expected or a child may communicate using words, gestures, sounds or other forms of communication."
+    ],
+    "links": [],
+    "buttons": [
+      "Learn more, at your own pace"
+    ],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Early_differences_1_656821ce28.png",
+        "alt": "",
+        "w": 767,
+        "h": 539,
+        "ratio": 1.424
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 py-10 lg:py-16",
+    "height": 453,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "64px",
+    "paddingBottom": "64px",
+    "h1": [],
+    "h2": [
+      "Wondering What These Signs Could Mean?"
+    ],
+    "h3": [],
+    "p": [
+      "Every child develops differently. Our 14-question checklist can help you understand your child's developmental strengths more clearly and identify areas where additional support may help."
+    ],
+    "links": [
+      {
+        "text": "Start the Checklist",
+        "href": "/developmental-checklist"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 3,
+    "id": "",
+    "className": "",
+    "height": 1318,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "0px",
+    "h1": [],
+    "h2": [
+      "The years that shape everything"
+    ],
+    "h3": [],
+    "p": [
+      "EARLY INTERVENTION · THE FIRST 2,000 DAYS",
+      "The first 2,000 days - from birth to around five and a half years - are when a child’s brain develops most rapidly. Starting support during this window helps build stronger foundations for communication, learning, social connection and everyday life.",
+      "Every child’s journey is different. But when support begins early and stays consistent, each stage builds on the one before it. Here’s what that journey can look like.",
+      "Identifying the early signs",
+      "For many families, this is when questions begin. You may notice differences in speech, play, communication or the way your child connects with others. Recognising these early signs is not about having all the answers - it’s about knowing when to take the next step.",
+      "Building a strong foundation",
+      "With the right support in place, these early years become an opportunity to strengthen communication, social interaction, learning and everyday routines. Small, consistent steps begin to build lasting skills.",
+      "Preparing for new experiences",
+      "As children begin school, the skills they’ve been developing at home and in therapy can help them navigate new routines, relationships and learning environments with greater confidence.",
+      "Supporting long-term growth",
+      "Development doesn’t stop at one milestone. As children grow, ongoing support, shared goals and meaningful progress tracking help families celebrate how far they’ve come and plan for what’s next.",
+      "Every milestone is a moment worth celebrating"
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age2_dbb52cca60.png",
+        "alt": "",
+        "w": 282,
+        "h": 180,
+        "ratio": 1.567
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age3_4_a2ac9d3053.png",
+        "alt": "",
+        "w": 282,
+        "h": 180,
+        "ratio": 1.567
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age5_d623b0c0e2.png",
+        "alt": "",
+        "w": 282,
+        "h": 180,
+        "ratio": 1.567
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Age6_7_69d00e131d.png",
+        "alt": "",
+        "w": 282,
+        "h": 180,
+        "ratio": 1.567
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-5 pt-[56px] pb-[56px] lg:px-24 lg:py-24",
+    "height": 1387,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "The Daily Toolkit"
+    ],
+    "h3": [],
+    "p": [
+      "HOW COGNITIVEBOTICS HELPS",
+      "Built for the 2,000 days that matter most",
+      "450+",
+      "Learning Objectives",
+      "A structured learning programme built around 450+ learning objectives across 10 areas of development, helping parents focus on the skills that matter most for their child.",
+      "1,800+",
+      "Guided Activities",
+      "Explore 1,800+ guided activities designed to make learning engaging, structured and easy to continue at home.",
+      "20+",
+      "Social Stories",
+      "Age-appropriate social stories help children understand everyday situations, build confidence and practise new skills.",
+      "Personalised Learning Plans",
+      "Every learning plan is tailored to a child’s developmental goals, keeping each session focused on the skills that matter most.",
+      "Progress Reports",
+      "Clear, easy-to-understand reports help parents and therapists follow progress over time and see how learning is evolving.",
+      "Daily Journal",
+      "Capture everyday moments, milestones and observations in seconds. Over time, these updates help parents and therapists see meaningful patterns in a child’s progress.",
+      "App available in 8 languages.Learning content in English and Telugu, with more coming soonLearning content in English and Telugu, with more coming soon"
+    ],
+    "links": [],
+    "buttons": [
+      "Personalised Learning PlansEvery learning plan is tailored to a child’s developmental goals, keeping each session focused on the skills that matter most.›",
+      "Progress ReportsClear, easy-to-understand reports help parents and therapists follow progress over time and see how learning is evolving.›",
+      "Daily JournalCapture everyday moments, milestones and observations in seconds. Over time, these updates help parents and therapists see meaningful patterns in a child’s progress.›"
+    ],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Learn_49a0420000.png",
+        "alt": "",
+        "w": 604,
+        "h": 542,
+        "ratio": 1.114
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "id": "",
+    "className": "",
+    "height": 1063,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "0px",
+    "h1": [],
+    "h2": [
+      "Learning that adapts to every child"
+    ],
+    "h3": [],
+    "p": [
+      "INSIDE A SESSION",
+      "Every session is interactive, responsive and designed around how young autistic children learn best. As a child responds, CognitiveBotics adapts each activity to keep learning engaging and personalised.",
+      "Interactive Sessions",
+      "Children actively participate through questions, responses and guided activities that encourage communication, attention and engagement.",
+      "Speech Recognition",
+      "Real-time voice interaction creates opportunities to practise speech and communication in a supportive, pressure-free environment.",
+      "Pose Detection",
+      "AI-powered pose tracking encourages active participation, imitation and attention during activities, supporting communication and everyday learning goals.",
+      "Interactive Learning Games",
+      "Developmental skills are introduced through engaging, play-based activities that encourage children to return, practise and build confidence over time."
+    ],
+    "links": [
+      {
+        "text": "Try interactive games",
+        "href": "/try-demo"
+      }
+    ],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Learning_That_Adapts_e8e3b7d403.png",
+        "alt": "",
+        "w": 592,
+        "h": 871,
+        "ratio": 0.68
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "id": "",
+    "className": "mx-auto max-w-[1440px] px-5 py-14 lg:px-24 lg:py-24",
+    "height": 668,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Frequently Asked Questions"
+    ],
+    "h3": [],
+    "p": [
+      "QUESTIONS PARENTS ASK US",
+      "How do I get started with CognitiveBotics?",
+      "Who creates my child’s learning plan?",
+      "Do I need training to run sessions at home?",
+      "How will I know if early intervention is working?",
+      "Is giving my child screen time beneficial?"
+    ],
+    "links": [],
+    "buttons": [
+      "How do I get started with CognitiveBotics?+",
+      "Who creates my child’s learning plan?+",
+      "Do I need training to run sessions at home?+",
+      "How will I know if early intervention is working?+",
+      "Is giving my child screen time beneficial?+"
+    ],
+    "imgs": []
+  },
+  {
+    "index": 7,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 pb-48",
+    "height": 476,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "192px",
+    "h1": [],
+    "h2": [
+      "Every child deserves care that’s made just for them."
+    ],
+    "h3": [],
+    "p": [
+      "Talk to our team about bringing CognitiveBotics home for your child."
+    ],
+    "links": [
+      {
+        "text": "Get in Touch with the Team",
+        "href": "/contact-us"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  }
+]

@@ -1,0 +1,217 @@
+[
+  {
+    "index": 0,
+    "id": "",
+    "className": "px-5 pb-9 pt-[116px] lg:px-24 lg:pb-[90px] lg:pt-[150px]",
+    "height": 518,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "150px",
+    "paddingBottom": "90px",
+    "h1": [
+      "Our Story"
+    ],
+    "h2": [],
+    "h3": [],
+    "p": [
+      "ABOUT US",
+      "Our journey began with a profound mission to illuminate the path of early intervention powered by AI. Motivated by the struggles and victories of Ram, our founder’s son, our quest was driven by love, passion and determination. Witnessing Ram’s remarkable progress inspired us to empower parents worldwide with the confidence to embrace early intervention and forge a better future for their children."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 1,
+    "id": "",
+    "className": "px-5 py-14 lg:px-24 lg:py-24",
+    "height": 794,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "What we stand for"
+    ],
+    "h3": [],
+    "p": [
+      "Innovation",
+      "We harness cutting-edge technologies to enhance learning, communication, independence for neurodiverse children.",
+      "Accountability",
+      "Delivering high-quality interventions building trust.",
+      "Empathy",
+      "Creating supportive interventions addressing unique challenges.",
+      "Impact",
+      "We positively transform the lives of neurodiverse children, improving outcomes and empowering their growth.",
+      "Collaboration",
+      "Working with therapists, educators and parents.",
+      "Continuous Learning",
+      "Staying informed on research and best practices."
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": []
+  },
+  {
+    "index": 2,
+    "id": "",
+    "className": "px-5 py-14 lg:px-24 lg:py-24 bg-[#f0f5f4] lg:bg-brand-subtle-bg",
+    "height": 825,
+    "bg": "rgb(241, 248, 248)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Leadership"
+    ],
+    "h3": [],
+    "p": [
+      "Udaya kumar Dintyala",
+      "Founder & Chairman",
+      "Dr. Ravindranath Kancherla",
+      "Co-founder - Founder, Global Hospitals & Global University Foundation",
+      "Hunny Agarwal",
+      "Chief Business Officer",
+      "Sudheer Narra",
+      "Chief Technology Officer",
+      "Anastasia Trofilova",
+      "Chief Clinical Officer",
+      "Zoya Belyaeva",
+      "Head of Business & Operations, MENA"
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Udaya_Dintyala_b3fc9e2246.png",
+        "alt": "Udaya kumar Dintyala",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Dr_Ravindranath_Kancherla_90a1f28480.png",
+        "alt": "Dr. Ravindranath Kancherla",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Hunny_Agarwal_eeb0c96178.png",
+        "alt": "Hunny Agarwal",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Sudheer_Narra_398af24a63.png",
+        "alt": "Sudheer Narra",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Anastasia_Trofilova_ee9e0107b8.png",
+        "alt": "Anastasia Trofilova",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Zoya_Belyaeva_fd9897ae47.png",
+        "alt": "Zoya Belyaeva",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "id": "",
+    "className": "px-5 py-14 lg:px-24 lg:py-24 ",
+    "height": 852,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "96px",
+    "paddingBottom": "96px",
+    "h1": [],
+    "h2": [
+      "Advisory Board"
+    ],
+    "h3": [],
+    "p": [
+      "Dr. Venkat Reddy",
+      "Neurodevelopmental Paediatrician,",
+      "Cambridge UK",
+      "Satish Kottapalli",
+      "Advisor (Chief Innovation Officer, Global HealthX)",
+      "Venkat Nalam",
+      "Board of Directors (Finance)",
+      "Dr. Mark Aszkenasy",
+      "Board of Advisors, NHS UK Autism Specialist, Parent of an autistic child",
+      "Eugene Huang",
+      "Board Advisor, Chairman - TIS Taiwan, Parent of an autistic child"
+    ],
+    "links": [],
+    "buttons": [],
+    "imgs": [
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Dr_Venkat_Reddy_ee1ffe65eb.png",
+        "alt": "Dr. Venkat Reddy",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Satish_Kottapalli_b255c74a08.png",
+        "alt": "Satish Kottapalli",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Venkat_Nalam_7a8c714aed.png",
+        "alt": "Venkat Nalam",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Dr_Mark_Aszkenasy_066aea8517.png",
+        "alt": "Dr. Mark Aszkenasy",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      },
+      {
+        "src": "https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Eugene_Huang_bfaa0f9459.png",
+        "alt": "Eugene Huang",
+        "w": 100,
+        "h": 100,
+        "ratio": 1
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "id": "get-in-touch",
+    "className": "scroll-mt-[120px] px-5 lg:px-24 pt-0 pb-16",
+    "height": 311,
+    "bg": "rgba(0, 0, 0, 0)",
+    "paddingTop": "0px",
+    "paddingBottom": "64px",
+    "h1": [],
+    "h2": [
+      "Ready to get started?"
+    ],
+    "h3": [],
+    "p": [],
+    "links": [
+      {
+        "text": "Get in touch",
+        "href": "/contact-us"
+      }
+    ],
+    "buttons": [],
+    "imgs": []
+  }
+]

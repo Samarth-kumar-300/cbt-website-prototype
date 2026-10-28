@@ -1,0 +1,196 @@
+import { RevealStagger } from "@/components/shared/RevealStagger";
+import { TextReveal } from "@/components/shared/TextReveal";
+export function Section1() {
+  return (
+    <section className="px-5 py-14 lg:px-24 lg:py-24">
+      <div className="mx-auto max-w-[1248px]">
+        <TextReveal
+          as="h2"
+          split="words"
+          trigger="scroll"
+          className="font-heading text-[24px] font-semibold leading-[32px] text-brand-teal lg:text-[40px] lg:leading-[48px]"
+        >
+          {"What we stand for"}
+        </TextReveal>
+        <RevealStagger className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-10 lg:gap-6 lg:grid-cols-3">
+          <div className="flex flex-col items-start gap-3 rounded-[18px] border border-[#e4edea] bg-[#fbfaf7] px-[18px] py-5 lg:gap-[14px] lg:rounded-[20px] lg:border-[#eae4da] lg:px-[26px] lg:py-7">
+            <span
+              data-icon
+              className="flex size-12 shrink-0 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#fffbeb" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ color: "#b45309" }}
+              >
+                <path d="M10 17.659V20a2 2 0 1 0 4 0v-2.341M12 2v1m-9 9H2m3.5-6.5-.6-.6m13.6.6.6-.6M22 12h-1m-3 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z"></path>
+              </svg>
+            </span>
+            <p className="font-heading text-[16px] font-bold leading-[27px] text-brand-teal lg:text-[24px] lg:leading-[30px]">
+              Innovation
+            </p>
+            <p className="text-[14px] leading-[22px] text-text-secondary lg:text-[18px] lg:leading-[27px]">
+              We use advanced technology to improve learning, communication and
+              independence for neurodiverse children.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 rounded-[18px] border border-[#e4edea] bg-[#fbfaf7] px-[18px] py-5 lg:gap-[14px] lg:rounded-[20px] lg:border-[#eae4da] lg:px-[26px] lg:py-7">
+            <span
+              data-icon
+              className="flex size-12 shrink-0 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#f0f9ff" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ color: "#0369a1" }}
+              >
+                <path d="m9 11.5 2 2L15.5 9m4.5 3c0 4.908-5.354 8.478-7.302 9.615-.221.129-.332.194-.488.227a1.137 1.137 0 0 1-.42 0c-.156-.034-.267-.098-.488-.227C9.354 20.478 4 16.908 4 12V7.217c0-.799 0-1.199.13-1.542a2 2 0 0 1 .548-.79c.276-.243.65-.383 1.398-.664l5.362-2.01c.208-.078.312-.117.419-.133a1 1 0 0 1 .286 0c.107.016.21.055.419.133l5.362 2.01c.748.28 1.123.421 1.398.664a2 2 0 0 1 .547.79c.131.343.131.743.131 1.542V12Z"></path>
+              </svg>
+            </span>
+            <p className="font-heading text-[16px] font-bold leading-[27px] text-brand-teal lg:text-[24px] lg:leading-[30px]">
+              Accountability
+            </p>
+            <p className="text-[14px] leading-[22px] text-text-secondary lg:text-[18px] lg:leading-[27px]">
+              Delivering high-quality interventions building trust.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 rounded-[18px] border border-[#e4edea] bg-[#fbfaf7] px-[18px] py-5 lg:gap-[14px] lg:rounded-[20px] lg:border-[#eae4da] lg:px-[26px] lg:py-7">
+            <span
+              data-icon
+              className="flex size-12 shrink-0 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#f8f2f9" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ color: "#a14da5" }}
+              >
+                <path d="M6 20.087h2.61c.34 0 .679.04 1.009.122l2.758.67a4.26 4.26 0 0 0 1.826.042l3.05-.593a4.204 4.204 0 0 0 2.127-1.107l2.158-2.1a1.503 1.503 0 0 0 0-2.168 1.61 1.61 0 0 0-2.06-.143l-2.515 1.835a2.12 2.12 0 0 1-1.25.405h-2.427 1.545c.871 0 1.577-.687 1.577-1.534v-.307a1.54 1.54 0 0 0-1.194-1.487l-2.385-.58A5.025 5.025 0 0 0 11.643 13c-.965 0-2.711.799-2.711.799L6 15.025M2 14.6v5.8c0 .56 0 .84.109 1.054a1 1 0 0 0 .437.437C2.76 22 3.04 22 3.6 22h.8c.56 0 .84 0 1.054-.109a1 1 0 0 0 .437-.437C6 21.24 6 20.96 6 20.4v-5.8c0-.56 0-.84-.109-1.054a1 1 0 0 0-.437-.437C5.24 13 4.96 13 4.4 13h-.8c-.56 0-.84 0-1.054.109a1 1 0 0 0-.437.437C2 13.76 2 14.04 2 14.6ZM17.191 3.592c-.596-1.249-1.972-1.91-3.31-1.272-1.339.639-1.909 2.153-1.348 3.483.346.821 1.338 2.417 2.045 3.516.261.406.392.61.583.728.164.102.369.157.561.15.225-.007.44-.118.87-.339 1.161-.598 2.818-1.483 3.529-2.022a2.66 2.66 0 0 0 .574-3.69c-.861-1.217-2.362-1.337-3.504-.554Z"></path>
+              </svg>
+            </span>
+            <p className="font-heading text-[16px] font-bold leading-[27px] text-brand-teal lg:text-[24px] lg:leading-[30px]">
+              Empathy
+            </p>
+            <p className="text-[14px] leading-[22px] text-text-secondary lg:text-[18px] lg:leading-[27px]">
+              Creating supportive interventions addressing unique challenges.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 rounded-[18px] border border-[#e4edea] bg-[#fbfaf7] px-[18px] py-5 lg:gap-[14px] lg:rounded-[20px] lg:border-[#eae4da] lg:px-[26px] lg:py-7">
+            <span
+              data-icon
+              className="flex size-12 shrink-0 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#f0fdf4" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ color: "#15803d" }}
+              >
+                <path d="m22 7-7.869 7.869c-.396.396-.594.594-.822.668a1 1 0 0 1-.618 0c-.228-.074-.426-.272-.822-.668L9.13 12.13c-.396-.396-.594-.594-.822-.668a1 1 0 0 0-.618 0c-.228.074-.426.272-.822.668L2 17M22 7h-7m7 0v7"></path>
+              </svg>
+            </span>
+            <p className="font-heading text-[16px] font-bold leading-[27px] text-brand-teal lg:text-[24px] lg:leading-[30px]">
+              Impact
+            </p>
+            <p className="text-[14px] leading-[22px] text-text-secondary lg:text-[18px] lg:leading-[27px]">
+              We positively transform the lives of neurodiverse children,
+              improving outcomes and empowering their growth.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 rounded-[18px] border border-[#e4edea] bg-[#fbfaf7] px-[18px] py-5 lg:gap-[14px] lg:rounded-[20px] lg:border-[#eae4da] lg:px-[26px] lg:py-7">
+            <span
+              data-icon
+              className="flex size-12 shrink-0 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#eef9f9" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ color: "#207d82" }}
+              >
+                <path d="M22 21v-2a4.002 4.002 0 0 0-3-3.874M15.5 3.291a4.001 4.001 0 0 1 0 7.418M17 21c0-1.864 0-2.796-.305-3.53a4 4 0 0 0-2.164-2.165C13.796 15 12.864 15 11 15H8c-1.864 0-2.796 0-3.53.305a4 4 0 0 0-2.166 2.164C2 18.204 2 19.136 2 21M13.5 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"></path>
+              </svg>
+            </span>
+            <p className="font-heading text-[16px] font-bold leading-[27px] text-brand-teal lg:text-[24px] lg:leading-[30px]">
+              Collaboration
+            </p>
+            <p className="text-[14px] leading-[22px] text-text-secondary lg:text-[18px] lg:leading-[27px]">
+              Working with therapists, educators and parents.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 rounded-[18px] border border-[#e4edea] bg-[#fbfaf7] px-[18px] py-5 lg:gap-[14px] lg:rounded-[20px] lg:border-[#eae4da] lg:px-[26px] lg:py-7">
+            <span
+              data-icon
+              className="flex size-12 shrink-0 items-center justify-center rounded-full"
+              style={{ backgroundColor: "#f4f0fe" }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ color: "#5d2bb6" }}
+              >
+                <path d="m12 21-.1-.15c-.695-1.042-1.042-1.563-1.5-1.94a4 4 0 0 0-1.378-.737C8.453 18 7.827 18 6.575 18H5.2c-1.12 0-1.68 0-2.108-.218a2 2 0 0 1-.874-.874C2 16.48 2 15.92 2 14.8V6.2c0-1.12 0-1.68.218-2.108a2 2 0 0 1 .874-.874C3.52 3 4.08 3 5.2 3h.4c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C12 6.04 12 7.16 12 9.4M12 21V9.4M12 21l.1-.15c.695-1.042 1.042-1.563 1.5-1.94a3.999 3.999 0 0 1 1.378-.737C15.547 18 16.173 18 17.425 18H18.8c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C22 16.48 22 15.92 22 14.8V6.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C20.48 3 19.92 3 18.8 3h-.4c-2.24 0-3.36 0-4.216.436a4 4 0 0 0-1.748 1.748C12 6.04 12 7.16 12 9.4"></path>
+              </svg>
+            </span>
+            <p className="font-heading text-[16px] font-bold leading-[27px] text-brand-teal lg:text-[24px] lg:leading-[30px]">
+              Continuous Learning
+            </p>
+            <p className="text-[14px] leading-[22px] text-text-secondary lg:text-[18px] lg:leading-[27px]">
+              Staying informed on research and best practices.
+            </p>
+          </div>
+        </RevealStagger>
+      </div>
+    </section>
+  );
+}
