@@ -38,7 +38,7 @@ describe('Header', () => {
   it('links the logo home and has a Try Demo button', () => {
     render(<Header />);
     expect(screen.getByRole('link', { name: /cognitivebotics home/i })).toHaveAttribute('href', '/');
-    expect(screen.getAllByRole('link', { name: 'Try Demo' })[0]).toHaveAttribute('href', '/try-demo');
+    expect(screen.getAllByRole('link', { name: /try demo/i })[0]).toHaveAttribute('href', '/try-demo');
   });
   it('opens and closes the drawer with the hamburger and Escape, locking body scroll', async () => {
     render(<Header />);
