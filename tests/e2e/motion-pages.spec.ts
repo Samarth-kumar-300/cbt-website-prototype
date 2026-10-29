@@ -166,13 +166,13 @@ test('therapy skills: the mouse wheel drives the row while it is pinned, then th
   expect((await state()).left).toBeLessThan(end.max);
 });
 
-test('therapy skills: touch keeps native swipe and is not pinned', async ({ browser }) => {
+test('therapy skills: touch is pinned too, so a finger scroll moves the cards', async ({ browser }) => {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
   const page = await ctx.newPage();
   await page.goto('/therapy-centres', { waitUntil: 'networkidle' });
-  await expect(page.getByTestId('hscroll-pin')).not.toHaveClass(/hscroll-pinned/);
+  await expect(page.getByTestId('hscroll-pin')).toHaveClass(/hscroll-pinned/);
   const ox = await page.getByRole('region', { name: 'Skills' }).evaluate((el) => getComputedStyle(el).overflowX);
-  expect(ox).toBe('auto');
+  expect(ox).toBe('hidden');
   await ctx.close();
 });
 

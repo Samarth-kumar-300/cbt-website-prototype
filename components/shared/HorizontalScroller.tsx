@@ -13,7 +13,6 @@ type Props = {
   bodyClassName?: string;
 };
 
-const FINE_POINTER = "(hover: hover) and (pointer: fine)";
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 // Space the fixed site header takes at the top of the screen.
 const HEADER_CLEARANCE = 112;
@@ -34,7 +33,7 @@ const matches = (q: string) => typeof matchMedia === "function" && matchMedia(q)
 // A row of cards the visitor scrolls sideways. The row is plain overflow with CSS scroll-snap
 // (.hscroll in globals.css), so it works without JavaScript and by swipe on touch devices.
 //
-// With a mouse or trackpad (fine pointer) and motion allowed, the row is "pinned": the wrapper is
+// With motion allowed (mouse, trackpad or touch), the row is "pinned": the wrapper is
 // made as tall as the row's sideways travel, the content sticks to the top of the screen, and the
 // page's own downward scroll moves the cards one pixel for one pixel. The page is never blocked:
 // when the last card shows, the wrapper ends and the page carries on. Sideways trackpad swipes
@@ -78,7 +77,8 @@ export function HorizontalScroller({ label, children, className = "", header, bo
     const outer = outerRef.current;
     const inner = innerRef.current;
     if (!region || !outer || !inner) return;
-    const want = matches(FINE_POINTER) && !matches(REDUCED_MOTION);
+    // Pinned on every device, touch included: a phone scrolls the page with a finger and that scroll moves the cards.
+    const want = !matches(REDUCED_MOTION);
     outer.classList.toggle("hscroll-pinned", want);
     const max = region.scrollWidth - region.clientWidth;
     const on = want && max > 1;
@@ -148,31 +148,41 @@ export function HorizontalScroller({ label, children, className = "", header, bo
     };
   }, [layout, sync]);
 
-  // Touch only: once, as the row first scrolls into view, nudge it sideways and back so the
+  // Touch only: once, as the row first scrolls into view, nudge the cards sideways and back so the
   // peeking card reads as "swipe me". Skipped for reduced motion and when the row is pinned.
+  // The hint is a transform on the cards, never a change to the row's scroll position or snap type, so a
+  // real swipe can never be undone by it; the first touch cancels it at once.
   useEffect(() => {
     const region = regionRef.current;
-    if (!region || typeof IntersectionObserver === "undefined") return;
+    if (!region || typeof IntersectionObserver === "undefined" || typeof region.animate !== "function") return;
     if (matches(REDUCED_MOTION) || !matches("(hover: none) and (pointer: coarse)")) return;
-    let timer = 0;
+    let anims: Animation[] = [];
+    const cancel = () => {
+      anims.forEach((a) => a.cancel());
+      anims = [];
+    };
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
         if (pinnedRef.current || region.scrollWidth - region.clientWidth <= 1 || region.scrollLeft > 1) return;
-        region.style.scrollSnapType = "none";
-        region.scrollTo({ left: 28 });
-        timer = window.setTimeout(() => {
-          region.scrollTo({ left: 0 });
-          timer = window.setTimeout(() => (region.style.scrollSnapType = ""), 500);
-        }, 600);
+        anims = Array.from(region.children).map((c) =>
+          (c as HTMLElement).animate(
+            [{ transform: "translateX(0)" }, { transform: "translateX(-28px)", offset: 0.45 }, { transform: "translateX(0)" }],
+            { duration: 1100, easing: "ease-in-out" },
+          ),
+        );
       },
       { threshold: 0.6 },
     );
     io.observe(region);
+    region.addEventListener("touchstart", cancel, { passive: true });
+    region.addEventListener("pointerdown", cancel, { passive: true });
     return () => {
       io.disconnect();
-      window.clearTimeout(timer);
+      region.removeEventListener("touchstart", cancel);
+      region.removeEventListener("pointerdown", cancel);
+      cancel();
     };
   }, []);
 
