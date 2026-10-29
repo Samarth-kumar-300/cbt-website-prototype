@@ -16,7 +16,7 @@ export function Section1() {
           With simplified coordination, schools can focus on helping
           <br className="hidden min-[1440px]:block" /> every child thrive.
         </p>
-        <Button href="/resources#blog" size="lg" arrow className="mt-3 max-lg:w-full max-lg:whitespace-normal max-lg:text-center lg:mt-4">
+        <Button href="/resources#blog" variant="tertiary" arrow className="mt-1 lg:mt-2">
           Learn more about inclusive education
         </Button>
       </div>

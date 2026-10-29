@@ -19,6 +19,7 @@ export default function Kit() {
           <Button href="/kit" size="lg" arrow>Large solid</Button>
           <Button href="/kit" size="md">Medium solid</Button>
           <Button href="/kit" size="nav" variant="outline">Outline</Button>
+          <Button href="/kit" variant="tertiary" arrow>Tertiary</Button>
           <Button href="https://example.com" external>External</Button>
         </div>
       </Section>

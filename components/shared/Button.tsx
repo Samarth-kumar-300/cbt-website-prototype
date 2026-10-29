@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 type Size = 'lg' | 'md' | 'nav';
-type Variant = 'solid' | 'outline';
+type Variant = 'solid' | 'outline' | 'tertiary';
 type Props = {
   href: string;
   children: ReactNode;
@@ -21,6 +21,8 @@ const SIZE: Record<Size, string> = {
 const VARIANT: Record<Variant, string> = {
   solid: 'bg-brand-teal text-content-knockout hover:bg-[#0f4548]',
   outline: 'border-[1.5px] border-brand-teal bg-transparent text-content-brand',
+  // Text-only link: no fill or border, and no side padding so it lines up with the copy above it.
+  tertiary: 'text-content-brand underline-offset-4 hover:underline focus-visible:underline',
 };
 
 function ArrowRight() {
@@ -32,7 +34,10 @@ function ArrowRight() {
 }
 
 export function Button({ href, children, size = 'md', variant = 'solid', arrow = false, external = false, className = '' }: Props) {
-  const cls = `btn min-h-[44px] inline-flex items-center justify-center whitespace-nowrap rounded-full transition-colors ${SIZE[size]} ${VARIANT[variant]} ${className}`;
+  const shape = variant === 'tertiary'
+    ? `btn min-h-[44px] inline-flex items-center justify-start gap-[8px] py-2 text-[16px] font-semibold lg:text-[18px] transition-colors`
+    : `btn min-h-[44px] inline-flex items-center justify-center whitespace-nowrap rounded-full transition-colors ${SIZE[size]}`;
+  const cls = `${shape} ${VARIANT[variant]} ${className}`;
   const inner = (
     <>
       {children}
