@@ -18,7 +18,7 @@ export function Section4() {
         <RevealStagger className="flex flex-1 flex-col gap-3 lg:gap-4">
           <Link
             href="/therapy-centres" style={{ "--row-color": "#15803d" }}
-            className="group flex items-center gap-[14px] rounded-[16px] border-2 border-brand-teal-100 bg-white p-[18px] transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 hover:border-[rgba(23,95,99,0.38)] hover:bg-[color-mix(in_srgb,var(--row-color)_7%,white)] hover:shadow-[0px_10px_28px_-8px_rgba(23,94,99,0.18)] lg:gap-3 lg:rounded-[14px] lg:border-[1.5px] lg:border-[#e4ded4] lg:p-6"
+            className="group flex items-center gap-[14px] rounded-[16px] border-2 border-brand-teal-100 bg-white p-[18px] transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 hover:border-[var(--row-color)] focus-visible:border-[var(--row-color)] hover:bg-[color-mix(in_srgb,var(--row-color)_7%,white)] hover:shadow-[0px_10px_28px_-8px_rgba(23,94,99,0.18)] lg:gap-3 lg:rounded-[14px] lg:border-[1.5px] lg:border-[#e4ded4] lg:p-6"
           >
             <div className="flex flex-1 flex-col items-start gap-1 lg:w-[240px] lg:flex-none lg:flex-row lg:items-center lg:gap-0">
               <p
@@ -52,7 +52,7 @@ export function Section4() {
           </Link>
           <Link
             href="/parents" style={{ "--row-color": "#b45309" }}
-            className="group flex items-center gap-[14px] rounded-[16px] border-2 border-brand-teal-100 bg-white p-[18px] transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 hover:border-[rgba(23,95,99,0.38)] hover:bg-[color-mix(in_srgb,var(--row-color)_7%,white)] hover:shadow-[0px_10px_28px_-8px_rgba(23,94,99,0.18)] lg:gap-3 lg:rounded-[14px] lg:border-[1.5px] lg:border-[#e4ded4] lg:p-6"
+            className="group flex items-center gap-[14px] rounded-[16px] border-2 border-brand-teal-100 bg-white p-[18px] transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 hover:border-[var(--row-color)] focus-visible:border-[var(--row-color)] hover:bg-[color-mix(in_srgb,var(--row-color)_7%,white)] hover:shadow-[0px_10px_28px_-8px_rgba(23,94,99,0.18)] lg:gap-3 lg:rounded-[14px] lg:border-[1.5px] lg:border-[#e4ded4] lg:p-6"
           >
             <div className="flex flex-1 flex-col items-start gap-1 lg:w-[240px] lg:flex-none lg:flex-row lg:items-center lg:gap-0">
               <p
@@ -86,7 +86,7 @@ export function Section4() {
           </Link>
           <Link
             href="/schools" style={{ "--row-color": "#0369a1" }}
-            className="group flex items-center gap-[14px] rounded-[16px] border-2 border-brand-teal-100 bg-white p-[18px] transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 hover:border-[rgba(23,95,99,0.38)] hover:bg-[color-mix(in_srgb,var(--row-color)_7%,white)] hover:shadow-[0px_10px_28px_-8px_rgba(23,94,99,0.18)] lg:gap-3 lg:rounded-[14px] lg:border-[1.5px] lg:border-[#e4ded4] lg:p-6"
+            className="group flex items-center gap-[14px] rounded-[16px] border-2 border-brand-teal-100 bg-white p-[18px] transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 hover:border-[var(--row-color)] focus-visible:border-[var(--row-color)] hover:bg-[color-mix(in_srgb,var(--row-color)_7%,white)] hover:shadow-[0px_10px_28px_-8px_rgba(23,94,99,0.18)] lg:gap-3 lg:rounded-[14px] lg:border-[1.5px] lg:border-[#e4ded4] lg:p-6"
           >
             <div className="flex flex-1 flex-col items-start gap-1 lg:w-[240px] lg:flex-none lg:flex-row lg:items-center lg:gap-0">
               <p
