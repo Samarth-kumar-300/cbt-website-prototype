@@ -39,12 +39,12 @@ export function Section0() {
       }}
     >
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-14 lg:px-24">
-        <div className="flex max-w-[706px] flex-col items-start gap-[14px] lg:gap-[26px]">
+        <div className="flex w-full max-w-[706px] flex-col items-start self-start lg:w-auto lg:self-auto gap-[14px] lg:gap-[26px]">
           <p className="font-heading text-[13px] max-lg:text-[14px] font-semibold leading-[18px] tracking-[1.2px] text-content-brand-secondary lg:text-[20px] lg:font-bold lg:leading-[26px] lg:tracking-normal">
             FOR SCHOOLS
           </p>
           <h1 className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">
-            Creating meaningful learning experiences shaped around the child’s unique needs
+            Inclusive education shaped around every child&apos;s unique needs
           </h1>
           <ul className="flex flex-wrap gap-3">
             {chips.map((chip) => (

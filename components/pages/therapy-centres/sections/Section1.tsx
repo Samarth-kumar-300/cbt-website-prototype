@@ -10,15 +10,10 @@ export function Section1() {
         <TextReveal as="h2" split="words" trigger="scroll" className="font-heading text-[24px] font-semibold leading-[32px] text-brand-teal lg:text-[40px] lg:leading-[48px]">{"What we believe"}</TextReveal>
         <div className="flex flex-col items-start gap-3 lg:gap-[22px]">
           <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
-            Tracking a child’s progress across therapy, home and school can be
-            challenging.
-          </p>
-          <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
-            <span className="font-semibold text-content-brand-secondary">
-              CognitiveBotics
-            </span>{" "}
-            connects these settings, helping therapists, schools and parents
-            reinforce skills, track progress and support everyday learning.
+            <span className="font-semibold text-content-brand-secondary">CognitiveBotics</span>{" "}
+            is autism therapy software that helps your centre plan sessions,
+            set home programmes for parents and track each child&apos;s progress
+            across therapy, home and school.
           </p>
           <div className="hidden lg:block">
             <Link

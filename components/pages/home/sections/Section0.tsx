@@ -14,7 +14,7 @@ export function Section0() {
     >
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-24">
         <div className="contents lg:flex lg:flex-col lg:items-start lg:gap-[26px]">
-          <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[min(36px,calc((100vw_-_48px)/13.6))] font-semibold leading-[1.3] text-brand-teal whitespace-nowrap order-1 w-full text-left lg:order-none lg:w-auto lg:text-[clamp(28px,2.778vw,40px)] lg:leading-[1.2]"><span className="block lg:inline">From small steps</span> to everyday wins,<br /> helping autistic children grow<br /> with AI and care</TextReveal>
+          <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[min(36px,calc((100vw_-_48px)/16))] font-semibold leading-[1.3] text-brand-teal whitespace-nowrap order-1 w-full text-left lg:order-none lg:w-auto lg:text-[clamp(28px,2.778vw,40px)] lg:leading-[1.2]"><span className="block lg:inline">Early intervention for autism,</span><br /> from small steps to everyday wins</TextReveal>
           <a
             className="hero-enter hero-delay-1 btn inline-flex items-center rounded-full whitespace-nowrap font-semibold gap-[10px] px-6 py-[14px] text-[16px] lg:py-[18px] lg:pl-8 lg:pr-[30px] lg:text-[18px] bg-brand-teal text-content-knockout transition-colors hover:bg-[#0f4548] order-3 mt-2 w-full justify-center lg:order-none lg:w-auto lg:justify-start"
             href="/try-demo"
@@ -193,9 +193,9 @@ export function Section0() {
             <div className="flex flex-col items-start gap-3 lg:gap-5">
               <TextReveal as="h2" split="words" trigger="scroll" className="font-heading text-[24px] font-semibold leading-[32px] text-content-brand-secondary lg:text-[48px] lg:leading-[58px]">{"What is CognitiveBotics?"}</TextReveal>
               <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px] lg:text-text-secondary">
-                CognitiveBotics is an AI-powered early intervention platform
-                that helps therapists create personalised support for children
-                aged 2-8 with autism and developmental delays.
+                CognitiveBotics brings AI to early intervention for autism and
+                developmental delays, helping therapists create personalised
+                support for children aged 2 to 8.
               </p>
               <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px] lg:text-text-secondary">
                 It connects therapy, home and school so children receive

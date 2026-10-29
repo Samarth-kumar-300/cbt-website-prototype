@@ -12,13 +12,18 @@ export function Section0() {
       }}
     >
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-[26px] px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-24">
-        <div className="flex max-w-[730px] flex-col items-start gap-[14px] lg:gap-6">
+        <div className="flex w-full max-w-[730px] flex-col items-start self-start lg:w-auto lg:self-auto gap-[14px] lg:gap-6">
           <p className="font-heading text-[13px] max-lg:text-[14px] font-semibold leading-[18px] tracking-[1.2px] text-content-brand-secondary lg:text-[20px] lg:font-bold lg:leading-[26px] lg:tracking-normal">
             FOR PARENTS
           </p>
           <h1 className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">
-            Extend your child’s therapy beyond the clinic with support tailored to their unique needs
+            Autism therapy at home, tailored to your child&apos;s unique needs
           </h1>
+          <p className="text-[16px] leading-[26px] text-text-secondary lg:text-[22px] lg:leading-[33px]">
+            CognitiveBotics helps you continue your child&apos;s autism therapy at
+            home, with guided activities and speech practice that adapt to their
+            abilities between clinic sessions.
+          </p>
           <ul className="flex flex-wrap gap-3 lg:mt-2">
             <li className="flex items-center gap-2 rounded-full border border-[#e2e8ef] bg-white py-[6px] pl-[6px] pr-4 text-[14px] leading-[22px] text-text-default shadow-[0px_1px_2px_rgba(16,24,40,0.04)]">
               <span className="flex size-8 items-center justify-center rounded-full" style={{ backgroundColor: "#eef6fb" }}>

@@ -13,11 +13,11 @@ export function Section0() {
       }}
     >
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-14 lg:px-24">
-        <div className="flex max-w-[592px] flex-col items-start gap-[14px] lg:gap-[22px]">
+        <div className="flex w-full max-w-[592px] flex-col items-start self-start lg:w-auto lg:self-auto gap-[14px] lg:gap-[22px]">
           <p className="font-heading text-[13px] max-lg:text-[14px] font-semibold leading-[18px] tracking-[1.2px] text-content-brand-secondary lg:text-[20px] lg:font-bold lg:leading-[26px] lg:tracking-normal">
             FOR CHILD DEVELOPMENT CENTERS
           </p>
-          <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">{"Intervention works best when it doesn’t stop at the clinic door"}</TextReveal>
+          <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">{"Autism therapy software that doesn't stop at the clinic door"}</TextReveal>
           <RevealStagger className="mt-2 flex w-full flex-wrap items-start gap-x-[18px] gap-y-3 lg:flex-nowrap lg:items-center lg:justify-between lg:gap-x-0">
             <a
               href="https://neuro.jmir.org/2025/1/e70589"

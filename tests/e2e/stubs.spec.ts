@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { noConsentBanner } from './helpers';
 
-const OUT_OF_SCOPE = ['/try-demo', '/developmental-checklist', '/privacy-policy', '/terms-of-use', '/medical-disclaimer', '/blog', '/blog/some-post', '/resources/research/some-study'];
+const OUT_OF_SCOPE = ['/developmental-checklist', '/privacy-policy', '/terms-of-use', '/medical-disclaimer', '/blog', '/blog/some-post', '/resources/research/some-study'];
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 

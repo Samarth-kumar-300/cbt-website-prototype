@@ -1,5 +1,4 @@
 export const STUB_ROUTES = [
-  '/try-demo',
   '/developmental-checklist',
   '/privacy-policy',
   '/terms-of-use',

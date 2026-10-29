@@ -6,15 +6,12 @@ import { MotionImage } from "@/components/shared/MotionImage";
 export function Section1() {
   return (
     <section className="mx-auto flex max-w-[1440px] flex-col items-center gap-9 px-5 py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:py-[88px] lg:px-24">
-      <div className="flex max-w-[614px] flex-col items-start gap-3 lg:min-w-0 lg:max-w-[640px] lg:flex-1 lg:gap-[18px]">
+      <div className="flex w-full max-w-[614px] flex-col items-start self-start lg:w-auto lg:self-auto gap-3 lg:min-w-0 lg:max-w-[640px] lg:flex-1 lg:gap-[18px]">
         <TextReveal as="h2" split="words" trigger="scroll" className="font-heading text-[24px] font-semibold leading-[32px] text-brand-teal lg:text-[40px] lg:leading-[48px]">{"Inclusive learning begins with the right support"}</TextReveal>
         <p className="text-[14px] leading-[22px] text-text-default lg:text-[18px] lg:leading-[27px]">
-          CognitiveBotics connects educators, specialists and families to
-          personalise learning and track progress.
-        </p>
-        <p className="text-[14px] leading-[22px] text-text-default lg:text-[18px] lg:leading-[27px]">
-          With simplified coordination, schools can focus on helping
-          <br className="hidden min-[1440px]:block" /> every child thrive.
+          CognitiveBotics Bloom supports inclusive education by connecting
+          special educators, specialists and families to personalise learning
+          and track every child&apos;s progress.
         </p>
         <Button href="/resources#blog" variant="tertiary" arrow className="mt-1 lg:mt-2">
           Learn more about inclusive education

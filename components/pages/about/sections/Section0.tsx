@@ -16,9 +16,9 @@ export function Section0() {
           as="h1"
           split="lines"
           trigger="load"
-          className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[64px] lg:leading-[76px]"
+          className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]"
         >
-          {"Our Story"}
+          {"The CognitiveBotics story: early intervention for autism"}
         </TextReveal>
         <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
           {
