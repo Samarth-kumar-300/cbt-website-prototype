@@ -11,14 +11,16 @@ type Props = {
   // Column count from 1280px: 4 sets data-cols="4" (see .jr-list in globals.css). Omit for the default of five.
   cols?: number;
   sparkColors?: readonly string[];
+  // Below 1280px, stack the illustration above the text (right of the rail) instead of beside it.
+  stacked?: boolean;
 };
 
 // The list half of the growth path. Server-rendered; the motion lives in JourneyRailMotion, which wraps this
 // list and animates the [data-jr-*] hooks only. Used by the homepage rail and the parents early-years rail.
-export function JourneyRailList({ steps, cols, sparkColors = JOURNEY_SPARK_COLORS }: Props) {
+export function JourneyRailList({ steps, cols, sparkColors = JOURNEY_SPARK_COLORS, stacked }: Props) {
   const last = steps.length - 1;
   return (
-    <ol role="list" className="jr-list" data-cols={cols}>
+    <ol role="list" className="jr-list" data-cols={cols} data-stacked={stacked ? "" : undefined} data-kicker={steps.some((s) => s.kicker) ? "" : undefined}>
       {steps.map((step, i) => {
         const accentStyle = step.accent ? ({ '--jr-accent': step.accent } as CSSProperties) : undefined;
         return (
@@ -50,7 +52,7 @@ export function JourneyRailList({ steps, cols, sparkColors = JOURNEY_SPARK_COLOR
                 src={step.src}
                 alt={step.alt}
                 fill
-                sizes="(min-width: 1280px) 208px, 80px"
+                sizes="(min-width: 1280px) 264px, 252px"
                 className="object-contain"
               />
             </div>

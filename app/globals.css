@@ -555,6 +555,10 @@ button[aria-expanded="true"] .faq-icon {
     background: transparent;
     border-radius: 0;
   }
+  /* Parents early-years rail: illustrations 1.5x (176px -> 264px), capped by the column on narrower desktops. */
+  .jr-list[data-cols="4"] .jr-image {
+    max-width: 264px;
+  }
   .jr-rail {
     order: 2;
     height: 56px;
@@ -632,6 +636,58 @@ button[aria-expanded="true"] .faq-icon {
     font-size: 16px;
     line-height: 24px;
     color: var(--color-text-secondary);
+  }
+}
+
+/* Stacked variant (home): below 1280px the text sits above the illustration, both right of the rail.
+   The number sits on the heading row: the 32px node centre is 16px below the step's top, and the card's
+   top padding puts the 22px title line's centre on that same 16px. The line runs through that point. */
+@media (max-width: 1279px) {
+  /* --jr-ny: how far below the step's top the node centre sits. With a kicker (parents) the title row is
+     the 20px kicker line lower. */
+  .jr-list[data-stacked] {
+    --jr-ny: 16px;
+  }
+  .jr-list[data-stacked][data-kicker] {
+    --jr-ny: 36px;
+  }
+  .jr-list[data-stacked] .jr-node {
+    margin-top: calc(var(--jr-ny) - 16px);
+  }
+  .jr-list[data-stacked] .jr-step {
+    grid-template-columns: 40px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+  }
+  .jr-list[data-stacked] .jr-rail {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-items: flex-start;
+  }
+  .jr-list[data-stacked] .jr-card {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    padding: 5px 0 0;
+  }
+  .jr-list[data-stacked] .jr-image {
+    grid-column: 2;
+    grid-row: 2;
+    width: 252px; /* 1.5x of the former 168px */
+    margin: 14px 0 64px;
+    padding: 0;
+    background: none;
+  }
+  .jr-list[data-stacked] .jr-step[data-pos="first"] .jr-track,
+  .jr-list[data-stacked] .jr-step[data-pos="first"] .jr-path {
+    top: var(--jr-ny);
+  }
+  .jr-list[data-stacked] .jr-step[data-pos="last"] .jr-track,
+  .jr-list[data-stacked] .jr-step[data-pos="last"] .jr-path {
+    bottom: auto;
+    height: var(--jr-ny);
+  }
+  .jr-list[data-stacked] .jr-spark {
+    top: var(--jr-ny);
   }
 }
 

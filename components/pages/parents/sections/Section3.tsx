@@ -20,7 +20,7 @@ export function Section3() {
           </p>
         </div>
         <JourneyRailMotion className="mt-[28px] lg:mt-16">
-          <JourneyRailList steps={EARLY_YEARS_STEPS} cols={4} sparkColors={JOURNEY_SPARK_COLORS} />
+          <JourneyRailList steps={EARLY_YEARS_STEPS} cols={4} stacked sparkColors={JOURNEY_SPARK_COLORS} />
         </JourneyRailMotion>
       </div>
     </section>

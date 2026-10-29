@@ -19,7 +19,7 @@ export function JourneyRail() {
         {JOURNEY_HEADING}
       </h2>
       <JourneyRailMotion className="mt-8 xl:mt-14">
-        <JourneyRailList steps={RAIL_STEPS} />
+        <JourneyRailList steps={RAIL_STEPS} stacked />
       </JourneyRailMotion>
     </section>
   );
