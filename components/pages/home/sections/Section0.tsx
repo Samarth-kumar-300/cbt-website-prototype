@@ -38,7 +38,7 @@ export function Section0() {
         </div>
         <div className="hero-settle hero-delay-2 relative order-2 h-[300px] w-full max-w-[608px] shrink-0 lg:order-none lg:h-[clamp(340px,36.1vw,520px)] lg:w-[clamp(360px,38.9vw,560px)] lg:max-w-none">
           <Image
-            src="/images/homepage/home-hero-devices.webp"
+            src="/images/homepage/home-hero-devices-v2.webp"
             alt="Hero_Section"
             fill
             priority

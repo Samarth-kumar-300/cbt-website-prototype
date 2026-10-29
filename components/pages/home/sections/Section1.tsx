@@ -256,7 +256,7 @@ export function Section1() {
             }}
           >
             <Image
-              src="/images/homepage/steps04.webp"
+              src="/images/homepage/steps04-v2.webp"
               alt="Adapting learning to a child’s pace and progress"
               fill
               sizes="355px"
@@ -446,7 +446,7 @@ export function Section1() {
           </div>
           <div className="relative mt-8 h-[240px] w-full max-w-[262px]">
             <Image
-              src="/images/homepage/steps04.webp"
+              src="/images/homepage/steps04-v2.webp"
               alt="Adapting learning to a child’s pace and progress"
               fill
               sizes="262px"

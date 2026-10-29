@@ -43,7 +43,7 @@ export const JOURNEY_STEPS: readonly JourneyStep[] = [
     id: 'personalise',
     title: 'PERSONALISE LEARNING',
     body: 'Build skills through personalised learning activities.',
-    src: '/images/homepage/steps04.webp',
+    src: '/images/homepage/steps04-v2.webp',
     alt: 'Adapting learning to a child’s pace and progress',
     bg: '#fce8e2',
     border: '#f0cfc2',
