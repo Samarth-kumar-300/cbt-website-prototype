@@ -22,7 +22,7 @@ export function Section0() {
         </TextReveal>
         <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
           {
-            "CognitiveBotics began with Ram, our founder’s son, whose progress through early intervention inspired a bigger vision: to transform how neurodivergent children learn and develop."
+            "CognitiveBotics began with Ram, our founder’s son, whose progress through early intervention inspired a bigger vision: to transform how neurodivergent children learn and develop."
           }
         </p>
         <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">

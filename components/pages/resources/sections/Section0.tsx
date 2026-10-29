@@ -13,7 +13,7 @@ export function Section0() {
           RESOURCES
         </p>
         <div className="flex flex-col items-start gap-2 lg:gap-4">
-          <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">{"Autism and early intervention resources, answers and stories"}</TextReveal>
+          <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">Autism and early intervention resources,<br className="hidden lg:block" /> answers and stories</TextReveal>
           <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
             Resources on autism and early intervention, honest stories and best
             practices for families and professionals walking the journey

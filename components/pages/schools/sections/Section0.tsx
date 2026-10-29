@@ -44,7 +44,7 @@ export function Section0() {
             FOR SCHOOLS
           </p>
           <h1 className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">
-            Inclusive education shaped around every child&apos;s unique needs
+            Inclusive education shaped around every child&apos;s unique needs
           </h1>
           <ul className="flex flex-wrap gap-3">
             {chips.map((chip) => (
