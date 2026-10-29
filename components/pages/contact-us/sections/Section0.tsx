@@ -1,5 +1,5 @@
 import { TextReveal } from "@/components/shared/TextReveal";
-import { Placeholder } from "@/components/shared/Placeholder";
+import Image from "next/image";
 import { ContactForm } from "../ContactForm";
 
 export function Section0() {
@@ -20,9 +20,13 @@ export function Section0() {
               away.
             </p>
           </div>
-          <Placeholder
-            label="Image"
-            ratio={1.131}
+          <Image
+            src="/images/contact-us/contact-hero.webp"
+            alt="CognitiveBotics mascot flying on a paper plane"
+            width={2664}
+            height={2356}
+            sizes="(min-width: 1024px) 520px, 260px"
+            priority
             className="hero-settle hero-delay-2 mt-4 h-auto w-[260px] max-w-[260px] lg:w-full lg:max-w-[520px]"
           />
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   useGuardedSubmit,
   validateFields,
@@ -110,6 +111,11 @@ export function ContactForm() {
   const [dial, setDial] = useState("IN");
   const [sent, setSent] = useState(false);
   const captchaRef = useRef<HTMLInputElement>(null);
+  const thanksRef = useRef<HTMLHeadingElement>(null);
+  // After a send the form is replaced by the thank-you card; move focus to it for keyboard and screen-reader users.
+  useEffect(() => {
+    if (sent) thanksRef.current?.focus();
+  }, [sent]);
 
   // Stub: nothing leaves the browser. Replace with a real endpoint call when a backend exists.
   const send = useCallback(async () => {
@@ -150,7 +156,6 @@ export function ContactForm() {
     e.preventDefault();
     const errs = validateFields(values, FIELDS);
     setErrors(errs);
-    setSent(false);
     if (Object.keys(errs).length) return;
     const ok = await run(values);
     if (ok) {
@@ -160,6 +165,34 @@ export function ContactForm() {
   };
 
   const selected = DIAL_CODES.find((c) => c.iso === dial) ?? DIAL_CODES[0];
+
+  if (sent) {
+    return (
+      <div
+        role="status"
+        className="flex flex-col gap-6 rounded-[24px] border-[1.5px] border-border-subtle bg-white px-5 py-6 shadow-[0px_6px_18px_0px_rgba(15,48,48,0.06)] lg:gap-8 lg:px-8 lg:py-9"
+      >
+        <div className="flex flex-col gap-4 lg:gap-5">
+          <h2
+            ref={thanksRef}
+            tabIndex={-1}
+            className="font-heading text-[24px] font-semibold leading-[32px] text-brand-teal outline-none lg:text-[32px] lg:leading-[40px]"
+          >
+            Thank you for reaching out!
+          </h2>
+          <p className="text-[16px] leading-[24px] text-text-default lg:text-[18px] lg:leading-[27px]">
+            We’ve received your message. Our team will review it and get back to you shortly.
+          </p>
+        </div>
+        <Link
+          href="/"
+          className="flex w-full cursor-pointer items-center justify-center rounded-full bg-brand-teal py-4 text-[18px] font-semibold text-content-knockout transition-colors hover:bg-[#0f4548]"
+        >
+          Back to homepage
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <form
@@ -216,7 +249,7 @@ export function ContactForm() {
                   aria-label={`Country code, currently ${selected.name} (${selected.code})`}
                   value={dial}
                   onChange={(e) => setDial(e.target.value)}
-                  className="absolute inset-y-0 left-0 z-[2] w-[74px] cursor-pointer rounded-l-[8px] opacity-0 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-teal"
+                  className="peer absolute inset-y-0 left-0 z-[2] w-[74px] cursor-pointer rounded-l-[8px] opacity-0"
                 >
                   {DIAL_CODES.map((c) => (
                     <option key={c.iso} value={c.iso}>
@@ -224,6 +257,8 @@ export function ContactForm() {
                     </option>
                   ))}
                 </select>
+                {/* The select stays invisible (its own text would draw over the code above), so keyboard focus is shown by this ring. */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-[3] w-[74px] rounded-l-[8px] opacity-0 outline outline-2 -outline-offset-1 outline-brand-teal peer-focus-visible:opacity-100" />
                 <input
                   type="tel"
                   autoComplete="tel-national"
@@ -327,15 +362,6 @@ export function ContactForm() {
           </div>
         </div>
       </div>
-      {sent ? (
-        <p
-          role="status"
-          className="-mt-2 rounded-[8px] bg-background-success-subtle px-4 py-3 text-[16px] text-text-default lg:-mt-4"
-        >
-          Thank you. Your message has been received and our team will get back
-          to you soon.
-        </p>
-      ) : null}
       <button
         type="submit"
         disabled={submitting}
