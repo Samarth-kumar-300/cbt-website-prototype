@@ -43,3 +43,6 @@ next-env.d.ts
 /verify/
 /test-results/
 /playwright-report/
+
+# local illustration assets (not pushed)
+/illustrations/
