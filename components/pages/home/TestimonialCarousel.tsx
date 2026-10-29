@@ -77,10 +77,10 @@ export function TestimonialCarousel({ slides }: { slides: ReactNode[] }) {
         role="region"
         aria-roledescription="carousel"
         aria-label="Testimonials"
-        className="-my-4 flex cursor-grab snap-x snap-mandatory select-none overflow-x-auto overscroll-x-contain py-4 [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+        className="-mx-2 -my-4 flex cursor-grab snap-x snap-mandatory select-none overflow-x-auto overscroll-x-contain py-4 [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
       >
         {slides.map((slide, n) => (
-          <div key={n} className="flex w-full shrink-0 snap-center snap-always" aria-hidden={n !== i}>
+          <div key={n} className="flex w-full shrink-0 snap-center snap-always px-2" aria-hidden={n !== i}>
             {slide}
           </div>
         ))}
