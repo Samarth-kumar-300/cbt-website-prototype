@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { MotionImage } from "@/components/shared/MotionImage";
 import { PinnedStages, StageCard } from "@/components/shared/ScrollStages";
 
 const steps = [
@@ -43,9 +44,9 @@ export function ToolkitSteps() {
                 <StageCard active showBar={false} titleColor={s.accent} strokeColor={s.accent} fillColor={s.tint} title={s.title}>
                   <p>{s.body}</p>
                 </StageCard>
-                <div className="relative aspect-[1400/1071] w-full">
+                <MotionImage enter="rise" className="relative aspect-[1400/1071] w-full">
                   <Image src={s.src} alt={s.alt} fill sizes="(min-width: 1024px) 600px, 92vw" className="object-contain" />
-                </div>
+                </MotionImage>
               </div>
             ))}
           </div>

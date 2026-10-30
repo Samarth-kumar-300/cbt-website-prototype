@@ -179,6 +179,38 @@ test('coverage: at least 60% of the inventory has a motion hook at 1440px', asyn
   expect(count).toBeGreaterThanOrEqual(71);
 });
 
+test('hero devices stay still (arrival only) and What is CBT sits in a tilt frame', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/', { waitUntil: 'networkidle' });
+  await expect(page.locator('[data-mi-layer]:has(img[alt="Hero_Section"])')).toHaveCount(0);
+  await expect(page.locator('[data-mi-layer="tilt"] img[alt="What_Is_CBT"]')).toHaveCount(1);
+});
+
+test('reduced motion: hero devices and What is CBT stay untransformed', async ({ browser }) => {
+  const ctx = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto('/', { waitUntil: 'networkidle' });
+  await scrollThrough(page);
+  const moved = await page
+    .locator('[data-mi-layer="drift"] [data-mi-part="layer"], [data-mi-layer="tilt"] [data-mi-part="layer"]')
+    .evaluateAll((els) => els.filter((e) => getComputedStyle(e).transform !== 'none').length);
+  expect(moved).toBe(0);
+  await ctx.close();
+});
+
+test('try demo cards look like previews: hover changes nothing', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/try-demo', { waitUntil: 'networkidle' });
+  const card = page.locator('main ul > li > div').first();
+  await card.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(900);
+  const before = await card.evaluate((el) => ({ t: getComputedStyle(el).transform, s: getComputedStyle(el).boxShadow }));
+  await card.hover();
+  await page.waitForTimeout(400);
+  const after = await card.evaluate((el) => ({ t: getComputedStyle(el).transform, s: getComputedStyle(el).boxShadow }));
+  expect(after).toEqual(before);
+});
+
 test.describe('phone fan', () => {
   test('side phones start hidden behind the centre one and settle upright after scroll', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });

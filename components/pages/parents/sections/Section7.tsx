@@ -1,5 +1,6 @@
 import { ScrollGradient } from "@/components/shared/ScrollGradient";
 import { TextReveal } from "@/components/shared/TextReveal";
+import { WipeIn } from "@/components/shared/WipeIn";
 import Link from "next/link";
 
 export function Section7() {
@@ -52,19 +53,23 @@ export function Section7() {
           Traced from reference/parents/1440.png; the mascot beside it is omitted
           because no local image exists. Scales with width like the original's
           10080:1932 aspect box. */}
+      <WipeIn
+        className="pointer-events-none absolute inset-x-0 top-full w-full -translate-y-[50.7%] text-brand-dark"
+        style={{ aspectRatio: "10080 / 1932" }}
+      >
       <svg
         data-testid="parents-footer-curve"
         aria-hidden="true"
         viewBox="0 0 1440 276"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 top-full w-full -translate-y-[50.7%] text-brand-dark"
-        style={{ aspectRatio: "10080 / 1932" }}
+        className="block h-full w-full"
       >
         <path
           fill="currentColor"
           d="M0 276 L0 9 L20 18 L40 25 L60 32 L80 39 L100 44 L120 50 L140 55 L160 60 L180 64 L200 68 L220 73 L240 76 L260 80 L280 84 L300 87 L320 91 L340 94 L360 97 L380 100 L400 102 L420 104 L440 106 L460 108 L480 109 L500 110 L520 111 L540 112 L560 113 L580 114 L600 115 L620 115 L640 115 L660 116 L680 116 L700 116 L720 116 L740 116 L760 116 L780 116 L800 115 L820 115 L840 115 L860 114 L880 113 L900 112 L920 111 L940 110 L960 109 L980 108 L1000 106 L1020 104 L1040 102 L1060 100 L1080 97 L1100 94 L1120 91 L1140 87 L1160 84 L1180 80 L1200 76 L1220 73 L1240 68 L1260 64 L1280 60 L1300 55 L1320 50 L1340 44 L1360 39 L1380 32 L1400 25 L1420 18 L1440 9 L1440 276 Z"
         />
       </svg>
+      </WipeIn>
     </section>
   );
 }

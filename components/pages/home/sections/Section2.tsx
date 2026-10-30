@@ -1,3 +1,4 @@
+import { MotionImage } from "@/components/shared/MotionImage";
 import { RevealStagger } from "@/components/shared/RevealStagger";
 import Image from "next/image";
 import { TextReveal } from "@/components/shared/TextReveal";
@@ -169,7 +170,9 @@ export function Section2() {
             </div>
           </RevealStagger>
         </div>
-        <Image src="/images/homepage/growthlooksdiff.webp" alt="Two children beside the Progress, Explore and Learn screens of the Cognitive Botics app" width={3481} height={3184} sizes="600px" className="h-auto w-full max-w-[600px] shrink-0" />
+        <MotionImage enter="rise" className="relative aspect-[3481/3184] w-full max-w-[600px] shrink-0">
+          <Image src="/images/homepage/growthlooksdiff.webp" alt="Two children beside the Progress, Explore and Learn screens of the Cognitive Botics app" fill sizes="600px" className="object-contain" />
+        </MotionImage>
       </div>
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-5 py-14 lg:hidden">
         <div className="flex w-full flex-col items-start gap-[10px]">
@@ -178,7 +181,9 @@ export function Section2() {
           </p>
           <TextReveal as="h2" split="words" trigger="scroll" media="(max-width: 1023px)" className="font-heading text-[20px] font-bold leading-[30px] text-text-secondary">{"Growth looks different for every child"}</TextReveal>
         </div>
-        <Image src="/images/homepage/growthlooksdiff.webp" alt="Two children beside the Progress, Explore and Learn screens of the Cognitive Botics app" width={3481} height={3184} sizes="340px" className="h-auto w-full max-w-[340px] shrink-0" />
+        <MotionImage enter="rise" className="relative aspect-[3481/3184] w-full max-w-[340px] shrink-0">
+          <Image src="/images/homepage/growthlooksdiff.webp" alt="Two children beside the Progress, Explore and Learn screens of the Cognitive Botics app" fill sizes="340px" className="object-contain" />
+        </MotionImage>
         <RevealStagger className="flex w-full flex-col items-start gap-6">
           <div className="flex w-full items-start gap-[14px]">
             <span

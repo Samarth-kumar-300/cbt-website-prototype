@@ -77,27 +77,27 @@ test('no horizontal overflow on a migrated page at phone and desktop widths', as
   }
 });
 
-test('home: the growth illustration rises in, ends untransformed, then drifts with scroll on desktop', async ({ page }) => {
+test('home: the growth illustration rises in on desktop, then stays still (approach A)', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/', { waitUntil: 'networkidle' });
-  const frame = page.locator('[data-mi-layer="drift"]').first();
-  await frame.scrollIntoViewIfNeeded();
+  const growth = '[data-mi-enter="rise"]:visible:has(img[alt^="Two children"])';
+  await page.locator(growth).scrollIntoViewIfNeeded();
   await page.waitForTimeout(1500);
-  const enter = await matrixOf(page, '[data-mi-layer="drift"] [data-mi-part="enter"]');
+  const enter = await matrixOf(page, `${growth} [data-mi-part="enter"]`);
   expect(enter.opacity).toBe('1');
   expect(Math.abs(enter.ty)).toBeLessThan(0.5);
   expect(enter.a).toBeCloseTo(1, 2);
-  const y1 = (await matrixOf(page, '[data-mi-layer="drift"] [data-mi-part="layer"]')).ty;
+  const y1 = (await matrixOf(page, `${growth} [data-mi-part="layer"]`)).ty;
   await page.mouse.wheel(0, 300);
   await page.waitForTimeout(600);
-  const y2 = (await matrixOf(page, '[data-mi-layer="drift"] [data-mi-part="layer"]')).ty;
-  expect(y2, 'the layer moves as the page scrolls').not.toBeCloseTo(y1, 1);
+  const y2 = (await matrixOf(page, `${growth} [data-mi-part="layer"]`)).ty;
+  expect(y2, 'approach A: the image does not drift with scroll').toBeCloseTo(y1, 1);
 });
 
-test('home: the growth illustration only rises on a phone, with no overflow', async ({ page }) => {
+test('home: the growth illustration rises in on a phone, with no overflow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/', { waitUntil: 'networkidle' });
-  const frames = page.locator('[data-mi-enter="rise"][data-mi-layer="none"]');
+  const frames = page.locator('[data-mi-enter="rise"]').filter({ has: page.locator('img[alt^="Two children"]') });
   expect(await frames.count()).toBeGreaterThan(0);
   expect(await overflowAt(page, '/', 390)).toBeLessThanOrEqual(0);
 });

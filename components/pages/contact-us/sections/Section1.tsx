@@ -30,6 +30,7 @@ export function Section1() {
           style={{ backgroundColor: "#f4fafe", borderColor: "#cfe6f3" }}
         >
           <span
+            data-icon
             className="flex size-9 shrink-0 items-center justify-center rounded-full lg:size-10"
             style={{ backgroundColor: "#f0f9ff" }}
           >
@@ -81,6 +82,7 @@ export function Section1() {
           style={{ backgroundColor: "#fffcf2", borderColor: "#efe3be" }}
         >
           <span
+            data-icon
             className="flex size-9 shrink-0 items-center justify-center rounded-full lg:size-10"
             style={{ backgroundColor: "#fffbeb" }}
           >
