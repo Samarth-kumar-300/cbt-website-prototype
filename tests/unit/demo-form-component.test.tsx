@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { fillDemoForm, pick } from './demo-helpers';
@@ -58,7 +58,12 @@ describe('DemoForm', () => {
     submit.mockReturnValue(new Promise<void>((resolve) => (release = resolve)));
     render(<DemoForm plan={null} onSubmitted={onSubmitted} />);
     await fillDemoForm(user);
-    await user.dblClick(sendButton());
+    // Submit the form twice, bypassing the disabled button, so only the busy guard can stop the second call.
+    const form = sendButton().closest('form')!;
+    act(() => {
+      fireEvent.submit(form);
+      fireEvent.submit(form);
+    });
     release();
     await waitFor(() => expect(onSubmitted).toHaveBeenCalledTimes(1));
     expect(submit).toHaveBeenCalledTimes(1);

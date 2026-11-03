@@ -63,3 +63,17 @@ test('try-demo: no horizontal overflow at any width', async ({ page }) => {
     expect(await overflowAt(page, '/try-demo', w), `${w}px`).toBeLessThanOrEqual(0);
   }
 });
+
+test('try-demo: the phone number input fits inside the form card at 375 and 1440', async ({ page }) => {
+  for (const width of [375, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/try-demo');
+    const phone = await page.getByLabel(/^Phone number/).boundingBox();
+    const form = await page.locator('form').boundingBox();
+    expect(phone, `${width}px phone input box`).not.toBeNull();
+    expect(form, `${width}px form box`).not.toBeNull();
+    expect(phone!.width, `${width}px phone input width`).toBeGreaterThanOrEqual(120);
+    expect(phone!.x, `${width}px phone input left edge`).toBeGreaterThanOrEqual(form!.x);
+    expect(phone!.x + phone!.width, `${width}px phone input right edge`).toBeLessThanOrEqual(form!.x + form!.width + 1);
+  }
+});
