@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { TryDemoPage } from '@/components/pages/try-demo/TryDemoPage';
+import { parsePlan } from '@/lib/demo-form';
 
 export const metadata: Metadata = {
-  title: 'Try demo | CognitiveBotics',
-  description:
-    'Explore the games in the CognitiveBotics autism app, each built around a developmental goal to help children build essential skills through play.',
+  title: 'Book a demo | CognitiveBotics',
+  description: 'Tell us about your team and pick a time for your CognitiveBotics demo.',
 };
 
-export default function Page() {
-  return <TryDemoPage />;
+// `plan` comes from the pricing CTAs (?plan=basic or ?plan=custom). Reading searchParams makes this route render per request.
+export default async function Page({ searchParams }: { searchParams: Promise<{ plan?: string | string[] }> }) {
+  const { plan } = await searchParams;
+  return <TryDemoPage plan={parsePlan(plan)} />;
 }

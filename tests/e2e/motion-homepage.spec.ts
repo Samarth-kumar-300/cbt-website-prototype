@@ -198,19 +198,6 @@ test('reduced motion: hero devices and What is CBT stay untransformed', async ({
   await ctx.close();
 });
 
-test('try demo cards look like previews: hover changes nothing', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/try-demo', { waitUntil: 'networkidle' });
-  const card = page.locator('main ul > li > div').first();
-  await card.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(900);
-  const before = await card.evaluate((el) => ({ t: getComputedStyle(el).transform, s: getComputedStyle(el).boxShadow }));
-  await card.hover();
-  await page.waitForTimeout(400);
-  const after = await card.evaluate((el) => ({ t: getComputedStyle(el).transform, s: getComputedStyle(el).boxShadow }));
-  expect(after).toEqual(before);
-});
-
 test.describe('phone fan', () => {
   test('side phones start hidden behind the centre one and settle upright after scroll', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
