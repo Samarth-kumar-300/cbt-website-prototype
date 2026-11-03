@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { TryDemoPage } from '@/components/pages/try-demo/TryDemoPage';
-import { parsePlan } from '@/lib/demo-form';
+import { parsePlan } from '@/lib/demo-plan';
 
 export const metadata: Metadata = {
   title: 'Book a demo | CognitiveBotics',

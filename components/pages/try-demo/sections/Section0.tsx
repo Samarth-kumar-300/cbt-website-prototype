@@ -1,7 +1,7 @@
 import { QuoteCard } from '@/components/shared/QuoteCard';
 import { TestimonialCarousel } from '@/components/shared/TestimonialCarousel';
 import { TextReveal } from '@/components/shared/TextReveal';
-import type { Plan } from '@/lib/demo-form';
+import type { Plan } from '@/lib/demo-plan';
 import { TESTIMONIALS } from '@/lib/testimonials';
 import { tryDemoContent as c } from '../content';
 import { DemoFlow } from '../DemoFlow';

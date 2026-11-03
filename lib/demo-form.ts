@@ -1,5 +1,6 @@
 // lib/demo-form.ts
 import { validateFields, type Field } from '@/lib/contact-form';
+import { parsePlan, type Plan } from './demo-plan';
 
 export const ROLE_OPTIONS = ['Therapist', 'Parent', 'Therapy centre admin', 'School', 'Other'] as const;
 export const USER_OPTIONS = ['1', '2', '3', '4', '5', '6 or more'] as const;
@@ -7,7 +8,8 @@ const MORE_USERS = '6 or more';
 const ORG_ROLES: readonly string[] = ['Therapy centre admin', 'School'];
 const CONFIRM = 'We’ll confirm the exact count in your demo.';
 
-export type Plan = 'basic' | 'custom';
+export { parsePlan };
+export type { Plan };
 
 export type DemoValues = {
   name: string;
@@ -31,12 +33,6 @@ export type DemoRequest = {
 };
 
 export const EMPTY_DEMO: DemoValues = { name: '', email: '', phone: '', role: '', organisation: '', users: '', website: '' };
-
-/** Reads the `plan` query value. Only the exact strings `basic` and `custom` count; a repeated parameter uses its first value. */
-export function parsePlan(value: string | string[] | null | undefined): Plan | null {
-  const v = Array.isArray(value) ? value[0] : value;
-  return v === 'basic' || v === 'custom' ? v : null;
-}
 
 export function initialValues(plan: Plan | null): DemoValues {
   return { ...EMPTY_DEMO, users: plan === 'custom' ? MORE_USERS : '' };
