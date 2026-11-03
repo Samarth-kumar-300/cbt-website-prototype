@@ -1,14 +1,9 @@
 export const tryDemoContent = {
-  title: "Try the learning games in our autism app",
-  subtitle:
-    "Explore the games in the CognitiveBotics autism app, each built around a developmental goal to help children build essential skills through play.",
-  games: [
-    { tag: "Animation game", skill: "Self help skill", title: "Wear and remove socks", thumb: "stars" },
-    { tag: "Pose game", skill: "Self help skill", title: "Wear and remove socks", thumb: "bus" },
-    { tag: "Speech game", skill: "Self help skill", title: "Wear and remove socks", thumb: "kids" },
-    { tag: "Animation game", skill: "Self help skill", title: "Wear and remove socks", thumb: "kids" },
-  ],
-  cta: { heading: "Ready to get started?", label: "Get in Touch", href: "/contact-us" },
+  title: 'See CognitiveBotics in action',
+  subtitle: 'Tell us about your team, then pick a time for your demo.',
+  trust: ['NIEPID validated', 'JMIR-published outcomes', 'ISO 27001 certified'],
+  submit: 'Submit & Book',
+  consent: 'By submitting, you agree we may contact you about your demo.',
+  schedule: { title: 'Demo request received', helper: 'Pick a time that suits you.', later: 'Book later' },
+  done: { booked: 'Demo booked', received: 'Request received', line: 'Our team will get back to you in 2 to 3 business days.' },
 } as const;
-
-export type GameThumb = (typeof tryDemoContent.games)[number]["thumb"];
