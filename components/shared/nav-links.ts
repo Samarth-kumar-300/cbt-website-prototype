@@ -40,13 +40,3 @@ export function buildPrimaryNav(live: LivePages = LIVE_PAGES): NavItem[] {
 export function isActivePath(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(href + '/');
 }
-
-/** Legacy list read by Header.tsx until Task 9 switches it to buildPrimaryNav. */
-export const NAV_LINKS = [
-  { label: 'Therapy Centres', href: '/therapy-centres' },
-  { label: 'Schools', href: '/schools' },
-  { label: 'Parents', href: '/parents' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Get in Touch', href: '/contact-us' },
-] as const;
