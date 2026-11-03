@@ -37,6 +37,14 @@ describe('Footer', () => {
       expect(a.textContent).toBe('');
     });
   });
+  it('links Pricing and the live Stories pages, and keeps the Blog link until the blog is live', () => {
+    const { container } = render(<Footer />);
+    const hrefs = Array.from(container.querySelectorAll('a')).map((a) => a.getAttribute('href'));
+    expect(hrefs).toContain('/pricing');
+    expect(hrefs).toContain('/faqs');
+    expect(hrefs).toContain('/resources#blog');
+    expect(hrefs).not.toContain('/case-studies');
+  });
   it('shows the ISO badge unlinked, like the live site', () => {
     const { getAllByRole } = render(<Footer />);
     getAllByRole('img', { name: 'ISO 27001 certified' }).forEach((el) => expect(el.closest('a')).toBeNull());

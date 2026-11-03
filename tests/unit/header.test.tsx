@@ -22,7 +22,7 @@ beforeEach(() => {
 });
 
 describe('Header', () => {
-  it('renders the six nav links in order with the right hrefs', () => {
+  it('renders the seven nav links in order with the right hrefs', () => {
     render(<Header />);
     const nav = screen.getByRole('navigation', { name: 'Primary' });
     const links = Array.from(nav.querySelectorAll('a')).map((a) => [a.textContent, a.getAttribute('href')]);
@@ -30,6 +30,7 @@ describe('Header', () => {
       ['Therapy Centres', '/therapy-centres'],
       ['Schools', '/schools'],
       ['Parents', '/parents'],
+      ['Pricing', '/pricing'],
       ['Resources', '/resources'],
       ['About Us', '/about'],
       ['Get in Touch', '/contact-us'],

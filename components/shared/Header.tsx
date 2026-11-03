@@ -6,7 +6,8 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Button } from './Button';
 import { Logo } from './Logo';
 import { DRAWER_LINKS, HEADER_BG_IMAGE, HEADER_SCROLLED_BG, SIGN_IN_ITEMS } from './nav-config.generated';
-import { NAV_LINKS } from './nav-links';
+import { MobileNavMenu, NavMenu } from './NavMenu';
+import { buildPrimaryNav, isActivePath, type NavItem } from './nav-links';
 
 function Chevron() {
   return (
@@ -15,6 +16,12 @@ function Chevron() {
     </svg>
   );
 }
+
+const NAV = buildPrimaryNav();
+const DRAWER_ITEMS: NavItem[] = [
+  ...NAV,
+  ...DRAWER_LINKS.map((l) => ({ kind: 'link' as const, label: l.label, href: l.href })),
+];
 
 export function Header() {
   const [drawer, setDrawer] = useState(false);
@@ -87,26 +94,27 @@ export function Header() {
           <Logo />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center justify-center gap-3 xl:flex">
-          {NAV_LINKS.map((l, i) => {
-            const active = pathname === l.href || pathname.startsWith(l.href + '/');
-            return (
-              <span key={l.href} className="flex items-center gap-3">
-                {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
+        <nav aria-label="Primary" className="hidden items-center justify-center gap-2 min-[1440px]:gap-3 xl:flex">
+          {NAV.map((item, i) => (
+            <span key={item.label} className="flex items-center gap-2 min-[1440px]:gap-3">
+              {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
+              {item.kind === 'menu' ? (
+                <NavMenu item={item} pathname={pathname} />
+              ) : (
                 <Link
-                  href={l.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={`nav-link inline-block whitespace-nowrap text-[13px] uppercase tracking-[0.6px] transition-colors ${
-                    active
+                  href={item.href}
+                  aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
+                  className={`nav-link inline-block whitespace-nowrap text-[12px] uppercase tracking-[0.5px] transition-colors min-[1440px]:text-[13px] min-[1440px]:tracking-[0.6px] ${
+                    isActivePath(pathname, item.href)
                       ? 'font-bold text-content-brand-secondary'
                       : 'font-semibold text-content-brand hover:text-brand-dark'
                   }`}
                 >
-                  {l.label}
+                  {item.label}
                 </Link>
-              </span>
-            );
-          })}
+              )}
+            </span>
+          ))}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 xl:flex">
@@ -164,22 +172,23 @@ export function Header() {
           aria-label="Mobile"
           className="mx-4 mt-2 flex max-h-[calc(100dvh-110px)] w-[calc(100%-2rem)] max-w-[1392px] flex-col gap-1 overflow-y-auto rounded-3xl bg-white p-4 shadow-[0px_0px_20px_rgba(10,13,18,0.14)] xl:hidden"
         >
-          {[...NAV_LINKS, ...DRAWER_LINKS].map((l) => {
-            const active = pathname === l.href || pathname.startsWith(l.href + '/');
-            return (
+          {DRAWER_ITEMS.map((item) =>
+            item.kind === 'menu' ? (
+              <MobileNavMenu key={item.label} item={item} pathname={pathname} onNavigate={() => setDrawer(false)} />
+            ) : (
               <Link
-                key={l.href + l.label}
-                href={l.href}
+                key={item.href + item.label}
+                href={item.href}
                 onClick={() => setDrawer(false)}
-                aria-current={active ? 'page' : undefined}
+                aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
                 className={`rounded-xl px-4 py-3 text-[16px] uppercase tracking-[0.6px] transition-colors hover:bg-brand-subtle-bg active:bg-brand-subtle-bg ${
-                  active ? 'font-bold text-content-brand-secondary' : 'font-semibold text-content-brand'
+                  isActivePath(pathname, item.href) ? 'font-bold text-content-brand-secondary' : 'font-semibold text-content-brand'
                 }`}
               >
-                {l.label}
+                {item.label}
               </Link>
-            );
-          })}
+            ),
+          )}
           <div className="mx-4 my-2 h-px bg-brand-teal-100" aria-hidden="true" />
           {SIGN_IN_ITEMS.length > 0 ? (
             <div className="flex flex-col gap-1 px-2">

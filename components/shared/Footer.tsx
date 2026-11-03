@@ -2,12 +2,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { RevealStagger } from "./RevealStagger";
 import { Reveal } from "./Reveal";
+import { LIVE_PAGES } from "@/lib/launch-gates";
+import { livePages } from "./nav-links";
 
 // Structure and class strings follow reference/footer.json (the captured live footer):
 // a desktop layout (lg and up) and a separate mobile layout (below lg), toggled with
 // `hidden lg:flex` / `lg:hidden` exactly like the original.
 
 type L = { label: string; href: string; external?: boolean };
+
+function resourceLinks(): L[] {
+  return [
+    ...livePages().map(({ label, href }) => ({ label, href })),
+    {
+      label: "Knowledge base",
+      href: "https://support.cognitivebotics.com/support/solutions",
+      external: true,
+    },
+    // The blog has no page yet: keep the old link until it is live.
+    ...(LIVE_PAGES.blog ? [] : [{ label: "Blog", href: "/resources#blog" }]),
+    { label: "Development checklist", href: "/developmental-checklist" },
+  ];
+}
 
 const COLUMNS: { heading: string; links: L[] }[] = [
   {
@@ -16,20 +32,10 @@ const COLUMNS: { heading: string; links: L[] }[] = [
       { label: "For parents", href: "/parents" },
       { label: "For therapy centres", href: "/therapy-centres" },
       { label: "For schools", href: "/schools" },
+      { label: "Pricing", href: "/pricing" },
     ],
   },
-  {
-    heading: "RESOURCES",
-    links: [
-      {
-        label: "Knowledge base",
-        href: "https://support.cognitivebotics.com/support/solutions",
-        external: true,
-      },
-      { label: "Blog", href: "/resources#blog" },
-      { label: "Development checklist", href: "/developmental-checklist" },
-    ],
-  },
+  { heading: "RESOURCES", links: resourceLinks() },
   {
     heading: "COMPANY",
     links: [
