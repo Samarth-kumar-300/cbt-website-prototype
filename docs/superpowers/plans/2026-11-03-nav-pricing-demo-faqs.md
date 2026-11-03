@@ -917,7 +917,7 @@ import { FAQ_SETS, faqPageJsonLd } from '@/lib/faq-sets';
 describe('FAQ_SETS', () => {
   it('has the five chips in order with the expected sizes', () => {
     expect(FAQ_SETS.map((s) => [s.id, s.label, s.items.length])).toEqual([
-      ['general', 'General', 6],
+      ['general', 'General', 8],
       ['therapy-centres', 'Therapy centres', 5],
       ['schools', 'Schools', 9],
       ['parents', 'Parents', 5],

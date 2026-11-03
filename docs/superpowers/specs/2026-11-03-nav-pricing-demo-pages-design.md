@@ -174,7 +174,7 @@ CTA      Still have a question? / [Get in touch]
 
 | Chip | Source | Questions |
 |---|---|---|
-| General | Home | 6 |
+| General | Home | 8 |
 | Therapy centres | Therapy Centres page | 5 |
 | Schools | Schools page | 9 |
 | Parents | Parents page | 5 |

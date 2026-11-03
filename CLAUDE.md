@@ -30,7 +30,7 @@ A pixel-and-behaviour replica of the CognitiveBotics marketing site, built as a 
 
 ## Layout
 
-- `app/<route>/page.tsx`: routes: `/`, `about`, `careers` (+`[slug]` job pages), `contact-us`, `parents`, `resources`, `schools`, `therapy-centres`, plus `kit` (component showcase) and `coming-soon`.
+- `app/<route>/page.tsx`: routes: `/`, `about`, `careers` (+`[slug]` job pages), `contact-us`, `faqs`, `parents`, `pricing`, `resources`, `schools`, `therapy-centres`, `try-demo`, plus `kit` (component showcase) and `coming-soon`. Stories pages (case studies, blog, testimonials) are gated by `lib/launch-gates.ts`.
 - `app/layout.tsx` renders Header, a single `<main>`, Footer and CookieBanner. Page components return only their `<section>` elements, never their own `<main>`, header or footer.
 - `components/pages/<slug>/`: per-page components, `content.ts` copy, `sections/SectionN.tsx`.
 - `components/shared/`: shared primitives (Button, Section, FAQ, Reveal, MotionImage, scroll components, nav config).
