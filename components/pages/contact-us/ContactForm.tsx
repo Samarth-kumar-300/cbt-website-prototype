@@ -8,6 +8,7 @@ import {
   type Field,
 } from "@/lib/contact-form";
 import { Select } from "./Select";
+import { DIAL_CODES } from "@/lib/dial-codes";
 
 /*
  * Field list derived from reference/interactions.json (contactForm.inputs, contactSelect).
@@ -65,20 +66,6 @@ const TOPIC_OPTIONS = [
   "Therapy Centre Admin",
   "Psychiatrist",
   "Other",
-] as const;
-
-/* Compact replacement for the captured intl-tel-input country list (~244 entries). */
-const DIAL_CODES = [
-  { iso: "IN", name: "India", code: "+91" },
-  { iso: "US", name: "United States", code: "+1" },
-  { iso: "GB", name: "United Kingdom", code: "+44" },
-  { iso: "AE", name: "United Arab Emirates", code: "+971" },
-  { iso: "SA", name: "Saudi Arabia", code: "+966" },
-  { iso: "QA", name: "Qatar", code: "+974" },
-  { iso: "SG", name: "Singapore", code: "+65" },
-  { iso: "AU", name: "Australia", code: "+61" },
-  { iso: "CA", name: "Canada", code: "+1" },
-  { iso: "DE", name: "Germany", code: "+49" },
 ] as const;
 
 /* Static stand-in for the original's rotating code. This is not a real captcha. */
