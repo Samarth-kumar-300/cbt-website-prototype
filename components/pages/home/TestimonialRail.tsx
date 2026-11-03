@@ -6,39 +6,9 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { TESTIMONIALS } from "@/lib/testimonials";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const QUOTES = [
-  {
-    color: "#a85923",
-    name: "Tejaswi Kumar",
-    avatar: "tejaswi",
-    role: "Parent",
-    text: "We haven’t seen such a variety of activities in other apps or cartoons. He enjoys them and has even started using the app independently. Over the past two months, he has begun saying his name, answering questions and responding to people.",
-  },
-  {
-    color: "#4ca154",
-    name: "Mounila Thustam",
-    avatar: "mounila",
-    role: "Parent",
-    text: "Nyra’s attention span has improved. The app fits well with her ongoing therapies as it gives her extra practice at home, and it has helped us spend more structured and meaningful time together.",
-  },
-  {
-    color: "#2d679c",
-    name: "Dr Chandrashekhar",
-    avatar: "chandrashekhar",
-    role: "Therapist Director, Resplice Child Development Center",
-    text: "In our therapy center, maintaining continuity was a challenge. CognitiveBotics has helped us address this with engaging, user-friendly activities that support parents, educators and therapists in building children’s independence.",
-  },
-  {
-    color: "#a95fb5",
-    name: "Pavani",
-    avatar: "pavani",
-    role: "Parent",
-    text: "CognitiveBotics has been very helpful in continuing my child’s learning at home, especially with pointing and imitation skills. He has also started communicating his needs and I feel the app supports faster learning when used alongside therapy.",
-  },
-];
 
 // Slow enough to read along with: a card (424px) takes about 13s to pass, and the drift holds still on hover or focus.
 const DRIFT_PX_PER_SEC = 33.75;
@@ -217,7 +187,7 @@ export function TestimonialRail() {
             </span>
           </div>
         </Link>
-        {QUOTES.map((q) => (
+        {TESTIMONIALS.map((q) => (
           <figure
             key={q.name}
             aria-hidden={copy ? true : undefined}

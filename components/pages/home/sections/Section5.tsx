@@ -2,7 +2,7 @@ import { RevealStagger } from "@/components/shared/RevealStagger";
 import { TextReveal } from "@/components/shared/TextReveal";
 import Image from "next/image";
 import Link from "next/link";
-import { TestimonialCarousel } from "../TestimonialCarousel";
+import { TestimonialCarousel } from "@/components/shared/TestimonialCarousel";
 import { TestimonialRail } from "../TestimonialRail";
 
 function QuoteMark({
