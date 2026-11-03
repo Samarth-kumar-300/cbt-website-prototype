@@ -19,6 +19,7 @@ type Props = { item: NavMenuItem; pathname: string };
 export function NavMenu({ item, pathname }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
   const active = item.pages.some((p) => isActivePath(pathname, p.href));
 
@@ -28,7 +29,10 @@ export function NavMenu({ item, pathname }: Props) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key !== 'Escape') return;
+      // Move focus to the trigger before the panel hides, or focus falls back to <body>.
+      if (ref.current?.contains(document.activeElement)) buttonRef.current?.focus();
+      setOpen(false);
     };
     document.addEventListener('mousedown', onDown);
     window.addEventListener('keydown', onKey);
@@ -41,6 +45,7 @@ export function NavMenu({ item, pathname }: Props) {
   return (
     <div ref={ref} className="relative">
       <button
+        ref={buttonRef}
         type="button"
         aria-expanded={open}
         aria-controls={panelId}

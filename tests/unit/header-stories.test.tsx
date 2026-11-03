@@ -68,6 +68,26 @@ describe('Header with the Stories menu', () => {
     expect(within(primary()).getByRole('link', { name: /FAQs/ })).toHaveAttribute('aria-current', 'page');
   });
 
+  it('returns focus to the Stories button when Escape closes the menu from a link inside it', async () => {
+    render(<Header />);
+    const button = within(primary()).getByRole('button', { name: /^stories/i });
+    await userEvent.click(button);
+    within(primary()).getByRole('link', { name: /FAQs/ }).focus();
+    await userEvent.keyboard('{Escape}');
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(button).toHaveFocus();
+  });
+
+  it('does not move focus to the Stories button on an outside click', async () => {
+    render(<Header />);
+    const button = within(primary()).getByRole('button', { name: /^stories/i });
+    await userEvent.click(button);
+    within(primary()).getByRole('link', { name: /FAQs/ }).focus();
+    await userEvent.click(document.body);
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(button).not.toHaveFocus();
+  });
+
   it('shows Stories as an accordion in the mobile drawer and closes the drawer on a link', async () => {
     render(<Header />);
     await userEvent.click(screen.getByRole('button', { name: /open menu/i }));
