@@ -20,7 +20,7 @@ import {
 } from '@/lib/demo-form';
 import { submitDemoRequest } from '@/lib/demo-submit';
 import { tryDemoContent as c } from './content';
-import { CONTROL, LABEL } from './form-styles';
+import { CONTROL, CONTROL_BASE, LABEL } from './form-styles';
 
 type Props = { plan: Plan | null; onSubmitted: (request: DemoRequest) => void };
 
@@ -61,14 +61,14 @@ export function DemoForm({ plan, onSubmitted }: Props) {
     });
   };
 
-  const field = (name: keyof DemoValues) => ({
+  const field = (name: keyof DemoValues, extra = '') => ({
     id: name,
     name,
     value: values[name],
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => set(name)(e.target.value),
     'aria-invalid': errors[name] ? (true as const) : undefined,
     'aria-describedby': errors[name] ? `${name}-error` : undefined,
-    className: `${CONTROL} ${errors[name] ? 'border-error' : 'border-brand-teal-100'}`,
+    className: `${CONTROL} ${extra} ${errors[name] ? 'border-error' : 'border-brand-teal-100'}`,
   });
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -113,7 +113,7 @@ export function DemoForm({ plan, onSubmitted }: Props) {
             aria-label="Country code"
             value={dial}
             onChange={(e) => setDial(e.target.value)}
-            className={`${CONTROL} w-[112px] shrink-0 border-brand-teal-100`}
+            className={`${CONTROL_BASE} w-[112px] shrink-0 border-brand-teal-100`}
           >
             {DIAL_CODES.map((d) => (
               <option key={d.iso} value={d.iso}>
@@ -121,7 +121,7 @@ export function DemoForm({ plan, onSubmitted }: Props) {
               </option>
             ))}
           </select>
-          <input type="tel" autoComplete="tel-national" inputMode="tel" enterKeyHint="next" {...field('phone')} />
+          <input type="tel" autoComplete="tel-national" inputMode="tel" enterKeyHint="next" {...field('phone', 'min-w-0 flex-1')} />
         </div>
         <ErrorText id="phone" message={errors.phone} />
       </div>
