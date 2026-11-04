@@ -1,4 +1,4 @@
-export const ROUTES = ['/', '/therapy-centres', '/schools', '/parents', '/resources', '/about', '/contact-us'];
+export const ROUTES = ['/', '/therapy-centres', '/schools', '/parents', '/about', '/contact-us'];
 
 export function routeToSlug(route) {
   const s = route.replace(/^\/+|\/+$/g, '');

@@ -7,6 +7,7 @@ import {
   validateFields,
   type Field,
 } from "@/lib/contact-form";
+import { CaptchaField } from "@/components/shared/CaptchaField";
 import { Select } from "./Select";
 import { DIAL_CODES } from "@/lib/dial-codes";
 
@@ -68,11 +69,17 @@ const TOPIC_OPTIONS = [
   "Other",
 ] as const;
 
-/* Static stand-in for the original's rotating code. This is not a real captcha. */
-const CODE = "VKNB62";
+// Shown only when the visitor picks "Other" in the Professional/Parent list.
+const TOPIC_OTHER: Field = {
+  name: "topicOther",
+  label: "Professional/Parent",
+  type: "text",
+  required: false,
+  maxLength: 80,
+};
 
 const EMPTY: Record<string, string> = Object.fromEntries(
-  FIELDS.map((f) => [f.name, ""]),
+  [...FIELDS, TOPIC_OTHER].map((f) => [f.name, ""]),
 );
 
 const LABEL =
@@ -141,7 +148,9 @@ export function ContactForm() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const errs = validateFields(values, FIELDS);
+    const other = values.topic === "Other";
+    const errs = validateFields(values, other ? [...FIELDS, TOPIC_OTHER] : FIELDS);
+    if (other && !values.topicOther.trim()) errs.topicOther = "Tell us who you are";
     setErrors(errs);
     if (Object.keys(errs).length) return;
     const ok = await run(values);
@@ -268,11 +277,24 @@ export function ContactForm() {
               placeholder="Choose one"
               options={TOPIC_OPTIONS}
               value={values.topic}
-              onChange={set("topic")}
+              onChange={(v) => {
+                set("topic")(v);
+                if (v !== "Other") set("topicOther")("");
+              }}
               error={errors.topic}
             />
           </div>
         </div>
+        {values.topic === "Other" ? (
+          <div className="flex flex-col">
+            <label htmlFor="topicOther" className={LABEL}>
+              Please specify
+              <Star />
+            </label>
+            <input type="text" maxLength={80} {...bind("topicOther")} />
+            <ErrorText id="topicOther" message={errors.topicOther} />
+          </div>
+        ) : null}
         <div className="flex flex-col">
           <label htmlFor="country" className={LABEL}>
             Country
@@ -297,57 +319,16 @@ export function ContactForm() {
           />
           <ErrorText id="message" message={errors.message} />
         </div>
-        <div className="flex flex-col gap-[10px] sm:flex-row sm:items-start sm:gap-[22px]">
-          <div className="flex flex-1 flex-col">
-            <label htmlFor="captcha-input" className={LABEL}>
-              Enter code shown
-              <Star />
-            </label>
-            <input
-              type="text"
-              placeholder="Enter code"
-              autoComplete="off"
-              {...bind("captcha")}
-              ref={captchaRef}
-            />
-            <ErrorText id="captcha-input" message={errors.captcha} />
-          </div>
-          <div className="flex items-center gap-[6px] sm:mt-[16px]">
-            <div className="flex w-[178px] items-center justify-center rounded-[12px] border-[1.5px] border-brand-teal-100 bg-white px-5 py-[15px]">
-              <p
-                className="select-none font-heading text-[19px] font-bold tracking-[3px] text-brand-dark"
-                aria-label={`Code: ${CODE.split("").join(" ")}`}
-              >
-                {CODE}
-              </p>
-            </div>
-            <button
-              type="button"
-              aria-label="Refresh code"
-              onClick={() => {
-                set("captcha")("");
-                captchaRef.current?.focus();
-              }}
-              className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#edf3f1] text-brand-teal"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 4v6h6M20 20v-6h-6M4.5 15a8 8 0 0014.5 3.5M19.5 9A8 8 0 005 5.5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+        <CaptchaField
+          labelClass={LABEL}
+          inputProps={bind("captcha")}
+          inputRef={captchaRef}
+          error={errors.captcha}
+          onRefresh={() => {
+            set("captcha")("");
+            captchaRef.current?.focus();
+          }}
+        />
       </div>
       <button
         type="submit"

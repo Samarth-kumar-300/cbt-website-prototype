@@ -48,3 +48,30 @@ export const TESTIMONIALS: readonly Testimonial[] = [
     text: 'CognitiveBotics has been very helpful in continuing my child’s learning at home, especially with pointing and imitation skills. He has also started communicating his needs and I feel the app supports faster learning when used alongside therapy.',
   },
 ];
+
+export type VideoTestimonial = {
+  readonly id: string;
+  readonly name: string;
+  readonly role: string;
+  readonly audience: Testimonial['audience'];
+  readonly title: string;
+  /** Still shown on the card and as the player's poster. */
+  readonly poster: string;
+  readonly alt: string;
+  readonly src: string;
+};
+
+/**
+ * The home page's video testimonial, also first on /testimonials. The file is ~585 MB, so it stays on
+ * the company's S3 bucket and streams only when someone presses play (preload is off until then).
+ */
+export const VIDEO_TESTIMONIAL: VideoTestimonial = {
+  id: 'ram-kamal',
+  name: 'Ram Kamal',
+  role: 'Inclusive Education Specialist and Founder Trustee, Chakshumathi',
+  audience: 'school',
+  title: 'Importance of Early Intervention and preparing children for healthy digital engagement',
+  poster: '/images/homepage/testimonial-ram-kamal.webp',
+  alt: 'Ram Kamal, Inclusive Education Specialist and Founder Trustee of Chakshumathi, on early intervention',
+  src: 'https://cbt-website-media-prod.s3.ap-south-1.amazonaws.com/uploads/Final_Ram_kamal_testimonial_video_4d0d13ef03.mp4',
+};

@@ -43,8 +43,14 @@ describe('loadCalendly', () => {
     void loadCalendly();
     expect(document.querySelectorAll(`script[src="${SRC}"]`)).toHaveLength(1);
   });
+  it('adds the popup stylesheet once, so the overlay is styled', async () => {
+    const { loadCalendly } = await import('@/lib/calendly');
+    void loadCalendly();
+    void loadCalendly();
+    expect(document.querySelectorAll('link[href="https://assets.calendly.com/assets/external/widget.css"]')).toHaveLength(1);
+  });
   it('resolves at once, without a script, when Calendly is already on the page', async () => {
-    (window as unknown as { Calendly: unknown }).Calendly = { initInlineWidget() {} };
+    (window as unknown as { Calendly: unknown }).Calendly = { initPopupWidget() {} };
     const { loadCalendly } = await import('@/lib/calendly');
     await expect(loadCalendly()).resolves.toBeUndefined();
     expect(document.querySelectorAll('script')).toHaveLength(0);

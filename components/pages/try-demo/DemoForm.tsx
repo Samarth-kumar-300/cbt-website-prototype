@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { CaptchaField } from '@/components/shared/CaptchaField';
 import { Select } from '@/components/pages/contact-us/Select';
 import { useGuardedSubmit } from '@/lib/contact-form';
 import { DIAL_CODES } from '@/lib/dial-codes';
@@ -10,6 +10,7 @@ import {
   isSpam,
   ROLE_OPTIONS,
   showsOrganisation,
+  showsRoleOther,
   toRequest,
   USER_OPTIONS,
   usersHelper,
@@ -40,6 +41,7 @@ export function DemoForm({ plan, onSubmitted }: Props) {
   const [values, setValues] = useState<DemoValues>(() => initialValues(plan));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [dial, setDial] = useState<string>(DIAL_CODES[0].iso);
+  const captchaRef = useRef<HTMLInputElement>(null);
 
   const send = useCallback(async (request: DemoRequest | null) => {
     // A filled honeypot is a bot: behave as if it worked, but send nothing.
@@ -51,6 +53,7 @@ export function DemoForm({ plan, onSubmitted }: Props) {
     setValues((prev) => {
       const next = { ...prev, [name]: value };
       if (name === 'role' && !showsOrganisation(value)) next.organisation = '';
+      if (name === 'role' && !showsRoleOther(value)) next.roleOther = '';
       return next;
     });
     setErrors((prev) => {
@@ -134,6 +137,17 @@ export function DemoForm({ plan, onSubmitted }: Props) {
         <Select id="role" label="I am a" placeholder="Choose one" options={ROLE_OPTIONS} value={values.role} onChange={set('role')} error={errors.role} />
       </div>
 
+      {showsRoleOther(values.role) ? (
+        <div className="flex flex-col">
+          <label htmlFor="roleOther" className={LABEL}>
+            Please specify
+            <Star />
+          </label>
+          <input type="text" enterKeyHint="next" maxLength={80} {...field('roleOther')} />
+          <ErrorText id="roleOther" message={errors.roleOther} />
+        </div>
+      ) : null}
+
       {showsOrganisation(values.role) ? (
         <div className="flex flex-col">
           <label htmlFor="organisation" className={LABEL}>
@@ -150,8 +164,21 @@ export function DemoForm({ plan, onSubmitted }: Props) {
           <Star />
         </label>
         <Select id="users" label="How many users" placeholder="Choose one" options={USER_OPTIONS} value={values.users} onChange={set('users')} error={errors.users} />
-        <p className="mt-2 text-[14px] leading-[22px] text-content-secondary">{usersHelper(plan, values.users)}</p>
+        {usersHelper(plan, values.users) ? (
+          <p className="mt-2 text-[14px] leading-[22px] text-content-secondary">{usersHelper(plan, values.users)}</p>
+        ) : null}
       </div>
+
+      <CaptchaField
+        labelClass={LABEL}
+        inputProps={field('captcha')}
+        inputRef={captchaRef}
+        error={errors.captcha}
+        onRefresh={() => {
+          set('captcha')('');
+          captchaRef.current?.focus();
+        }}
+      />
 
       {/* Honeypot: off-screen and out of the tab order. Real visitors never fill it. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -160,13 +187,6 @@ export function DemoForm({ plan, onSubmitted }: Props) {
           <input type="text" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={(e) => set('website')(e.target.value)} />
         </label>
       </div>
-
-      <p className="text-[14px] leading-[22px] text-content-secondary">
-        {c.consent}{' '}
-        <Link href="/privacy-policy" className="font-semibold text-content-brand underline underline-offset-2">
-          Privacy policy
-        </Link>
-      </p>
 
       <button
         type="submit"

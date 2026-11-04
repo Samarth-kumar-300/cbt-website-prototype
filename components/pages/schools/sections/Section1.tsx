@@ -13,7 +13,7 @@ export function Section1() {
           special educators, specialists and families to personalise learning
           and track every child&apos;s progress.
         </p>
-        <Button href="/resources#blog" variant="tertiary" arrow className="mt-1 lg:mt-2">
+        <Button href="/blog" variant="tertiary" arrow className="mt-1 lg:mt-2">
           Learn more about inclusive education
         </Button>
       </div>

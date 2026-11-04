@@ -27,6 +27,7 @@ A pixel-and-behaviour replica of the CognitiveBotics marketing site, built as a 
 - `npm test`: Vitest unit tests (`tests/unit`).
 - `npm run e2e`: Playwright (`tests/e2e`); builds and serves on port 3100 (`PORT` overrides).
 - `npm run capture` / `npm run verify`: reference-capture and page-comparison tools in `tools/`.
+- `npm run thumbnails`: builds, then renders a blog thumbnail PNG (1200 × 675) to `public/blog/thumbs/` for every post listed in `components/pages/blog/thumbnail/thumbnails.ts`. Re-run it after changing a thumbnail's copy or the template, and commit the PNGs. `/kit/thumbnail` previews them all.
 
 ## Layout
 
@@ -34,6 +35,7 @@ A pixel-and-behaviour replica of the CognitiveBotics marketing site, built as a 
 - `app/layout.tsx` renders Header, a single `<main>`, Footer and CookieBanner. Page components return only their `<section>` elements, never their own `<main>`, header or footer.
 - `components/pages/<slug>/`: per-page components, `content.ts` copy, `sections/SectionN.tsx`.
 - `components/shared/`: shared primitives (Button, Section, FAQ, Reveal, MotionImage, scroll components, nav config).
+- `components/pages/blog/thumbnail/`: the blog thumbnail template. `thumbnails.ts` holds the copy per post; `ThumbnailFrame` draws the shared frame and text; `TicketArt`, `SplitArt` and `BandArt` are the three illustration layouts. It is a render source only; the output is the PNGs in `public/blog/thumbs/`. Three posts have one so far. To add one, add an entry to `thumbnails.ts` (reusing a layout) and run `npm run thumbnails`.
 - `lib/stub-routes.ts`: routes not built yet (privacy, terms, blog, etc.); `next.config.ts` rewrites them to `/coming-soon`.
 - `reference/<slug>/`: captured original site (screenshots at 375/768/1024/1440, `copy.json`, section HTML). Source of truth for copy and visuals.
 - `tools/`: scripts for capturing, scaffolding pages, importing assets and verifying pages.

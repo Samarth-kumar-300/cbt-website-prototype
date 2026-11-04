@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 // Mobile behaviour from docs/superpowers/specs/2026-10-17-mobile-experience-design.md.
 test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
 
-const PAGES = ['/', '/schools', '/parents', '/therapy-centres', '/about', '/resources', '/contact-us', '/careers', '/pricing', '/faqs', '/try-demo'];
+const PAGES = ['/', '/schools', '/parents', '/therapy-centres', '/about', '/case-studies', '/blog', '/testimonials', '/contact-us', '/careers', '/pricing', '/faqs', '/try-demo'];
 
 for (const path of PAGES) {
   test(`${path}: no horizontal overflow at 390px`, async ({ page }) => {

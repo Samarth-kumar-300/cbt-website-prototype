@@ -1,3 +1,4 @@
+import type { FaqCardItem } from '@/components/shared/FaqCards';
 import { faq as therapyFaq } from '../therapy-centres/content';
 
 // Feature rows come from claims already on the Therapy Centres, Schools and Home pages.
@@ -48,10 +49,10 @@ export const pricingContent = {
 function reuse(question: string) {
   const hit = therapyFaq.find((f) => f.q === question);
   if (!hit) throw new Error(`FAQ not found on Therapy Centres: ${question}`);
-  return { q: hit.q, a: hit.a };
+  return hit;
 }
 
-export const pricingFaq: readonly { q: string; a: string }[] = [
+export const pricingFaq: readonly FaqCardItem[] = [
   { q: 'Who counts as a user?', a: 'We’ll confirm the exact count in your demo.' },
   {
     q: 'What happens after I book a demo?',

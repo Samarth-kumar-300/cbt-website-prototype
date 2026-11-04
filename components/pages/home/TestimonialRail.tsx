@@ -2,11 +2,11 @@
 
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { TESTIMONIALS } from "@/lib/testimonials";
+import { VideoTestimonialCard } from "@/components/shared/VideoTestimonialCard";
+import { TESTIMONIALS, VIDEO_TESTIMONIAL } from "@/lib/testimonials";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -161,32 +161,11 @@ export function TestimonialRail() {
       >
         {(playing ? [0, 1] : [0]).map((copy) => (
           <Fragment key={copy}>
-        <Link
-          {...(copy ? { "aria-hidden": true, tabIndex: -1 } : {})}
-          href="/resources"
-          data-card
-          className="tcard group flex w-[628px] shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-teal flex-col overflow-hidden rounded-[20px] border-[1.5px] border-[#e4ded4] bg-white shadow-[0px_8px_20px_-6px_rgba(23,94,99,0.06)]"
-        >
-          <Image
-            src="/images/homepage/testimonial-ram-kamal.webp"
-            alt="Ram Kamal, Inclusive Education Specialist and Founder Trustee of Chakshumathi, on early intervention"
-            width={1250}
-            height={716}
-            sizes="628px"
-            className="tthumb h-auto w-full"
-          />
-          <div className="flex flex-col items-start gap-3 px-6 pt-5 pb-6">
-            <p className="font-heading text-[20px] font-semibold leading-[28px] text-content-brand">
-              Importance of Early Intervention and preparing children for healthy digital engagement
-            </p>
-            <span className="inline-flex items-center gap-2 text-[14px] font-semibold leading-[22px] text-content-brand">
-              Explore expert insights
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-                <path d="M4 12h16m0 0-6-6m6 6-6 6" />
-              </svg>
-            </span>
-          </div>
-        </Link>
+        <VideoTestimonialCard
+          video={VIDEO_TESTIMONIAL}
+          variant="rail"
+          buttonProps={{ "data-card": true, ...(copy ? { "aria-hidden": true, tabIndex: -1 } : {}) }}
+        />
         {TESTIMONIALS.map((q) => (
           <figure
             key={q.name}

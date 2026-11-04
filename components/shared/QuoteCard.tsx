@@ -1,9 +1,19 @@
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 import type { Testimonial } from '@/lib/testimonials';
 
-export function QuoteCard({ quote, clamp = false }: { quote: Testimonial; clamp?: boolean }) {
+type Props = {
+  quote: Testimonial;
+  clamp?: boolean | 4;
+  /** Rendered between the quote and the name, e.g. a Read more button. */
+  after?: ReactNode;
+  /** The 1.5px stroke the home page testimonial cards carry. */
+  bordered?: boolean;
+};
+
+export function QuoteCard({ quote, clamp = false, after, bordered = false }: Props) {
   return (
-    <figure className="m-0 flex h-full w-full flex-col gap-[14px] rounded-[20px] bg-white px-5 pb-[22px] pt-[34px] shadow-[0px_6px_20px_0px_rgba(15,74,77,0.05)] lg:px-6">
+    <figure className={`m-0 flex h-full w-full flex-col gap-[14px] rounded-[20px] bg-white px-5 pb-[22px] pt-[34px] shadow-[0px_6px_20px_0px_rgba(15,74,77,0.05)] lg:px-6 ${bordered ? 'border-[1.5px] border-[#e4ded4]' : ''}`}>
       <span
         aria-hidden="true"
         className="block h-[17px] w-[21px] font-heading text-[54px] font-extrabold leading-[17px]"
@@ -11,9 +21,10 @@ export function QuoteCard({ quote, clamp = false }: { quote: Testimonial; clamp?
       >
         “
       </span>
-      <blockquote className={`m-0 text-[14px] leading-[22px] text-text-default lg:text-[16px] lg:leading-[24px] ${clamp ? 'line-clamp-6' : ''}`}>
+      <blockquote className={`m-0 text-[14px] leading-[22px] text-text-default lg:text-[16px] lg:leading-[24px] ${clamp === 4 ? 'line-clamp-4' : clamp ? 'line-clamp-6' : ''}`}>
         {quote.text}
       </blockquote>
+      {after}
       <figcaption className="mt-auto flex items-center gap-3">
         <Image
           src={`/images/homepage/avatars/${quote.avatar}.webp`}

@@ -11,7 +11,9 @@ describe('Footer', () => {
   it('contains every link from the live footer (same hrefs)', () => {
     const { container } = render(<Footer />);
     const hrefs = new Set(Array.from(container.querySelectorAll('a')).map((a) => a.getAttribute('href')));
-    const missing = ref.links.map((l) => l.href).filter((h): h is string => !!h && !hrefs.has(h));
+    // The live footer's Blog link (/resources#blog) now goes to /blog.
+    const moved: Record<string, string> = { '/resources#blog': '/blog' };
+    const missing = ref.links.map((l) => l.href).filter((h): h is string => !!h && !hrefs.has(moved[h] ?? h));
     expect(missing).toEqual([]);
   });
   it('uses the dark teal background and shows the three column headings', () => {
@@ -37,13 +39,13 @@ describe('Footer', () => {
       expect(a.textContent).toBe('');
     });
   });
-  it('links Pricing and the live Stories pages, and keeps the Blog link until the blog is live', () => {
+  it('links Pricing and every live Learn page', () => {
     const { container } = render(<Footer />);
     const hrefs = Array.from(container.querySelectorAll('a')).map((a) => a.getAttribute('href'));
     expect(hrefs).toContain('/pricing');
     expect(hrefs).toContain('/faqs');
-    expect(hrefs).toContain('/resources#blog');
-    expect(hrefs).not.toContain('/case-studies');
+    for (const h of ['/case-studies', '/blog', '/testimonials']) expect(hrefs).toContain(h);
+    expect(hrefs).not.toContain('/resources#blog');
   });
   it('shows the ISO badge unlinked, like the live site', () => {
     const { getAllByRole } = render(<Footer />);

@@ -5,13 +5,14 @@ import {
   isSpam,
   parsePlan,
   showsOrganisation,
+  showsRoleOther,
   toRequest,
   usersHelper,
   validateDemo,
   type DemoValues,
 } from '@/lib/demo-form';
 
-const valid: DemoValues = { ...EMPTY_DEMO, name: 'Asha Rao', email: 'asha@example.com', phone: '9876543210', role: 'Parent', users: '2' };
+const valid: DemoValues = { ...EMPTY_DEMO, name: 'Asha Rao', email: 'asha@example.com', phone: '9876543210', role: 'Parent', users: '2', captcha: 'VKNB62' };
 
 describe('parsePlan', () => {
   it('accepts exactly basic and custom', () => {
@@ -55,7 +56,12 @@ describe('validateDemo', () => {
       phone: 'Phone number is required',
       role: 'Your role is required',
       users: 'Number of users is required',
+      captcha: 'Enter the code shown',
     });
+  });
+  it('asks for the code, and treats blanks as missing', () => {
+    expect(validateDemo({ ...valid, captcha: '   ' }).captcha).toBe('Enter the code shown');
+    expect(validateDemo(valid).captcha).toBeUndefined();
   });
   it('rejects a bad email and a phone number with too few digits', () => {
     expect(validateDemo({ ...valid, email: 'asha@' }).email).toBe('Enter a valid email address');
@@ -69,10 +75,30 @@ describe('validateDemo', () => {
   });
 });
 
+describe('Other role', () => {
+  it('shows the field only for Other', () => {
+    expect(showsRoleOther('Other')).toBe(true);
+    for (const r of ['Parent', 'Therapist', 'School', 'Therapy centre admin', '']) expect(showsRoleOther(r)).toBe(false);
+  });
+  it('requires an answer for Other, and nothing for the other roles', () => {
+    expect(validateDemo({ ...valid, role: 'Other' }).roleOther).toBe('Tell us your role');
+    expect(validateDemo({ ...valid, role: 'Other', roleOther: '   ' }).roleOther).toBe('Tell us your role');
+    expect(validateDemo({ ...valid, role: 'Other', roleOther: 'Speech therapist' })).toEqual({});
+    expect(validateDemo({ ...valid, role: 'Parent' }).roleOther).toBeUndefined();
+  });
+  it('caps the answer at 80 characters', () => {
+    expect(validateDemo({ ...valid, role: 'Other', roleOther: 'a'.repeat(81) }).roleOther).toBe('Your role must be 80 characters or fewer');
+  });
+  it('sends the trimmed answer only when the role is Other', () => {
+    expect(toRequest({ ...valid, role: 'Other', roleOther: ' Speech therapist ' }, '+91', null).roleOther).toBe('Speech therapist');
+    expect(toRequest({ ...valid, role: 'Parent', roleOther: 'left over' }, '+91', null).roleOther).toBe('');
+  });
+});
+
 describe('toRequest', () => {
   it('trims values and joins the dial code and phone', () => {
     const r = toRequest({ ...valid, name: '  Asha Rao ', email: ' asha@example.com ', phone: ' 9876543210 ' }, '+91', 'basic');
-    expect(r).toEqual({ name: 'Asha Rao', email: 'asha@example.com', phone: '+91 9876543210', role: 'Parent', organisation: '', users: '2', plan: 'basic' });
+    expect(r).toEqual({ name: 'Asha Rao', email: 'asha@example.com', phone: '+91 9876543210', role: 'Parent', roleOther: '', organisation: '', users: '2', plan: 'basic' });
   });
   it('drops a school name typed earlier when the role no longer shows that field', () => {
     expect(toRequest({ ...valid, role: 'Parent', organisation: 'Sunrise School' }, '+91', null).organisation).toBe('');
@@ -89,15 +115,15 @@ describe('isSpam', () => {
 });
 
 describe('usersHelper', () => {
-  const confirm = 'We’ll confirm the exact count in your demo.';
-  it('always ends with the confirmation line', () => {
-    expect(usersHelper(null, '')).toBe(confirm);
+  it('is empty when there is nothing specific to say', () => {
+    expect(usersHelper(null, '')).toBe('');
+    expect(usersHelper('custom', '3')).toBe('');
   });
   it('shows the Basic price when the Basic plan was chosen', () => {
-    expect(usersHelper('basic', '')).toBe(`Basic: up to 5 users, ₹2,000 each. ${confirm}`);
+    expect(usersHelper('basic', '')).toBe('Basic: up to 5 users, ₹2,000 each.');
   });
   it('says custom pricing applies for 6 or more, whatever the plan', () => {
-    expect(usersHelper('custom', '6 or more')).toBe(`Custom pricing applies. ${confirm}`);
-    expect(usersHelper('basic', '6 or more')).toBe(`Custom pricing applies. ${confirm}`);
+    expect(usersHelper('custom', '6 or more')).toBe('Custom pricing applies.');
+    expect(usersHelper('basic', '6 or more')).toBe('Custom pricing applies.');
   });
 });

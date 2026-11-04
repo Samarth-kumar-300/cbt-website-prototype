@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -22,7 +22,7 @@ beforeEach(() => {
 });
 
 describe('Header', () => {
-  it('renders the seven nav links in order with the right hrefs', () => {
+  it('renders the nav links in order with the right hrefs, the Learn pages sitting inside its menu', () => {
     render(<Header />);
     const nav = screen.getByRole('navigation', { name: 'Primary' });
     const links = Array.from(nav.querySelectorAll('a')).map((a) => [a.textContent, a.getAttribute('href')]);
@@ -31,9 +31,14 @@ describe('Header', () => {
       ['Schools', '/schools'],
       ['Parents', '/parents'],
       ['Pricing', '/pricing'],
-      ['Resources', '/resources'],
+      ['Case studiesHow centres and schools use CognitiveBotics', '/case-studies'],
+      ['BlogGuides on autism and early support', '/blog'],
+      ['FAQsQuick answers before you book', '/faqs'],
+      ['TestimonialsFamilies and professionals, in their words', '/testimonials'],
+      ['Knowledge baseGuides and troubleshooting for the platform', 'https://support.cognitivebotics.com/support/solutions'],
+      ['Get in touchTalk to our team', '/contact-us'],
+      ['See it in your centre or schoolBook a demo', '/try-demo'],
       ['About Us', '/about'],
-      ['Get in Touch', '/contact-us'],
     ]);
   });
   it('links the logo home and has a Try Demo button', () => {
@@ -52,6 +57,48 @@ describe('Header', () => {
     await userEvent.keyboard('{Escape}');
     expect(screen.queryByRole('navigation', { name: 'Mobile' })).toBeNull();
     expect(document.body.style.overflow).toBe('');
+  });
+  describe('mobile drawer closes on navigation', () => {
+    const mobile = () => screen.queryByRole('navigation', { name: 'Mobile' });
+    const openDrawer = async () => {
+      await userEvent.click(screen.getByRole('button', { name: /open menu/i }));
+      expect(mobile()).toBeInTheDocument();
+    };
+    it('closes when a drawer link is clicked', async () => {
+      render(<Header />);
+      await openDrawer();
+      await userEvent.click(within(mobile()!).getByRole('link', { name: 'Pricing' }));
+      expect(mobile()).toBeNull();
+      expect(document.body.style.overflow).toBe('');
+    });
+    it('closes when the Try demo button in the drawer is clicked', async () => {
+      render(<Header />);
+      await openDrawer();
+      await userEvent.click(within(mobile()!).getByRole('link', { name: /try demo/i }));
+      expect(mobile()).toBeNull();
+    });
+    it('closes when the logo is clicked', async () => {
+      render(<Header />);
+      await openDrawer();
+      await userEvent.click(screen.getByRole('link', { name: /cognitivebotics home/i }));
+      expect(mobile()).toBeNull();
+    });
+    it('closes when the route changes by any other means (back button, a link elsewhere)', async () => {
+      const { rerender } = render(<Header />);
+      await openDrawer();
+      pathnameMock.value = '/about';
+      rerender(<Header />);
+      expect(mobile()).toBeNull();
+      expect(screen.getByRole('button', { name: /open menu/i })).toHaveAttribute('aria-expanded', 'false');
+      expect(document.body.style.overflow).toBe('');
+    });
+    it('opens again on the new page', async () => {
+      const { rerender } = render(<Header />);
+      await openDrawer();
+      pathnameMock.value = '/about';
+      rerender(<Header />);
+      await openDrawer();
+    });
   });
   it('shows the Sign in menu, closes it on outside click and on Escape', async () => {
     render(<Header />);
@@ -125,9 +172,9 @@ describe('Header', () => {
   });
 
   it('keeps the parent link active on nested routes and none active elsewhere', () => {
-    pathnameMock.value = '/resources/research/abc';
+    pathnameMock.value = '/about/team';
     const { unmount } = render(<Header />);
-    expect(screen.getByRole('link', { name: 'Resources' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'About Us' })).toHaveAttribute('aria-current', 'page');
     unmount();
     pathnameMock.value = '/';
     render(<Header />);

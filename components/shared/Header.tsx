@@ -24,18 +24,22 @@ const DRAWER_ITEMS: NavItem[] = [
 ];
 
 export function Header() {
-  const [drawer, setDrawer] = useState(false);
+  // The drawer is open only for the route it was opened on, so any navigation (a nav link, the logo,
+  // Try demo, the back button) closes it without an effect.
+  const [drawerPath, setDrawerPath] = useState<string | null>(null);
   const [menu, setMenu] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname() ?? '';
+  const drawer = drawerPath === pathname;
+  const closeDrawer = () => setDrawerPath(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setDrawer(false);
+        setDrawerPath(null);
         setMenu(false);
       }
     };
@@ -59,7 +63,7 @@ export function Header() {
     if (typeof window.matchMedia !== 'function') return;
     const mq = window.matchMedia('(min-width: 1280px)');
     const onChange = (e: { matches: boolean }) => {
-      if (e.matches) setDrawer(false);
+      if (e.matches) setDrawerPath(null);
     };
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
@@ -83,14 +87,14 @@ export function Header() {
             ...(scrolled ? { backgroundColor: HEADER_SCROLLED_BG } : {}),
           } as CSSProperties
         }
-        // Below xl the glass bar is inset 16px and flush with the top, open or closed.
-        className={`mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,box-shadow] duration-300 xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
+        // Below xl the glass bar is inset 16px and flush with the top, open or closed. `relative` anchors the Learn mega menu.
+        className={`relative has-[[data-menu-open=true]]:rounded-b-none has-[[data-menu-open=true]]:bg-white! mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,box-shadow] duration-300 xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
           scrolled
             ? 'shadow-[0px_12px_34px_-8px_rgba(16,73,76,0.22)]'
             : 'shadow-[0px_12px_34px_-8px_rgba(214,251,254,0.16)]'
         }`}
       >
-        <Link href="/" aria-label="CognitiveBotics home" className="hit relative h-[21px] w-[145px] shrink-0 xl:h-[31px] xl:w-[213px]">
+        <Link href="/" aria-label="CognitiveBotics home" onClick={closeDrawer} className="hit relative h-[21px] w-[145px] shrink-0 xl:h-[31px] xl:w-[213px]">
           <Logo />
         </Link>
 
@@ -149,7 +153,7 @@ export function Header() {
           aria-label={drawer ? 'Close menu' : 'Open menu'}
           aria-expanded={drawer}
           aria-controls="mobile-nav"
-          onClick={() => setDrawer((d) => !d)}
+          onClick={() => setDrawerPath((p) => (p === pathname ? null : pathname))}
           className="-mr-2 -my-2 flex size-11 shrink-0 flex-col items-center justify-center gap-[5px] text-content-brand xl:hidden"
         >
           {drawer ? (
@@ -174,12 +178,12 @@ export function Header() {
         >
           {DRAWER_ITEMS.map((item) =>
             item.kind === 'menu' ? (
-              <MobileNavMenu key={item.label} item={item} pathname={pathname} onNavigate={() => setDrawer(false)} />
+              <MobileNavMenu key={item.label} item={item} pathname={pathname} onNavigate={closeDrawer} />
             ) : (
               <Link
                 key={item.href + item.label}
                 href={item.href}
-                onClick={() => setDrawer(false)}
+                onClick={closeDrawer}
                 aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
                 className={`rounded-xl px-4 py-3 text-[16px] uppercase tracking-[0.6px] transition-colors hover:bg-brand-subtle-bg active:bg-brand-subtle-bg ${
                   isActivePath(pathname, item.href) ? 'font-bold text-content-brand-secondary' : 'font-semibold text-content-brand'
@@ -218,7 +222,7 @@ export function Header() {
                 : null}
             </div>
           ) : null}
-          <div className="px-2 pb-2 pt-1">
+          <div className="px-2 pb-2 pt-1" onClick={closeDrawer}>
             <Button href="/try-demo" size="md" className="w-full uppercase tracking-[0.6px]">
               Try demo
             </Button>

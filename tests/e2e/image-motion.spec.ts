@@ -102,21 +102,6 @@ test('home: the growth illustration rises in on a phone, with no overflow', asyn
   expect(await overflowAt(page, '/', 390)).toBeLessThanOrEqual(0);
 });
 
-test('resources: a card image zooms slightly on hover', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/resources', { waitUntil: 'networkidle' });
-  const frame = page.locator('.img-hover-zoom').first();
-  await frame.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1500);
-  await frame.hover();
-  await page.waitForTimeout(700);
-  const scale = await frame.locator('> *').first().evaluate((el) => {
-    const t = getComputedStyle(el).transform;
-    return new DOMMatrix(t === 'none' ? undefined : t).a;
-  });
-  expect(scale).toBeCloseTo(1.05, 2);
-});
-
 test('about: an avatar grows slightly and gains a ring on hover', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/about', { waitUntil: 'networkidle' });

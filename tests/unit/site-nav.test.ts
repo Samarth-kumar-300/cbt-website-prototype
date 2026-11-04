@@ -1,42 +1,55 @@
 import { describe, expect, it } from 'vitest';
-import { buildPrimaryNav, isActivePath, livePages, STORIES_PAGES } from '@/components/shared/nav-links';
+import { buildPrimaryNav, isActivePath, LEARN_PAGES, livePages, menuPages } from '@/components/shared/nav-links';
 import { LIVE_PAGES } from '@/lib/launch-gates';
 
-const none = { caseStudies: false, faqs: false, blog: false, testimonials: false };
-const all = { caseStudies: true, faqs: true, blog: true, testimonials: true };
-
 describe('buildPrimaryNav', () => {
-  it('puts Pricing after Parents and keeps About Us and Get in Touch last', () => {
-    const labels = buildPrimaryNav(none).map((i) => i.label);
-    expect(labels).toEqual(['Therapy Centres', 'Schools', 'Parents', 'Pricing', 'Resources', 'About Us', 'Get in Touch']);
+  it('puts Pricing after Parents, Learn after Pricing, and keeps About Us last, with no Get in Touch', () => {
+    const labels = buildPrimaryNav().map((i) => i.label);
+    expect(labels).toEqual(['Therapy Centres', 'Schools', 'Parents', 'Pricing', 'Learn', 'About Us']);
   });
 
-  it('falls back to the Resources link while fewer than two Stories pages are live', () => {
-    for (const live of [none, { ...none, faqs: true }, { ...none, blog: true }]) {
-      expect(buildPrimaryNav(live)[4]).toEqual({ kind: 'link', label: 'Resources', href: '/resources' });
-    }
-  });
-
-  it('switches to the Stories menu once two pages are live', () => {
-    const item = buildPrimaryNav({ ...none, faqs: true, blog: true })[4];
+  it('always shows Learn as a menu in place of the old Resources link', () => {
+    const item = buildPrimaryNav()[4];
     expect(item.kind).toBe('menu');
-    expect(item.label).toBe('Stories');
-    if (item.kind === 'menu') expect(item.pages.map((p) => p.href)).toEqual(['/faqs', '/blog']);
+    expect(item.label).toBe('Learn');
   });
 
-  it('keeps the menu order case studies, FAQs, blog, testimonials', () => {
-    const item = buildPrimaryNav(all)[4];
+  it('groups the menu by format: stories and guides, answers and quotes, support, with a demo card', () => {
+    const item = buildPrimaryNav()[4];
     if (item.kind !== 'menu') throw new Error('expected a menu');
-    expect(item.pages.map((p) => p.label)).toEqual(['Case studies', 'FAQs', 'Blog', 'Testimonials']);
+    expect(item.columns.map((c) => [c.heading, c.pages.map((p) => p.label)])).toEqual([
+      ['Stories and guides', ['Case studies', 'Blog']],
+      ['Answers and quotes', ['FAQs', 'Testimonials']],
+      ['Get support', ['Knowledge base', 'Get in touch']],
+    ]);
+    expect(item.promo.href).toBe('/try-demo');
   });
 
-  it('ships with only FAQs live', () => {
-    expect(LIVE_PAGES).toEqual({ caseStudies: false, faqs: true, blog: false, testimonials: false });
-    expect(livePages().map((p) => p.href)).toEqual(['/faqs']);
+  it('lists every Learn page exactly once', () => {
+    const item = buildPrimaryNav()[4];
+    if (item.kind !== 'menu') throw new Error('expected a menu');
+    const hrefs = menuPages(item).map((p) => p.href);
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+    for (const p of livePages()) expect(hrefs).toContain(p.href);
   });
 
-  it('gives every Stories page a helper line of at most 10 words', () => {
-    for (const p of Object.values(STORIES_PAGES)) expect(p.helper.split(' ').length).toBeLessThanOrEqual(10);
+  it('ships with every Learn page live', () => {
+    expect(LIVE_PAGES).toEqual({ caseStudies: true, faqs: true, blog: true, testimonials: true });
+    expect(livePages().map((p) => p.href)).toEqual(['/case-studies', '/faqs', '/blog', '/testimonials']);
+  });
+
+  it('gives every Learn page a helper line of at most 10 words', () => {
+    for (const p of Object.values(LEARN_PAGES)) expect(p.helper.split(' ').length).toBeLessThanOrEqual(10);
+  });
+});
+
+describe('Knowledge base row', () => {
+  it('is external and not tied to a launch gate', () => {
+    const item = buildPrimaryNav()[4];
+    if (item.kind !== 'menu') throw new Error('expected a menu');
+    const last = menuPages(item).find((p) => p.external);
+    expect(last).toMatchObject({ label: 'Knowledge base', href: 'https://support.cognitivebotics.com/support/solutions', external: true });
+    expect(livePages().some((p) => p.external)).toBe(false);
   });
 });
 

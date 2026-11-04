@@ -53,4 +53,16 @@ describe('Chips', () => {
     expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveAttribute('tabindex', '0');
     expect(screen.getByRole('tab', { name: 'Beta' })).toHaveAttribute('tabindex', '-1');
   });
+  it('moves with the up and down arrows too, for a stacked list', async () => {
+    function Stacked() {
+      const [v, setV] = useState('a');
+      return <Chips items={ITEMS} value={v} onChange={setV} label="Topics" idPrefix="t" layout="stacked" />;
+    }
+    render(<Stacked />);
+    screen.getByRole('tab', { name: 'Alpha' }).focus();
+    await userEvent.keyboard('{ArrowDown}');
+    expect(screen.getByRole('tab', { name: 'Beta' })).toHaveAttribute('aria-selected', 'true');
+    await userEvent.keyboard('{ArrowUp}{ArrowUp}');
+    expect(screen.getByRole('tab', { name: 'Gamma' })).toHaveAttribute('aria-selected', 'true');
+  });
 });

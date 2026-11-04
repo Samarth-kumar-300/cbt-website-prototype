@@ -14,6 +14,7 @@ async function fill(page: Page) {
   await page.getByLabel(/^Phone number/).fill('9876543210');
   await pick(page, /^I am a:/, 'Parent');
   await pick(page, /^How many users:/, '3');
+  await page.getByLabel(/^Enter code shown/).fill('VKNB62');
 }
 
 test('try-demo: headline, form and testimonials', async ({ page }) => {
@@ -54,8 +55,44 @@ test('try-demo: submitting moves to the request-received step', async ({ page })
   await page.goto('/try-demo');
   await fill(page);
   await page.getByRole('button', { name: 'Submit & Book' }).click();
-  // "Demo request received" with a Calendly link configured, "Request received" without one.
+  // The booking card follows the form. Booking is the only way forward.
+  await expect(page.getByRole('button', { name: 'Book a time' })).toBeVisible();
+  await expect(page.getByRole('button', { name: /book later/i })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: /request received/i })).toBeFocused();
+});
+
+test('try-demo: the whole journey works without a Calendly link: form, sample calendar, booked', async ({ page }) => {
+  await page.goto('/try-demo');
+  await fill(page);
+  await page.getByRole('button', { name: 'Submit & Book' }).click();
+  await expect(page.getByRole('button', { name: 'Book a time' })).toBeVisible();
+  await page.getByRole('button', { name: 'Book a time' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Pick a time' });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Confirm time' })).toBeDisabled();
+  await dialog.getByRole('button', { name: /^(Mon|Tue|Wed|Thu|Fri),/ }).first().click();
+  await dialog.getByRole('button', { name: '2:00 pm' }).click();
+  await dialog.getByRole('button', { name: 'Confirm time' }).click();
+  await expect(page.getByRole('heading', { name: 'Demo booked' })).toBeFocused();
+  await expect(page.getByText('We’re excited to give you a demo.')).toBeVisible();
+  // The confirmation card itself never pushes case studies (they stay in the nav and footer).
+  await expect(page.getByRole('status').getByRole('link', { name: /case stud/i })).toHaveCount(0);
+});
+
+test('try-demo: Other shows a field to write in, which is required and goes away for other roles', async ({ page }) => {
+  await page.goto('/try-demo');
+  await expect(page.getByLabel(/^Please specify/)).toHaveCount(0);
+  await pick(page, /^I am a:/, 'Other');
+  const specify = page.getByLabel(/^Please specify/);
+  await expect(specify).toBeVisible();
+  await fill(page); // sets Parent: the field must drop
+  await expect(specify).toHaveCount(0);
+  await pick(page, /^I am a:/, 'Other');
+  await page.getByRole('button', { name: 'Submit & Book' }).click();
+  await expect(page.getByText('Tell us your role')).toBeVisible();
+  await page.getByLabel(/^Please specify/).fill('Speech therapist');
+  await page.getByRole('button', { name: 'Submit & Book' }).click();
+  await expect(page.getByRole('button', { name: 'Book a time' })).toBeVisible();
 });
 
 test('try-demo: no horizontal overflow at any width', async ({ page }) => {

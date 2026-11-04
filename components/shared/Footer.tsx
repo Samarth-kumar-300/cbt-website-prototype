@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { RevealStagger } from "./RevealStagger";
 import { Reveal } from "./Reveal";
-import { LIVE_PAGES } from "@/lib/launch-gates";
 import { livePages } from "./nav-links";
 
 // Structure and class strings follow reference/footer.json (the captured live footer):
@@ -19,8 +18,6 @@ function resourceLinks(): L[] {
       href: "https://support.cognitivebotics.com/support/solutions",
       external: true,
     },
-    // The blog has no page yet: keep the old link until it is live.
-    ...(LIVE_PAGES.blog ? [] : [{ label: "Blog", href: "/resources#blog" }]),
     { label: "Development checklist", href: "/developmental-checklist" },
   ];
 }

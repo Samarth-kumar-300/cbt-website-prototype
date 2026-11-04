@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Chips } from '@/components/shared/Chips';
-import { FAQ } from '@/components/shared/FAQ';
+import { FaqCards } from '@/components/shared/FaqCards';
 import type { FaqSet } from '@/lib/faq-sets';
 
 export function FaqTabs({ sets }: { sets: readonly FaqSet[] }) {
@@ -30,7 +30,7 @@ export function FaqTabs({ sets }: { sets: readonly FaqSet[] }) {
       {sets.map((s) => (
         // Hidden panels stay in the HTML so crawlers read every answer.
         <div key={s.id} role="tabpanel" id={`faq-panel-${s.id}`} aria-labelledby={`faq-tab-${s.id}`} hidden={s.id !== active}>
-          <FAQ items={s.items} />
+          <FaqCards items={s.items} icons={s.icons} questionColor="#207d82" />
         </div>
       ))}
     </div>

@@ -20,8 +20,8 @@ export function Chips({ items, value, onChange, label, idPrefix, className = '' 
 
   const onKeyDown = (e: React.KeyboardEvent, i: number) => {
     let next = -1;
-    if (e.key === 'ArrowRight') next = (i + 1) % items.length;
-    else if (e.key === 'ArrowLeft') next = (i - 1 + items.length) % items.length;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % items.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + items.length) % items.length;
     else if (e.key === 'Home') next = 0;
     else if (e.key === 'End') next = items.length - 1;
     if (next < 0) return;
@@ -31,7 +31,11 @@ export function Chips({ items, value, onChange, label, idPrefix, className = '' 
   };
 
   return (
-    <div role="tablist" aria-label={label} className={`flex flex-wrap gap-2 lg:gap-3 ${className}`}>
+    <div
+      role="tablist"
+      aria-label={label}
+      className={`flex flex-wrap gap-2 lg:gap-3 ${className}`}
+    >
       {items.map((it, i) => {
         const selected = it.id === value;
         return (
