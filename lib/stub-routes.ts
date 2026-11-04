@@ -3,5 +3,4 @@ export const STUB_ROUTES = [
   '/privacy-policy',
   '/terms-of-use',
   '/medical-disclaimer',
-  '/resources/research/:slug*',
 ];

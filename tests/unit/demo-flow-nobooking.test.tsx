@@ -6,6 +6,7 @@ import { fillDemoForm } from './demo-helpers';
 vi.mock('@/lib/demo-config', () => ({ CALENDLY_URL: '' }));
 vi.mock('@/lib/demo-submit', () => ({ submitDemoRequest: vi.fn().mockResolvedValue(undefined) }));
 vi.mock('@/lib/analytics', () => ({ track: vi.fn() }));
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn() }) }));
 vi.mock('@/lib/calendly', async (importOriginal) => ({ ...(await importOriginal<typeof import('@/lib/calendly')>()), loadCalendly: vi.fn() }));
 
 import { DemoFlow } from '@/components/pages/try-demo/DemoFlow';

@@ -42,12 +42,18 @@ export function PostMeta({ post }: { post: BlogPost }) {
 export function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="group flex h-full flex-col gap-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-teal">
-      {/* The placeholder lifts on hover; a supplied thumbnail is a still image and does not move. */}
-      <PostCover post={post} className={`aspect-[16/9] w-full${CARD_STYLES[post.slug].cover ? '' : ' transition-transform duration-300 group-hover:-translate-y-1'}`} />
+      {/* A supplied thumbnail zooms inside a clipped frame on hover; the placeholder lifts instead. */}
+      {CARD_STYLES[post.slug].cover ? (
+        <div className="overflow-hidden rounded-[12px] sm:rounded-[16px]">
+          <PostCover post={post} className="aspect-[16/9] w-full motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-[1.1]" />
+        </div>
+      ) : (
+        <PostCover post={post} className="aspect-[16/9] w-full transition-transform duration-300 group-hover:-translate-y-1" />
+      )}
       <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
         <PostMeta post={post} />
         <h3 className="font-heading text-[18px] font-semibold leading-[24px] text-brand-dark group-hover:underline lg:text-[20px] lg:leading-[26px]">{post.title}</h3>
-        <p className="line-clamp-3 text-[14px] leading-[22px] text-content-secondary lg:text-[16px] lg:leading-[24px]">{post.excerpt}</p>
+        <p className="line-clamp-1 text-[14px] leading-[22px] text-content-secondary lg:text-[16px] lg:leading-[24px]">{post.excerpt}</p>
       </div>
     </Link>
   );

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/launch-gates', () => ({
-  LIVE_PAGES: { caseStudies: true, faqs: true, blog: true, testimonials: true },
+  LIVE_PAGES: { caseStudies: true, faqs: true, blog: true, testimonials: true, research: true, achievements: true },
 }));
 vi.mock('@/components/shared/nav-config.generated', () => ({
   SIGN_IN_ITEMS: [],
@@ -35,7 +35,7 @@ describe('Header with the Learn menu', () => {
   it('keeps every menu link in the page even while the menu is closed', () => {
     render(<Header />);
     const hrefs = Array.from(primary().querySelectorAll('[hidden] a')).map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['/case-studies', '/blog', '/faqs', '/testimonials', 'https://support.cognitivebotics.com/support/solutions', '/contact-us', '/try-demo']);
+    expect(hrefs).toEqual(['/research', '/case-studies', '/achievements', '/testimonials', '/faqs', '/blog', 'https://support.cognitivebotics.com/support/solutions', '/contact-us', '/try-demo']);
     expect(within(primary()).queryByRole('link', { name: /FAQs/ })).toBeNull(); // hidden, so out of the accessibility tree
   });
 
@@ -68,9 +68,9 @@ describe('Header with the Learn menu', () => {
   it('groups the links under three headings', async () => {
     render(<Header />);
     await userEvent.click(within(primary()).getByRole('button', { name: /^learn/i }));
-    for (const heading of ['Stories and guides', 'Answers and quotes', 'Get support']) expect(within(primary()).getByText(heading)).toBeInTheDocument();
-    const quick = within(primary()).getByRole('list', { name: 'Answers and quotes' });
-    expect(within(quick).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['/faqs', '/testimonials']);
+    for (const heading of ['Evidence', 'Questions and stories', 'Get support']) expect(within(primary()).getByText(heading)).toBeInTheDocument();
+    const quick = within(primary()).getByRole('list', { name: 'Questions and stories' });
+    expect(within(quick).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['/testimonials', '/faqs', '/blog']);
   });
 
   it('shows the helper line under each label', async () => {

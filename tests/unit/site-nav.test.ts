@@ -14,12 +14,12 @@ describe('buildPrimaryNav', () => {
     expect(item.label).toBe('Learn');
   });
 
-  it('groups the menu by format: stories and guides, answers and quotes, support, with a demo card', () => {
+  it('groups the menu by what a visitor wants to know: evidence first, then questions and stories, then support, with a demo card', () => {
     const item = buildPrimaryNav()[4];
     if (item.kind !== 'menu') throw new Error('expected a menu');
     expect(item.columns.map((c) => [c.heading, c.pages.map((p) => p.label)])).toEqual([
-      ['Stories and guides', ['Case studies', 'Blog']],
-      ['Answers and quotes', ['FAQs', 'Testimonials']],
+      ['Evidence', ['Research', 'Case studies', 'Patent and certifications']],
+      ['Questions and stories', ['Testimonials', 'FAQs', 'Blog']],
       ['Get support', ['Knowledge base', 'Get in touch']],
     ]);
     expect(item.promo.href).toBe('/try-demo');
@@ -34,12 +34,27 @@ describe('buildPrimaryNav', () => {
   });
 
   it('ships with every Learn page live', () => {
-    expect(LIVE_PAGES).toEqual({ caseStudies: true, faqs: true, blog: true, testimonials: true });
-    expect(livePages().map((p) => p.href)).toEqual(['/case-studies', '/faqs', '/blog', '/testimonials']);
+    expect(LIVE_PAGES).toEqual({ caseStudies: true, faqs: true, blog: true, testimonials: true, research: true, achievements: true });
+    expect(livePages().map((p) => p.href)).toEqual(['/research', '/case-studies', '/achievements', '/testimonials', '/faqs', '/blog']);
   });
 
   it('gives every Learn page a helper line of at most 10 words', () => {
     for (const p of Object.values(LEARN_PAGES)) expect(p.helper.split(' ').length).toBeLessThanOrEqual(10);
+  });
+});
+
+describe('Research and achievements rows', () => {
+  it('link to their own pages, not external', () => {
+    expect(LEARN_PAGES.research).toMatchObject({ label: 'Research', href: '/research' });
+    expect(LEARN_PAGES.achievements).toMatchObject({ label: 'Patent and certifications', href: '/achievements' });
+    expect(LEARN_PAGES.research.external).toBeUndefined();
+    expect(LEARN_PAGES.achievements.external).toBeUndefined();
+  });
+
+  it('lead the menu: Research is the first link in the first column', () => {
+    const item = buildPrimaryNav()[4];
+    if (item.kind !== 'menu') throw new Error('expected a menu');
+    expect(menuPages(item)[0].href).toBe('/research');
   });
 });
 

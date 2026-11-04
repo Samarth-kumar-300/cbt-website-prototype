@@ -77,6 +77,9 @@ test('try-demo: the whole journey works without a Calendly link: form, sample ca
   await expect(page.getByText('We’re excited to give you a demo.')).toBeVisible();
   // The confirmation card itself never pushes case studies (they stay in the nav and footer).
   await expect(page.getByRole('status').getByRole('link', { name: /case stud/i })).toHaveCount(0);
+  // Then the visitor is sent back to the homepage after a short countdown.
+  await expect(page.getByText(/Taking you to the homepage in/)).toBeVisible();
+  await expect(page).toHaveURL(/\/$/, { timeout: 6000 });
 });
 
 test('try-demo: Other shows a field to write in, which is required and goes away for other roles', async ({ page }) => {

@@ -16,16 +16,16 @@ test.describe('blog cards with supplied thumbnails', () => {
     await expect(page.locator(PLACEHOLDER)).toHaveCount(0);
   });
 
-  test('the three supplied images repeat down the grid', async ({ page }) => {
+  test('each card shows its own banner, in order', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/blog');
     const files = await page.locator(IMAGE).evaluateAll((els) => els.map((el) => new URL((el as HTMLImageElement).src).searchParams.get('url')));
-    expect(files).toEqual([1, 2, 3, 1, 2, 3].map((n) => `/images/blog/thumbnail-0${n}.webp`));
+    expect(files).toEqual([1, 2, 3, 4, 5, 6].map((n) => `/images/blog/banner-0${n}.webp`));
   });
 
   // Card widths from the grid: 1 column on phones, 2 on tablets, 3 on desktop (max container 1248px).
   for (const [width, expected] of [[375, 335], [768, 352], [1440, 400]] as const) {
-    test(`at ${width}px the first thumbnail is ${expected}px wide, 16:9, and does not move on hover`, async ({ page }) => {
+    test(`at ${width}px the first thumbnail is ${expected}px wide, 16:9, and zooms 1.1x on hover`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/blog');
       const img = page.locator(IMAGE).first();
@@ -35,7 +35,8 @@ test.describe('blog cards with supplied thumbnails', () => {
       const box = (await img.boundingBox())!;
       expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
       await img.hover();
-      expect(await img.evaluate((el) => getComputedStyle(el).transform)).toBe('none');
+      // The zoom runs for 500ms; wait until it settles at scale 1.1 (Tailwind v4 sets the `scale` property, not `transform`).
+      await expect.poll(() => img.evaluate((el) => parseFloat(getComputedStyle(el).scale))).toBeCloseTo(1.1, 2);
     });
   }
 

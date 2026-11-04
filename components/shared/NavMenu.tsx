@@ -142,7 +142,7 @@ export function NavMenu({ item, pathname }: Props) {
             const headingId = `${panelId}-${col.heading.replace(/\W+/g, '-').toLowerCase()}`;
             return (
               <div key={col.heading} className="flex flex-col gap-4">
-                <p id={headingId} className="text-[12px] font-semibold uppercase tracking-[1.5px] text-content-secondary">
+                <p id={headingId} className="text-[12px] font-semibold uppercase tracking-[0.5px] text-content-secondary">
                   {col.heading}
                 </p>
                 <ul aria-labelledby={headingId} className="flex flex-col gap-1">
@@ -207,7 +207,7 @@ export function MobileNavMenu({ item, pathname, onNavigate }: MobileProps) {
         <div id={panelId} className="mb-2 ml-6 mt-1 flex flex-col gap-3 border-l-2 border-brand-teal-100 pl-3">
           {item.columns.map((col) => (
             <div key={col.heading} className="flex flex-col">
-              <p className="px-3 pt-1 text-[11px] font-semibold uppercase tracking-[1.5px] text-content-secondary">{col.heading}</p>
+              <p className="px-3 pt-1 text-[11px] font-semibold uppercase tracking-[0.5px] text-content-secondary">{col.heading}</p>
               <ul className="flex flex-col">
                 {col.pages.map((p) => (
                   <li key={p.href}>

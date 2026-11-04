@@ -6,14 +6,13 @@ import { CARD_STYLES } from '@/components/pages/blog/card-styles';
 import { PostCard } from '@/components/pages/blog/PostCard';
 import { POSTS } from '@/components/pages/blog/posts';
 
-/** The three supplied thumbnails, repeated down the post list. */
-const COVERS = ['01', '02', '03'].map((n) => `/images/blog/thumbnail-${n}.webp`);
-const EXPECTED = POSTS.map((_, i) => COVERS[i % COVERS.length]);
+/** One supplied banner per post, in post order. */
+const COVERS = ['01', '02', '03', '04', '05', '06'].map((n) => `/images/blog/banner-${n}.webp`);
 
 describe('blog card covers', () => {
-  it('gives every post one of the three supplied thumbnails, repeated in order', () => {
-    expect(POSTS.length).toBeGreaterThan(3);
-    expect(POSTS.map((p) => CARD_STYLES[p.slug].cover)).toEqual(EXPECTED);
+  it('gives every post its own supplied banner, in order', () => {
+    expect(POSTS).toHaveLength(COVERS.length);
+    expect(POSTS.map((p) => CARD_STYLES[p.slug].cover)).toEqual(COVERS);
   });
 
   it.each(COVERS)('%s is a real file', (cover) => {
@@ -26,15 +25,17 @@ describe('blog card covers', () => {
     for (const n of ['01', '02', '03']) expect(existsSync(join(process.cwd(), 'public/images/blog', `thumbnail-${n}.png`)), `thumbnail-${n}.png`).toBe(false);
   });
 
-  it('shows the supplied image as decoration, with no hover lift and no placeholder icon', () => {
-    const post = POSTS[3]; // a repeat of the first image
+  it('shows the supplied image as decoration, zooming on hover with no lift and no placeholder icon', () => {
+    const post = POSTS[3];
     const { container } = render(<PostCard post={post} />);
     const cover = container.querySelector('[data-cover]')!;
     expect(cover.getAttribute('data-cover')).toBe('image');
     expect(cover.tagName).toBe('IMG');
     expect(cover.getAttribute('alt')).toBe(''); // the title is the text under the card
-    expect(decodeURIComponent(cover.getAttribute('src')!)).toContain('/images/blog/thumbnail-01.webp');
+    expect(decodeURIComponent(cover.getAttribute('src')!)).toContain('/images/blog/banner-04.webp');
     expect(cover.className).not.toMatch(/translate/);
+    expect(cover.className).toMatch(/group-hover:scale-\[1\.1\]/);
+    expect(cover.parentElement!.className).toMatch(/overflow-hidden/);
     expect(container.querySelector('[data-cover="placeholder"]')).toBeNull();
   });
 

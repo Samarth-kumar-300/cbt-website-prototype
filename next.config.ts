@@ -13,7 +13,11 @@ const nextConfig: NextConfig = {
   },
   // The Resources page is gone: its content now lives on Case studies (research, achievements, knowledge base, video) and Blog.
   async redirects() {
-    return [{ source: '/resources', destination: '/case-studies', permanent: true }];
+    return [
+      { source: '/resources', destination: '/case-studies', permanent: true },
+      // The live site's research detail pages (/resources/research/<slug>) now live at /research/<slug>.
+      { source: '/resources/research/:slug*', destination: '/research/:slug*', permanent: true },
+    ];
   },
   async rewrites() {
     return STUB_ROUTES.map((source) => ({ source, destination: '/coming-soon' }));

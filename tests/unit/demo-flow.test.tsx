@@ -8,6 +8,8 @@ const URL = 'https://calendly.com/test/demo';
 vi.mock('@/lib/demo-config', () => ({ CALENDLY_URL: 'https://calendly.com/test/demo' }));
 vi.mock('@/lib/demo-submit', () => ({ submitDemoRequest: vi.fn().mockResolvedValue(undefined) }));
 vi.mock('@/lib/analytics', () => ({ track: vi.fn() }));
+const push = vi.fn();
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
 vi.mock('@/lib/calendly', async (importOriginal) => {
   const real = await importOriginal<typeof import('@/lib/calendly')>();
   return { ...real, loadCalendly: vi.fn() };
@@ -39,11 +41,13 @@ beforeEach(() => {
   vi.mocked(track).mockClear();
   popup.mockReset();
   close.mockReset();
+  push.mockReset();
   load.mockReset();
   load.mockResolvedValue(undefined);
   (window as unknown as { Calendly: unknown }).Calendly = { initPopupWidget: popup, closePopupWidget: close };
 });
 afterEach(() => {
+  vi.useRealTimers();
   cleanup();
   Reflect.deleteProperty(window, 'Calendly');
 });
@@ -108,5 +112,18 @@ describe('DemoFlow', () => {
     fromCalendly({ event: 'calendly.event_scheduled' });
     expect(await screen.findByRole('link', { name: 'Back to homepage' })).toHaveAttribute('href', '/');
     expect(screen.queryByRole('link', { name: /case stud/i })).toBeNull();
+  });
+
+  it('counts down from 3 and sends the visitor to the homepage', async () => {
+    await reachSchedule();
+    vi.useFakeTimers();
+    fromCalendly({ event: 'calendly.event_scheduled' });
+    expect(screen.getByText(/Taking you to the homepage in/)).toHaveTextContent('3s');
+    // Each tick is scheduled after the previous render, so step one second at a time.
+    for (let i = 0; i < 2; i++) act(() => void vi.advanceTimersByTime(1000));
+    expect(screen.getByText(/Taking you to the homepage in/)).toHaveTextContent('1s');
+    expect(push).not.toHaveBeenCalled();
+    act(() => void vi.advanceTimersByTime(1000));
+    expect(push).toHaveBeenCalledExactlyOnceWith('/');
   });
 });

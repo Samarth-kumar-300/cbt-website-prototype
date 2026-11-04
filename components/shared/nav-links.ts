@@ -13,6 +13,8 @@ export const LEARN_PAGES: Record<keyof LivePages, NavPage> = {
   faqs: { label: 'FAQs', href: '/faqs', helper: 'Quick answers before you book' },
   blog: { label: 'Blog', href: '/blog', helper: 'Guides on autism and early support' },
   testimonials: { label: 'Testimonials', href: '/testimonials', helper: 'Families and professionals, in their words' },
+  research: { label: 'Research', href: '/research', helper: 'Peer-reviewed studies on developmental outcomes' },
+  achievements: { label: 'Patent and certifications', href: '/achievements', helper: 'Our granted patent and ISO 27001 certificate' },
 };
 
 // The knowledge base lives on another site, so it opens in a new tab. It has no launch gate.
@@ -25,7 +27,7 @@ export const KNOWLEDGE_BASE: NavPage = {
 
 export const GET_IN_TOUCH: NavPage = { label: 'Get in touch', href: '/contact-us', helper: 'Talk to our team' };
 
-const LEARN_ORDER: readonly (keyof LivePages)[] = ['caseStudies', 'faqs', 'blog', 'testimonials'];
+const LEARN_ORDER: readonly (keyof LivePages)[] = ['research', 'caseStudies', 'achievements', 'testimonials', 'faqs', 'blog'];
 
 export function livePages(live: LivePages = LIVE_PAGES): NavPage[] {
   return LEARN_ORDER.filter((k) => live[k]).map((k) => LEARN_PAGES[k]);
@@ -37,8 +39,8 @@ export function menuPages(item: NavMenuItem): NavPage[] {
 }
 
 /**
- * Learn replaces the old Resources link, in three columns grouped by format: pages with a detail page per item
- * (case studies, blog), single pages of short items (FAQs, testimonials), and help.
+ * Learn replaces the old Resources link, in three columns grouped by what a visitor is trying to find out:
+ * does it work (evidence, strongest first), what do others say and what can I ask (questions and stories), and help.
  * It lists every page; those not live yet open the coming-soon stub.
  */
 export function buildPrimaryNav(): NavItem[] {
@@ -46,8 +48,8 @@ export function buildPrimaryNav(): NavItem[] {
     kind: 'menu',
     label: 'Learn',
     columns: [
-      { heading: 'Stories and guides', pages: [LEARN_PAGES.caseStudies, LEARN_PAGES.blog] },
-      { heading: 'Answers and quotes', pages: [LEARN_PAGES.faqs, LEARN_PAGES.testimonials] },
+      { heading: 'Evidence', pages: [LEARN_PAGES.research, LEARN_PAGES.caseStudies, LEARN_PAGES.achievements] },
+      { heading: 'Questions and stories', pages: [LEARN_PAGES.testimonials, LEARN_PAGES.faqs, LEARN_PAGES.blog] },
       { heading: 'Get support', pages: [KNOWLEDGE_BASE, GET_IN_TOUCH] },
     ],
     promo: { heading: 'See it in your centre or school', label: 'Book a demo', href: '/try-demo' },

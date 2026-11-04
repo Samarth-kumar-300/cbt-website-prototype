@@ -29,5 +29,9 @@ export const tryDemoContent = {
     opening: 'Opening calendar',
     error: 'The calendar didn’t load. Try again, or we’ll email you.',
   },
-  done: { title: 'Demo booked', line: 'We’re excited to give you a demo. Check your email for the invite.' },
+  done: {
+    title: 'Demo booked',
+    line: 'We’re excited to give you a demo. Check your email for the invite.',
+    redirect: 'Taking you to the homepage in',
+  },
 } as const;
