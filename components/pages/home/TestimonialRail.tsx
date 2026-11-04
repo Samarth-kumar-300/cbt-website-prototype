@@ -2,43 +2,13 @@
 
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { VideoTestimonialCard } from "@/components/shared/VideoTestimonialCard";
+import { TESTIMONIALS, VIDEO_TESTIMONIAL } from "@/lib/testimonials";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const QUOTES = [
-  {
-    color: "#a85923",
-    name: "Tejaswi Kumar",
-    avatar: "tejaswi",
-    role: "Parent",
-    text: "We haven’t seen such a variety of activities in other apps or cartoons. He enjoys them and has even started using the app independently. Over the past two months, he has begun saying his name, answering questions and responding to people.",
-  },
-  {
-    color: "#4ca154",
-    name: "Mounila Thustam",
-    avatar: "mounila",
-    role: "Parent",
-    text: "Nyra’s attention span has improved. The app fits well with her ongoing therapies as it gives her extra practice at home, and it has helped us spend more structured and meaningful time together.",
-  },
-  {
-    color: "#2d679c",
-    name: "Dr Chandrashekhar",
-    avatar: "chandrashekhar",
-    role: "Therapist Director, Resplice Child Development Center",
-    text: "In our therapy center, maintaining continuity was a challenge. CognitiveBotics has helped us address this with engaging, user-friendly activities that support parents, educators and therapists in building children’s independence.",
-  },
-  {
-    color: "#a95fb5",
-    name: "Pavani",
-    avatar: "pavani",
-    role: "Parent",
-    text: "CognitiveBotics has been very helpful in continuing my child’s learning at home, especially with pointing and imitation skills. He has also started communicating his needs and I feel the app supports faster learning when used alongside therapy.",
-  },
-];
 
 // Slow enough to read along with: a card (424px) takes about 13s to pass, and the drift holds still on hover or focus.
 const DRIFT_PX_PER_SEC = 33.75;
@@ -191,33 +161,12 @@ export function TestimonialRail() {
       >
         {(playing ? [0, 1] : [0]).map((copy) => (
           <Fragment key={copy}>
-        <Link
-          {...(copy ? { "aria-hidden": true, tabIndex: -1 } : {})}
-          href="/resources"
-          data-card
-          className="tcard group flex w-[628px] shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-teal flex-col overflow-hidden rounded-[20px] border-[1.5px] border-[#e4ded4] bg-white shadow-[0px_8px_20px_-6px_rgba(23,94,99,0.06)]"
-        >
-          <Image
-            src="/images/homepage/testimonial-ram-kamal.webp"
-            alt="Ram Kamal, Inclusive Education Specialist and Founder Trustee of Chakshumathi, on early intervention"
-            width={1250}
-            height={716}
-            sizes="628px"
-            className="tthumb h-auto w-full"
-          />
-          <div className="flex flex-col items-start gap-3 px-6 pt-5 pb-6">
-            <p className="font-heading text-[20px] font-semibold leading-[28px] text-content-brand">
-              Importance of Early Intervention and preparing children for healthy digital engagement
-            </p>
-            <span className="inline-flex items-center gap-2 text-[14px] font-semibold leading-[22px] text-content-brand">
-              Explore expert insights
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-                <path d="M4 12h16m0 0-6-6m6 6-6 6" />
-              </svg>
-            </span>
-          </div>
-        </Link>
-        {QUOTES.map((q) => (
+        <VideoTestimonialCard
+          video={VIDEO_TESTIMONIAL}
+          variant="rail"
+          buttonProps={{ "data-card": true, ...(copy ? { "aria-hidden": true, tabIndex: -1 } : {}) }}
+        />
+        {TESTIMONIALS.map((q) => (
           <figure
             key={q.name}
             aria-hidden={copy ? true : undefined}

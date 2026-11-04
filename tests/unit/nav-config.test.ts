@@ -50,4 +50,19 @@ describe('buildNavConfig', () => {
     expect(out).not.toContain('empty.example.com');
     expect(out).not.toContain('blank.example.com');
   });
+
+  it('never puts the dropped Resources and Get in Touch links back in the drawer', () => {
+    const out = buildNavConfig({
+      signInMenu: [],
+      drawerLinks: [
+        { label: 'RESOURCES', href: '/resources' },
+        { label: 'GET IN TOUCH', href: '/contact-us' },
+        { label: 'Careers', href: '/careers' },
+      ],
+    });
+    const drawer = out.slice(out.indexOf('export const DRAWER_LINKS'), out.indexOf('export const HEADER_SCROLLED_BG'));
+    expect(drawer).toContain('"/careers"');
+    expect(drawer).not.toContain('/resources');
+    expect(drawer).not.toContain('/contact-us');
+  });
 });

@@ -8,12 +8,16 @@ function primaryHrefs() {
   return [...src.matchAll(/href:\s*'([^']+)'/g)].map((m) => m[1]);
 }
 
+// Links the captured reference still lists but the site has dropped from its nav on purpose.
+// Resources became the Learn menu; Get in Touch was removed from the nav (the page and footer link remain).
+const DROPPED_HREFS = ['/resources', '/contact-us'];
+
 export function buildNavConfig(i) {
   const signIn = (i.signInMenu ?? []).filter((it) => typeof it.label === 'string' && it.label.trim() !== '' && it.href);
 
   // The drawer renders the primary links, the sign-in items and its own Try Demo button,
   // so DRAWER_LINKS keeps only links that are not already shown elsewhere.
-  const taken = new Set([...primaryHrefs(), ...signIn.map((it) => it.href), '/try-demo']);
+  const taken = new Set([...primaryHrefs(), ...signIn.map((it) => it.href), '/try-demo', ...DROPPED_HREFS]);
   const drawer = (i.drawerLinks ?? []).filter((it) => it.href && !taken.has(it.href));
 
   const list = (name, items) =>

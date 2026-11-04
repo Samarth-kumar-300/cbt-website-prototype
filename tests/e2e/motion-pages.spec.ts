@@ -3,18 +3,6 @@ import { noConsentBanner } from './helpers';
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 
-test('a linked card inside a stagger group lifts on hover without the stagger delay', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/resources', { waitUntil: 'networkidle' });
-  const card = page.locator('.card-lift').nth(4); // a later child: the old stagger delay would be 320ms
-  await card.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1500); // entry finished
-  await card.hover();
-  await page.waitForTimeout(260); // hover is 200ms; a 320ms delay would not have started
-  const ty = await card.evaluate((el) => getComputedStyle(el).translate);
-  expect(ty).toMatch(/-4px/);
-});
-
 const SKILLS_LAST = 'Expressive Skill';
 
 test('therapy skills: one row, every card reachable, no page overflow (desktop and mobile)', async ({ page }) => {
@@ -55,7 +43,7 @@ test('therapy skills: arrows move the row on desktop', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Previous Skills' })).toBeEnabled();
 });
 
-const ROUTES = ['/', '/about', '/contact-us', '/parents', '/resources', '/schools', '/therapy-centres'];
+const ROUTES = ['/', '/about', '/contact-us', '/parents', '/schools', '/therapy-centres'];
 
 const scrollThrough = async (page: import('@playwright/test').Page) => {
   const h = await page.evaluate(() => document.documentElement.scrollHeight);
@@ -115,7 +103,7 @@ test('an anchor jump lands on visible content', async ({ page }) => {
 
 test('stagger groups start hidden and are revealed once scrolled to', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/resources', { waitUntil: 'networkidle' });
+  await page.goto('/case-studies', { waitUntil: 'networkidle' });
   const pendingChild = page.locator('[data-reveal-group="pending"] > *').first();
   await expect(pendingChild).toHaveCSS('opacity', '0');
   const group = page.locator('[data-reveal-group]').last();

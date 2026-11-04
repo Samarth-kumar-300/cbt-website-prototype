@@ -10,7 +10,8 @@
     "test": "vitest run",
     "e2e": "playwright test",
     "capture": "node tools/capture-reference.mjs",
-    "verify": "node tools/verify-page.mjs"
+    "verify": "node tools/verify-page.mjs",
+    "thumbnails": "next build && node tools/render-thumbnails.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

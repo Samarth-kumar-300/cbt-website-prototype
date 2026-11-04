@@ -6,7 +6,8 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Button } from './Button';
 import { Logo } from './Logo';
 import { DRAWER_LINKS, HEADER_BG_IMAGE, HEADER_SCROLLED_BG, SIGN_IN_ITEMS } from './nav-config.generated';
-import { NAV_LINKS } from './nav-links';
+import { MobileNavMenu, NavMenu } from './NavMenu';
+import { buildPrimaryNav, isActivePath, type NavItem } from './nav-links';
 
 function Chevron() {
   return (
@@ -16,19 +17,29 @@ function Chevron() {
   );
 }
 
+const NAV = buildPrimaryNav();
+const DRAWER_ITEMS: NavItem[] = [
+  ...NAV,
+  ...DRAWER_LINKS.map((l) => ({ kind: 'link' as const, label: l.label, href: l.href })),
+];
+
 export function Header() {
-  const [drawer, setDrawer] = useState(false);
+  // The drawer is open only for the route it was opened on, so any navigation (a nav link, the logo,
+  // Try demo, the back button) closes it without an effect.
+  const [drawerPath, setDrawerPath] = useState<string | null>(null);
   const [menu, setMenu] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname() ?? '';
+  const drawer = drawerPath === pathname;
+  const closeDrawer = () => setDrawerPath(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setDrawer(false);
+        setDrawerPath(null);
         setMenu(false);
       }
     };
@@ -52,7 +63,7 @@ export function Header() {
     if (typeof window.matchMedia !== 'function') return;
     const mq = window.matchMedia('(min-width: 1280px)');
     const onChange = (e: { matches: boolean }) => {
-      if (e.matches) setDrawer(false);
+      if (e.matches) setDrawerPath(null);
     };
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
@@ -76,37 +87,38 @@ export function Header() {
             ...(scrolled ? { backgroundColor: HEADER_SCROLLED_BG } : {}),
           } as CSSProperties
         }
-        // Below xl the glass bar is inset 16px and flush with the top, open or closed.
-        className={`mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,box-shadow] duration-300 xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
+        // Below xl the glass bar is inset 16px and flush with the top, open or closed. `relative` anchors the Learn mega menu.
+        className={`relative has-[[data-menu-open=true]]:rounded-b-none has-[[data-menu-open=true]]:bg-white! mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,box-shadow] duration-300 xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
           scrolled
             ? 'shadow-[0px_12px_34px_-8px_rgba(16,73,76,0.22)]'
             : 'shadow-[0px_12px_34px_-8px_rgba(214,251,254,0.16)]'
         }`}
       >
-        <Link href="/" aria-label="CognitiveBotics home" className="hit relative h-[21px] w-[145px] shrink-0 xl:h-[31px] xl:w-[213px]">
+        <Link href="/" aria-label="CognitiveBotics home" onClick={closeDrawer} className="hit relative h-[21px] w-[145px] shrink-0 xl:h-[31px] xl:w-[213px]">
           <Logo />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center justify-center gap-3 xl:flex">
-          {NAV_LINKS.map((l, i) => {
-            const active = pathname === l.href || pathname.startsWith(l.href + '/');
-            return (
-              <span key={l.href} className="flex items-center gap-3">
-                {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
+        <nav aria-label="Primary" className="hidden items-center justify-center gap-2 min-[1440px]:gap-3 xl:flex">
+          {NAV.map((item, i) => (
+            <span key={item.label} className="flex items-center gap-2 min-[1440px]:gap-3">
+              {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
+              {item.kind === 'menu' ? (
+                <NavMenu item={item} pathname={pathname} />
+              ) : (
                 <Link
-                  href={l.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={`nav-link inline-block whitespace-nowrap text-[13px] uppercase tracking-[0.6px] transition-colors ${
-                    active
+                  href={item.href}
+                  aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
+                  className={`nav-link inline-block whitespace-nowrap text-[12px] uppercase tracking-[0.5px] transition-colors min-[1440px]:text-[13px] min-[1440px]:tracking-[0.6px] ${
+                    isActivePath(pathname, item.href)
                       ? 'font-bold text-content-brand-secondary'
                       : 'font-semibold text-content-brand hover:text-brand-dark'
                   }`}
                 >
-                  {l.label}
+                  {item.label}
                 </Link>
-              </span>
-            );
-          })}
+              )}
+            </span>
+          ))}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 xl:flex">
@@ -141,7 +153,7 @@ export function Header() {
           aria-label={drawer ? 'Close menu' : 'Open menu'}
           aria-expanded={drawer}
           aria-controls="mobile-nav"
-          onClick={() => setDrawer((d) => !d)}
+          onClick={() => setDrawerPath((p) => (p === pathname ? null : pathname))}
           className="-mr-2 -my-2 flex size-11 shrink-0 flex-col items-center justify-center gap-[5px] text-content-brand xl:hidden"
         >
           {drawer ? (
@@ -164,22 +176,23 @@ export function Header() {
           aria-label="Mobile"
           className="mx-4 mt-2 flex max-h-[calc(100dvh-110px)] w-[calc(100%-2rem)] max-w-[1392px] flex-col gap-1 overflow-y-auto rounded-3xl bg-white p-4 shadow-[0px_0px_20px_rgba(10,13,18,0.14)] xl:hidden"
         >
-          {[...NAV_LINKS, ...DRAWER_LINKS].map((l) => {
-            const active = pathname === l.href || pathname.startsWith(l.href + '/');
-            return (
+          {DRAWER_ITEMS.map((item) =>
+            item.kind === 'menu' ? (
+              <MobileNavMenu key={item.label} item={item} pathname={pathname} onNavigate={closeDrawer} />
+            ) : (
               <Link
-                key={l.href + l.label}
-                href={l.href}
-                onClick={() => setDrawer(false)}
-                aria-current={active ? 'page' : undefined}
+                key={item.href + item.label}
+                href={item.href}
+                onClick={closeDrawer}
+                aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
                 className={`rounded-xl px-4 py-3 text-[16px] uppercase tracking-[0.6px] transition-colors hover:bg-brand-subtle-bg active:bg-brand-subtle-bg ${
-                  active ? 'font-bold text-content-brand-secondary' : 'font-semibold text-content-brand'
+                  isActivePath(pathname, item.href) ? 'font-bold text-content-brand-secondary' : 'font-semibold text-content-brand'
                 }`}
               >
-                {l.label}
+                {item.label}
               </Link>
-            );
-          })}
+            ),
+          )}
           <div className="mx-4 my-2 h-px bg-brand-teal-100" aria-hidden="true" />
           {SIGN_IN_ITEMS.length > 0 ? (
             <div className="flex flex-col gap-1 px-2">
@@ -209,7 +222,7 @@ export function Header() {
                 : null}
             </div>
           ) : null}
-          <div className="px-2 pb-2 pt-1">
+          <div className="px-2 pb-2 pt-1" onClick={closeDrawer}>
             <Button href="/try-demo" size="md" className="w-full uppercase tracking-[0.6px]">
               Try demo
             </Button>

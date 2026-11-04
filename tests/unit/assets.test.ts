@@ -14,7 +14,7 @@ describe('slug helpers', () => {
     expect(slugToComponentName('contact-us')).toBe('ContactUsPage');
   });
   it('lists exactly the Phase 1 routes', () => {
-    expect(ROUTES).toEqual(['/', '/therapy-centres', '/schools', '/parents', '/resources', '/about', '/contact-us']);
+    expect(ROUTES).toEqual(['/', '/therapy-centres', '/schools', '/parents', '/about', '/contact-us']);
   });
 });
 

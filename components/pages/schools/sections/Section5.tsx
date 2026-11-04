@@ -1,3 +1,4 @@
+import { MotionImage } from "@/components/shared/MotionImage";
 import { TextReveal } from "@/components/shared/TextReveal";
 import Link from "next/link";
 import Image from "next/image";
@@ -43,7 +44,7 @@ export function Section5() {
             </Link>
           </div>
         </div>
-        <div className="relative aspect-[1280/569] w-full max-w-none shrink-0 lg:mx-0 lg:aspect-auto lg:h-[282px] lg:w-full lg:max-w-[635px]">
+        <MotionImage enter="rise" className="relative aspect-[1280/569] w-full max-w-none shrink-0 lg:mx-0 lg:aspect-auto lg:h-[282px] lg:w-full lg:max-w-[635px]">
           <Image
             src="/images/schools/built-to-scale-v2.webp"
             alt=""
@@ -51,7 +52,7 @@ export function Section5() {
             sizes="(min-width: 1024px) 635px, 100vw"
             className="object-contain"
           />
-        </div>
+        </MotionImage>
         <div className="w-full lg:hidden">
           <Link
             className="btn inline-flex items-center rounded-full whitespace-nowrap font-semibold gap-[10px] px-6 py-[14px] text-[16px] lg:py-[18px] lg:pl-8 lg:pr-[30px] lg:text-[18px] bg-brand-teal text-content-knockout transition-colors hover:bg-[#0f4548] w-full justify-center"

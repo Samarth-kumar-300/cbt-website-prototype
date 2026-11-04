@@ -33,7 +33,7 @@ export const sections = [
     links: [
       {
         text: "Learn more about inclusive education",
-        href: "/resources#blog",
+        href: "/blog",
       },
     ],
     buttons: [],
@@ -200,12 +200,7 @@ export const sections = [
       "Designed Around Measurable Outcomes",
       "A 12-month observational study showed statistically significant developmental improvements alongside conventional therapy.",
     ],
-    links: [
-      {
-        text: "Explore our Research Library",
-        href: "/resources#research",
-      },
-    ],
+    links: [],
     buttons: [],
     imgs: [],
   },

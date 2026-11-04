@@ -1,5 +1,6 @@
 "use client";
 
+import { Reveal } from "@/components/shared/Reveal";
 
 export function Section3() {
   return (
@@ -63,23 +64,25 @@ export function Section3() {
           </form>
         </div>
         <div className="flex flex-col items-start gap-3 lg:pt-6">
-          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#f8f2f9]">
-            <svg
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              stroke="currentColor"
-              strokeWidth="2"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              style={{ color: "#a14da5" }}
-            >
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-              <path d="m22 7-10 6L2 7" />
-            </svg>
-          </span>
+          <Reveal>
+            <span data-icon className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#f8f2f9]">
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                style={{ color: "#a14da5" }}
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-10 6L2 7" />
+              </svg>
+            </span>
+          </Reveal>
           <h3 className="font-heading text-[24px] font-semibold leading-[30px] text-brand-teal lg:text-[28px] lg:leading-[36px]">
             Contact Us
           </h3>

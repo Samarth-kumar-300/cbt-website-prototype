@@ -808,3 +808,32 @@ button[aria-expanded="true"] .faq-icon {
     padding: 1px;
   }
 }
+
+/* Case study cards: a tile with chamfered corners. The cut grows on hover and focus. */
+@property --cut {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 12px;
+}
+.cs-cover {
+  --cut: 12px;
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cs-cover {
+    transition: --cut 350ms var(--ease-out);
+  }
+}
+.cs-card:hover .cs-cover,
+.cs-card:focus-visible .cs-cover {
+  --cut: 22px;
+}

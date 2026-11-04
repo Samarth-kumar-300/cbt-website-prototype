@@ -1,6 +1,7 @@
 import { TextReveal } from "@/components/shared/TextReveal";
 import { RevealStagger } from "@/components/shared/RevealStagger";
 import { Reveal } from "@/components/shared/Reveal";
+import { MotionImage } from "@/components/shared/MotionImage";
 import Image from "next/image";
 
 export function Section0() {
@@ -181,7 +182,7 @@ export function Section0() {
       <Reveal><div className="mx-auto mt-6 max-w-[1440px] px-6 lg:px-24">
         <div className="rounded-[24px] border border-[#cfe2de] bg-white px-5 pb-[26px] pt-[22px] lg:rounded-[32px] lg:border-[#e2ede9] lg:p-12">
           <div className="flex flex-col items-start gap-[18px] lg:flex-row lg:items-center lg:gap-14">
-            <div data-motion-image className="relative h-[188px] w-full max-w-[310px] shrink-0 lg:h-[258px] lg:w-[426px] lg:max-w-none">
+            <MotionImage enter="none" layer="tilt" className="relative h-[188px] w-full max-w-[310px] shrink-0 lg:h-[258px] lg:w-[426px] lg:max-w-none">
               <Image
                 src="/images/homepage/whatiscbt.webp"
                 alt="What_Is_CBT"
@@ -189,7 +190,7 @@ export function Section0() {
                 sizes="(min-width: 1024px) 426px, 310px"
                 className="absolute inset-0 h-full w-full object-contain"
               />
-            </div>
+            </MotionImage>
             <div className="flex flex-col items-start gap-3 lg:gap-5">
               <TextReveal as="h2" split="words" trigger="scroll" className="font-heading text-[24px] font-semibold leading-[32px] text-content-brand-secondary lg:text-[48px] lg:leading-[58px]">{"What is CognitiveBotics?"}</TextReveal>
               <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px] lg:text-text-secondary">

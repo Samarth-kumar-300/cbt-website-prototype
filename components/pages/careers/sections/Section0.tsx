@@ -28,15 +28,16 @@ export function Section0() {
           </Button>
         </div>
         <div className="flex w-full justify-center lg:justify-end">
-          <Image
-            src="/images/careers/careers-hero-children-holding-hands.webp"
-            alt="Illustration of three children holding hands"
-            width={1000}
-            height={751}
-            priority
-            sizes="(min-width: 1024px) 420px, 90vw"
-            className="h-auto w-full max-w-[420px]"
-          />
+          <div className="hero-settle relative aspect-[1000/751] w-full max-w-[420px]">
+            <Image
+              src="/images/careers/careers-hero-children-holding-hands.webp"
+              alt="Illustration of three children holding hands"
+              fill
+              priority
+              sizes="(min-width: 1024px) 420px, 90vw"
+              className="object-contain"
+            />
+          </div>
         </div>
       </div>
     </section>

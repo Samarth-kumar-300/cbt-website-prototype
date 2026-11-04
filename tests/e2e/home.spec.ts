@@ -122,22 +122,25 @@ for (const width of [1440, 375]) {
 }
 
 test("mobile testimonial dots switch the visible card", async ({ page }) => {
+  // The row opens on the video testimonial, then the written quotes follow.
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto("/");
-  const first = page.locator("p:visible", {
-    hasText: "Nyra’s attention span has improved",
-  });
-  const second = page.locator("p:visible", {
-    hasText: "We haven’t seen such a variety of activities",
-  });
+  const video = page.getByRole("button", { name: /Watch now/ });
+  const nyra = page.locator("p:visible", { hasText: "Nyra’s attention span has improved" });
+  const tejaswi = page.locator("p:visible", { hasText: "We haven’t seen such a variety of activities" });
   const dots = page.getByRole("tab", { name: /testimonial/i });
-  await expect(dots).toHaveCount(4);
+  await expect(dots).toHaveCount(5);
   await dots.first().scrollIntoViewIfNeeded();
-  await expect(first).toHaveCount(1);
-  await expect(second).toHaveCount(0);
+  await expect(dots.first()).toHaveAttribute("aria-selected", "true");
+  // Slides sit side by side in a scroller, so check what is on screen, not what is rendered.
+  await expect(video).toBeInViewport({ ratio: 0.9 });
+  await expect(nyra).not.toBeInViewport();
   await dots.nth(1).click();
   await expect(dots.nth(1)).toHaveAttribute("aria-selected", "true");
   await expect(dots.first()).toHaveAttribute("aria-selected", "false");
-  await expect(second).toHaveCount(1);
-  await expect(first).toHaveCount(0);
+  await expect(nyra).toBeInViewport({ ratio: 0.9 });
+  await expect(video).not.toBeInViewport();
+  await dots.nth(2).click();
+  await expect(tejaswi).toBeInViewport({ ratio: 0.9 });
+  await expect(nyra).not.toBeInViewport();
 });

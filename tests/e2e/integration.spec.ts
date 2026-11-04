@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { noConsentBanner } from './helpers';
 
-const ROUTES = ['/', '/therapy-centres', '/schools', '/parents', '/resources', '/about', '/contact-us'];
+const ROUTES = ['/', '/therapy-centres', '/schools', '/parents', '/about', '/contact-us', '/pricing', '/faqs', '/try-demo'];
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 
@@ -38,16 +38,18 @@ test('header and footer are byte-identical on every page', async ({ page }) => {
   }
 });
 
-test('hamburger drawer opens at 375px on every page and lists the six primary links', async ({ page }) => {
+test('hamburger drawer opens at 375px on every page and lists the primary links and the Learn accordion', async ({ page }) => {
   for (const route of ROUTES) {
     await page.setViewportSize({ width: 375, height: 800 });
     await page.goto(route);
     await page.getByRole('button', { name: /open menu/i }).click();
     const nav = page.getByRole('navigation', { name: 'Mobile' });
     await expect(nav).toBeVisible();
-    for (const label of ['Therapy Centres', 'Schools', 'Parents', 'Resources', 'About Us', 'Get in Touch']) {
+    for (const label of ['Therapy Centres', 'Schools', 'Parents', 'Pricing', 'About Us']) {
       await expect(nav.getByRole('link', { name: label })).toBeVisible();
     }
+    await expect(nav.getByRole('button', { name: 'Learn' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Get in Touch' })).toHaveCount(0);
   }
 });
 
