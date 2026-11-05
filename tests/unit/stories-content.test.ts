@@ -13,8 +13,8 @@ describe('blog posts', () => {
       'fun-ways-to-boost-motor-skills-of-children-with-autism',
       'understanding-the-underlying-causes-of-autism-a-comprehensive-guide',
       'the-startling-truth-about-screen-time-and-autism',
-      'early-intervention-is-the-key-to-managing-autism',
       'how-to-travel-with-children-who-have-autism',
+      'early-intervention-is-the-key-to-managing-autism',
     ]);
   });
   it('gives every post body text, a card style and a read time', () => {

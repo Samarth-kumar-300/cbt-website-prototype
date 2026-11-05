@@ -25,7 +25,7 @@ export function FaqsPage() {
           <p className="text-[14px] text-content-secondary">Last updated: {FAQ_LAST_UPDATED}</p>
         </div>
       </section>
-      <CtaPanel heading={c.cta.heading} label={c.cta.label} href={c.cta.href} />
+      <CtaPanel heading={c.cta.heading} body={c.cta.body} label={c.cta.label} href={c.cta.href} />
       <JsonLd data={faqPageJsonLd()} />
     </>
   );

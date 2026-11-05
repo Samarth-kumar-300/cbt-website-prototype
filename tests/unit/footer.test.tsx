@@ -19,7 +19,7 @@ describe('Footer', () => {
   it('uses the dark teal background and shows the three column headings', () => {
     const { container, getAllByText } = render(<Footer />);
     expect(container.querySelector('footer')!.className).toContain('bg-brand-dark');
-    ['PLATFORM', 'RESOURCES', 'COMPANY'].forEach((h) => expect(getAllByText(h).length).toBeGreaterThan(0));
+    ['PLATFORM', 'LEARN', 'COMPANY'].forEach((h) => expect(getAllByText(h).length).toBeGreaterThan(0));
   });
   it('opens external links in a new tab safely', () => {
     const { container } = render(<Footer />);
@@ -47,7 +47,7 @@ describe('Footer', () => {
     for (const h of ['/case-studies', '/blog', '/testimonials', '/research', '/achievements']) expect(hrefs).toContain(h);
     expect(hrefs).not.toContain('/resources#blog');
   });
-  it('lists Research under Resources and the patent and certifications page under Company', () => {
+  it('lists Research under Learn and the patent and certifications page under Company', () => {
     const { container } = render(<Footer />);
     const mobile = container.querySelector('footer')!;
     const links = Array.from(mobile.querySelectorAll('a')).map((a) => [a.textContent?.trim(), a.getAttribute('href')]);

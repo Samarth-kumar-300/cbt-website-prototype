@@ -22,7 +22,7 @@ export function TestimonialsPage() {
       <section className="px-5 py-12 lg:px-[84px] lg:py-[84px]">
         <TestimonialsGrid quotes={TESTIMONIALS} video={VIDEO_TESTIMONIAL} />
       </section>
-      <CtaPanel heading={c.cta.heading} label={c.cta.label} href={c.cta.href} />
+      <CtaPanel heading={c.cta.heading} body={c.cta.body} label={c.cta.label} href={c.cta.href} />
     </>
   );
 }

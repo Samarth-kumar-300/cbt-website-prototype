@@ -20,7 +20,7 @@ test.describe('blog cards with supplied thumbnails', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/blog');
     const files = await page.locator(IMAGE).evaluateAll((els) => els.map((el) => new URL((el as HTMLImageElement).src).searchParams.get('url')));
-    expect(files).toEqual([1, 2, 3, 4, 5, 6].map((n) => `/images/blog/banner-0${n}.webp`));
+    expect(files).toEqual([1, 2, 3, 4, 6, 5].map((n) => `/images/blog/banner-0${n}.webp`));
   });
 
   // Card widths from the grid: 1 column on phones, 2 on tablets, 3 on desktop (max container 1248px).

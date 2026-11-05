@@ -36,7 +36,7 @@ const COLUMNS: { heading: string; links: L[] }[] = [
       { label: "Pricing", href: "/pricing" },
     ],
   },
-  { heading: "RESOURCES", links: resourceLinks() },
+  { heading: "LEARN", links: resourceLinks() },
   {
     heading: "COMPANY",
     links: [

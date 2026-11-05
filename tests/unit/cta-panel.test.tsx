@@ -15,4 +15,10 @@ describe('CtaPanel', () => {
     expect(screen.getByRole('heading', { name: 'Not sure which fits?' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /book a demo/i })).toHaveAttribute('href', '/try-demo');
   });
+  it('shows a supporting line when given one, and no empty paragraph when not', () => {
+    const { container, rerender } = render(<CtaPanel heading="Heading" label="Go" href="/x" />);
+    expect(container.querySelector('p')).toBeNull();
+    rerender(<CtaPanel heading="Heading" body="What happens next." label="Go" href="/x" />);
+    expect(screen.getByText('What happens next.')).toBeInTheDocument();
+  });
 });

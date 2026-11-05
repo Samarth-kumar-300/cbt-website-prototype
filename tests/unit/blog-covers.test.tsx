@@ -6,8 +6,8 @@ import { CARD_STYLES } from '@/components/pages/blog/card-styles';
 import { PostCard } from '@/components/pages/blog/PostCard';
 import { POSTS } from '@/components/pages/blog/posts';
 
-/** One supplied banner per post, in post order. */
-const COVERS = ['01', '02', '03', '04', '05', '06'].map((n) => `/images/blog/banner-${n}.webp`);
+/** One supplied banner per post, in post order. Each banner carries its own post's title, so the last two follow the travel and early intervention posts. */
+const COVERS = ['01', '02', '03', '04', '06', '05'].map((n) => `/images/blog/banner-${n}.webp`);
 
 describe('blog card covers', () => {
   it('gives every post its own supplied banner, in order', () => {

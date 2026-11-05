@@ -4,7 +4,7 @@ export const blogContent = {
   title: 'Blog',
   subtitle: 'Guides and news on autism and early support.',
   chipsLabel: 'Blog audiences',
-  cta: { heading: 'See it in your centre or school', label: 'Book a demo', href: '/try-demo' },
+  cta: { heading: 'See it in your centre or school', body: 'Tell us about your team, then pick a time for your demo.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 /** Chip order on /blog; an audience with no posts is left out. */

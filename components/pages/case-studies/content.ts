@@ -25,7 +25,7 @@ export type CaseStudy = {
 export const caseStudiesContent = {
   title: 'Case studies',
   filtersLabel: 'Case study groups',
-  cta: { heading: 'Want results like these?', label: 'Book a demo', href: '/try-demo' },
+  cta: { heading: 'Want this in your own centre or school?', body: 'Tell us about your team, then pick a time for your demo.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 /** Filter rows on /case-studies; a group with no case studies is left out. */

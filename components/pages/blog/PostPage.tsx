@@ -71,7 +71,7 @@ export function PostPage({ post }: { post: BlogPost }) {
           </div>
         </section>
       ) : null}
-      <CtaPanel heading={c.cta.heading} label={c.cta.label} href={c.cta.href} />
+      <CtaPanel heading={c.cta.heading} body={c.cta.body} label={c.cta.label} href={c.cta.href} />
       <JsonLd data={postJsonLd(post)} />
     </>
   );

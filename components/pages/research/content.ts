@@ -2,7 +2,7 @@
 export const researchContent = {
   title: 'Research',
   subtitle: 'Explore peer-reviewed research and validation studies showcasing how we deliver measurable outcomes',
-  cta: { heading: 'Want results like these?', label: 'Book a demo', href: '/try-demo' },
+  cta: { heading: 'See the platform behind the research', body: 'Pick a time and we’ll show you how it works in a centre or school.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 export const RESEARCH_HREF_PREFIX = '/research/';

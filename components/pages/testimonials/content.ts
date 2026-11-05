@@ -6,7 +6,7 @@ export const testimonialsContent = {
   title: 'What families and professionals say',
   subtitle: 'In their own words.',
   chipsLabel: 'Testimonial groups',
-  cta: { heading: 'Want results like these?', label: 'Book a demo', href: '/try-demo' },
+  cta: { heading: 'See what they’re talking about', body: 'Book a demo and try it with your own team.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 export type TestimonialGroup = { readonly id: string; readonly label: string; readonly audience?: Testimonial['audience'] };

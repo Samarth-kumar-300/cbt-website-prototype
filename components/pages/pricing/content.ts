@@ -43,7 +43,7 @@ export const pricingContent = {
   ],
   testimonialsHeading: 'What our users say',
   faqHeading: 'Frequently asked questions',
-  cta: { heading: 'Not sure which fits?', label: 'Book a demo', href: '/try-demo' },
+  cta: { heading: 'Not sure which fits?', body: 'Book a demo and we’ll help you choose the right plan.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 function reuse(question: string) {

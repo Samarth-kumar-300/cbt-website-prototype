@@ -17,7 +17,7 @@ export function AchievementsPage() {
           </RevealStagger>
         </div>
       </section>
-      <CtaPanel heading={c.cta.heading} label={c.cta.label} href={c.cta.href} />
+      <CtaPanel heading={c.cta.heading} body={c.cta.body} label={c.cta.label} href={c.cta.href} />
     </>
   );
 }

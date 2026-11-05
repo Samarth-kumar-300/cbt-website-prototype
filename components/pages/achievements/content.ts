@@ -3,7 +3,7 @@
 export const achievementsContent = {
   title: 'Achievements',
   subtitle: 'Our granted Indian patent and ISO 27001 certification.',
-  cta: { heading: 'Want results like these?', label: 'Book a demo', href: '/try-demo' },
+  cta: { heading: 'See the certified platform in action', body: 'We’ll walk your team through how it works.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 export type Achievement = {

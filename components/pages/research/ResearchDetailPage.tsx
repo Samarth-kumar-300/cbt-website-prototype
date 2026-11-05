@@ -63,7 +63,7 @@ export function ResearchDetailPage({ study }: { study: Study }) {
           <ShareLinks title={study.title} />
         </Reveal>
       </section>
-      <CtaPanel heading={researchContent.cta.heading} label={researchContent.cta.label} href={researchContent.cta.href} />
+      <CtaPanel heading={researchContent.cta.heading} body={researchContent.cta.body} label={researchContent.cta.label} href={researchContent.cta.href} />
     </>
   );
 }

@@ -291,59 +291,6 @@ export const POSTS: readonly BlogPost[] = [
     ]
   },
   {
-    "slug": "early-intervention-is-the-key-to-managing-autism",
-    "title": "Early Intervention is the key to Managing Autism",
-    "audiences": ["Parents", "Therapy centres"],
-    "excerpt": "The earlier autism is identified and addressed, the more a child’s brain plasticity can be put to work - here’s what early intervention means and why timing matters.",
-    "minutes": 1,
-    "body": [
-      {
-        "type": "lead",
-        "text": "Early intervention refers to therapy services designed to enhance a child’s ability to interact with others and their environment - combining structured therapies, at-home activities and psychoeducation to help children build communication skills and manage sensory experiences."
-      },
-      {
-        "type": "p",
-        "text": "The earlier autism is identified and addressed, the more a child’s natural brain plasticity can be put to work."
-      },
-      {
-        "type": "h",
-        "text": "Why is early intervention critical?"
-      },
-      {
-        "type": "p",
-        "text": "Identifying autism early gives children more time to build behavioral, social and self-regulatory skills that support long-term physical and cognitive health. Tools like the M-CHAT-R screening, used for children aged 16-30 months, help flag developmental concerns before they become bigger challenges."
-      },
-      {
-        "type": "h",
-        "text": "Moving past the stigma"
-      },
-      {
-        "type": "p",
-        "text": "Many parents carry difficult feelings around an autism diagnosis. The concept of neurodiversity reframes this: people experience and interact with the world in many different ways, and there is no single \"right\" way of thinking, learning or behaving."
-      },
-      {
-        "type": "h",
-        "text": "Early signs to watch for"
-      },
-      {
-        "type": "p",
-        "text": "Not responding to their name, avoiding eye contact, frequent tantrums, repetitive behaviors, not smiling at others and repeating phrases can all be early signs worth raising with a family doctor or pediatrician."
-      },
-      {
-        "type": "h",
-        "text": "Therapies available for ASD"
-      },
-      {
-        "type": "p",
-        "text": "Options include occupational therapy, sensory integration, speech therapy, Applied Behavioral Analysis, social-emotional learning, skill building, cognitive learning and augmented-reality-based therapy."
-      },
-      {
-        "type": "p",
-        "text": "CognitiveBotics’ AI-powered eLearning platform is designed to complement these therapy sessions, making consistent early intervention more accessible for families."
-      }
-    ]
-  },
-  {
     "slug": "how-to-travel-with-children-who-have-autism",
     "title": "How to Travel with Children who have Autism",
     "audiences": ["Parents"],
@@ -409,6 +356,59 @@ export const POSTS: readonly BlogPost[] = [
       {
         "type": "p",
         "text": "Even with the best planning, things can go off script - talk to your child’s therapist ahead of time about a simple emergency plan tailored to their needs, so your whole family has a steady fallback for a peaceful, enjoyable holiday."
+      }
+    ]
+  },
+  {
+    "slug": "early-intervention-is-the-key-to-managing-autism",
+    "title": "Early Intervention is the key to Managing Autism",
+    "audiences": ["Parents", "Therapy centres"],
+    "excerpt": "The earlier autism is identified and addressed, the more a child’s brain plasticity can be put to work - here’s what early intervention means and why timing matters.",
+    "minutes": 1,
+    "body": [
+      {
+        "type": "lead",
+        "text": "Early intervention refers to therapy services designed to enhance a child’s ability to interact with others and their environment - combining structured therapies, at-home activities and psychoeducation to help children build communication skills and manage sensory experiences."
+      },
+      {
+        "type": "p",
+        "text": "The earlier autism is identified and addressed, the more a child’s natural brain plasticity can be put to work."
+      },
+      {
+        "type": "h",
+        "text": "Why is early intervention critical?"
+      },
+      {
+        "type": "p",
+        "text": "Identifying autism early gives children more time to build behavioral, social and self-regulatory skills that support long-term physical and cognitive health. Tools like the M-CHAT-R screening, used for children aged 16-30 months, help flag developmental concerns before they become bigger challenges."
+      },
+      {
+        "type": "h",
+        "text": "Moving past the stigma"
+      },
+      {
+        "type": "p",
+        "text": "Many parents carry difficult feelings around an autism diagnosis. The concept of neurodiversity reframes this: people experience and interact with the world in many different ways, and there is no single \"right\" way of thinking, learning or behaving."
+      },
+      {
+        "type": "h",
+        "text": "Early signs to watch for"
+      },
+      {
+        "type": "p",
+        "text": "Not responding to their name, avoiding eye contact, frequent tantrums, repetitive behaviors, not smiling at others and repeating phrases can all be early signs worth raising with a family doctor or pediatrician."
+      },
+      {
+        "type": "h",
+        "text": "Therapies available for ASD"
+      },
+      {
+        "type": "p",
+        "text": "Options include occupational therapy, sensory integration, speech therapy, Applied Behavioral Analysis, social-emotional learning, skill building, cognitive learning and augmented-reality-based therapy."
+      },
+      {
+        "type": "p",
+        "text": "CognitiveBotics’ AI-powered eLearning platform is designed to complement these therapy sessions, making consistent early intervention more accessible for families."
       }
     ]
   }
