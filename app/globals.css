@@ -837,3 +837,18 @@ button[aria-expanded="true"] .faq-icon {
 .cs-card:focus-visible .cs-cover {
   --cut: 22px;
 }
+
+/* ===== Research papers: pulled out of a folder (ResearchGrid) ===== */
+/* With scripting on, the grid stays hidden until ResearchGrid has put the papers in their folders
+   (it sets data-paper-ready before the first paint), so the finished papers never flash first. If
+   that never happens, the failsafe shows the grid after 3s. Without scripting, or with reduced
+   motion, the grid is simply visible. */
+@keyframes paper-failsafe {
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .paper-grid:not([data-paper-ready]) {
+    opacity: 0;
+    animation: paper-failsafe 1ms linear 3s forwards;
+  }
+}

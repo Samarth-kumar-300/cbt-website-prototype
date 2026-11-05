@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { researchCards } from '@/components/pages/research/content';
 import { getStudy, STUDIES } from '@/components/pages/research/studies';
 
-const [observational, cohort, patent] = STUDIES;
+const [observational, cohort] = STUDIES;
 
 describe('research studies', () => {
   it('has one study per Research card, in the same order, at the card hrefs', () => {
@@ -35,11 +35,5 @@ describe('research studies', () => {
     expect(items).toContain('Independent task completion increased by 59.56%');
     expect(cohort.blocks).toContainEqual({ type: 'paragraph', text: 'National Institute for the Empowerment of Persons with Intellectual Disabilities (NIEPID), Ministry of Social Justice & Empowerment, Govt. of India' });
     expect(cohort.status).toBe('Status: Completed at NIEPID, 2025');
-  });
-
-  it('carries the patent facts and links to the patent PDF', () => {
-    expect(patent.blocks.map((b) => (b.type === 'heading' ? b.text : null)).filter(Boolean)).toEqual(['Patentee', 'Granted By', 'Patent No.', 'What This Patent Covers', 'Why It Matters']);
-    expect(patent.status).toBe('Patent No. 586929 - Granted by the Patent Office, Government of India');
-    expect(patent.button).toEqual({ label: 'View patent details', href: 'https://d2gq2a16cq5v8g.cloudfront.net/documents/CognitiveBotics_India_Patent.pdf' });
   });
 });

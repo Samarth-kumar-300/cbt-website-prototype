@@ -5,17 +5,61 @@ import { STUDIES } from '../../components/pages/research/studies';
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 
-test('research: header and three paper cards, each one link with a short title and a takeaway', async ({ page }) => {
+// The grid is hidden until ResearchGrid has put each paper in its folder, then each paper is pulled
+// out and the folder drops away. Measure only once that is over: the grid is ready (or motion is
+// reduced), every folder is hidden again and no wrapper is still clipping its paper.
+async function paperOpened(page: import('@playwright/test').Page) {
+  await page.waitForFunction(
+    () => {
+      const grid = document.querySelector('.paper-grid');
+      const ready = grid?.hasAttribute('data-paper-ready') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const wraps = [...document.querySelectorAll('.folder-wrap')];
+      return (
+        !!ready &&
+        wraps.length > 0 &&
+        wraps.every((w) => getComputedStyle(w).clipPath === 'none' && getComputedStyle(w.querySelector('.folder-pocket')!).visibility === 'hidden')
+      );
+    },
+    null,
+    { timeout: 8000 },
+  );
+}
+test('research: header and two paper cards, each one link with a short title and a takeaway', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/research');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Research');
   const cards = page.locator('main a[href^="/research/"]');
-  await expect(cards).toHaveCount(3);
+  await expect(cards).toHaveCount(2);
   for (const [i, card] of researchCards.entries()) {
     await expect(cards.nth(i)).toHaveAttribute('href', card.href);
     await expect(cards.nth(i).locator('p')).toHaveText([card.title, card.description]);
-    await expect(cards.nth(i)).toHaveAccessibleName(`${card.title} ${card.description}`);
+    await expect(cards.nth(i)).toHaveAccessibleName(`${card.title} ${card.description} ${card.minutes} min read`);
     await expect(cards.nth(i).locator('img')).toHaveAttribute('alt', '');
+  }
+});
+
+// Badge fill is the card's folder colour, ink is the deeper shade of the same hue.
+const BADGE_RGB = [
+  { bg: 'rgb(207, 233, 236)', ink: 'rgb(15, 74, 78)' },
+  { bg: 'rgb(246, 232, 187)', ink: 'rgb(92, 72, 18)' },
+];
+
+test('research: each card ends with a "1 min read" badge in its own colour, below the description', async ({ page }) => {
+  for (const width of [375, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/research');
+    await paperOpened(page);
+    const cards = page.locator('main a[href^="/research/"]');
+    for (let i = 0; i < 2; i++) {
+      const card = cards.nth(i);
+      const badge = card.getByText('1 min read', { exact: true });
+      await expect(badge).toBeVisible();
+      await expect(badge).toHaveCSS('background-color', BADGE_RGB[i].bg);
+      await expect(badge).toHaveCSS('color', BADGE_RGB[i].ink);
+      const [desc, b, c] = [await card.locator('p').nth(1).boundingBox(), await badge.boundingBox(), await card.boundingBox()];
+      expect(b!.y).toBeGreaterThanOrEqual(desc!.y + desc!.height);
+      expect(b!.y + b!.height).toBeLessThanOrEqual(c!.y + c!.height);
+    }
   }
 });
 
@@ -94,14 +138,18 @@ test('research detail: an unknown study is a 404', async ({ page }) => {
   expect(res?.status()).toBe(404);
 });
 
-test('research: paper is cream, descriptions stay within two lines and the logo clears the text', async ({ page }) => {
+// Light tints of the old badge colours: teal, amber.
+const PAPER_RGB = ['rgb(238, 249, 250)', 'rgb(255, 251, 239)'];
+
+test('research: paper is a light tint per card, descriptions stay within two lines and the logo clears the text', async ({ page }) => {
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/research');
+    await paperOpened(page);
     const cards = page.locator('main a[href^="/research/"]');
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       const card = cards.nth(i);
-      await expect(card).toHaveCSS('background-color', 'rgb(255, 252, 245)');
+      await expect(card).toHaveCSS('background-color', PAPER_RGB[i]);
       const [title, desc] = await card.locator('p').all();
       const lineHeight = parseFloat(await desc.evaluate((el) => getComputedStyle(el).lineHeight));
       expect((await desc.boundingBox())!.height).toBeLessThanOrEqual(lineHeight * 2 + 1);
@@ -113,4 +161,30 @@ test('research: paper is cream, descriptions stay within two lines and the logo 
       expect(logo.y + logo.height).toBeLessThanOrEqual(text.y);
     }
   }
+});
+
+test('research: each paper is pulled out of a folder in under 3s, then sits still and fully visible', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/research');
+  const foldersShown = () => page.evaluate(() => [...document.querySelectorAll('.folder-pocket')].some((p) => getComputedStyle(p).visibility === 'visible'));
+  await expect.poll(foldersShown, { timeout: 3000, intervals: [30] }).toBe(true);
+  const started = Date.now();
+  await paperOpened(page);
+  expect(Date.now() - started).toBeLessThan(2800);
+  expect(await foldersShown()).toBe(false);
+  const wraps = page.locator('.folder-wrap');
+  for (let i = 0; i < 2; i++) {
+    const card = wraps.nth(i).locator('.paper-card');
+    await expect(card).toBeVisible();
+    const [w, c] = [await wraps.nth(i).boundingBox(), await card.boundingBox()];
+    expect(Math.abs(w!.y - c!.y)).toBeLessThan(1);
+  }
+});
+
+test('research: reduced motion shows the papers at once with no folder', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/research');
+  await paperOpened(page);
+  await expect(page.locator('.paper-grid')).toHaveCSS('opacity', '1');
+  expect(await page.evaluate(() => [...document.querySelectorAll('.folder-pocket')].some((p) => getComputedStyle(p).visibility === 'visible'))).toBe(false);
 });

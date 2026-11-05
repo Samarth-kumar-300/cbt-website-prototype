@@ -160,63 +160,6 @@ export const STUDIES: readonly Study[] = [
     metaDescription:
       'Read about a prospective cohort study exploring an AI-based learning platform for children with autism, developmental delays and intellectual disabilities.',
   },
-
-  {
-    slug: 'methods-for-aiding-persons-with-autism-to-acquire-skills',
-    pill: 'Granted Indian Patent • No. 586929',
-    pillBg: '#fff7de',
-    pillColor: '#998035',
-    title: 'Methods for Aiding Persons with Autism to Acquire Skills',
-    button: {
-      label: 'View patent details',
-      href: 'https://d2gq2a16cq5v8g.cloudfront.net/documents/CognitiveBotics_India_Patent.pdf',
-    },
-    blocks: [
-      {
-        type: 'heading',
-        text: 'Patentee',
-      },
-      {
-        type: 'paragraph',
-        text: 'Cognitive Botics Technologies Pvt. Ltd.',
-      },
-      {
-        type: 'heading',
-        text: 'Granted By',
-      },
-      {
-        type: 'paragraph',
-        text: 'The Patent Office, Government of India',
-      },
-      {
-        type: 'heading',
-        text: 'Patent No.',
-      },
-      {
-        type: 'paragraph',
-        text: '586929',
-      },
-      {
-        type: 'heading',
-        text: 'What This Patent Covers',
-      },
-      {
-        type: 'paragraph',
-        text: 'This patent protects CognitiveBotics’ proprietary methodology for delivering structured, AI-guided skill acquisition to children with autism. Filed on 8 August 2019 (Application No. 201941032153), it was formally examined and granted by the Patent Office, Government of India, under the Patents Act, 1970 - recognizing the approach as a novel, patentable invention rather than a standard software feature.',
-      },
-      {
-        type: 'heading',
-        text: 'Why It Matters',
-      },
-      {
-        type: 'paragraph',
-        text: 'Patent protection runs for 20 years from the filing date, through 2039. For therapy centers, schools and partners evaluating CognitiveBotics, this means the technology behind every child’s learning plan is both clinically validated and legally protected as original intellectual property - not something competitors can freely replicate.',
-      },
-    ],
-    status: 'Patent No. 586929 - Granted by the Patent Office, Government of India',
-    metaTitle: 'Indian Patent 586929: Helping Persons with Autism Learn Skills',
-    metaDescription: 'Learn about Indian Patent No. 586929 and the patented methods designed to help persons with autism acquire skills.',
-  },
 ];
 
 export function getStudy(slug: string): Study | undefined {
