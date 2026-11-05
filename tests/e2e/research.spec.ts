@@ -5,7 +5,7 @@ import { STUDIES } from '../../components/pages/research/studies';
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 
-test('research: header and three cards link to their detail pages', async ({ page }) => {
+test('research: header and three paper cards, each one link with a short title and a takeaway', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/research');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Research');
@@ -13,8 +13,9 @@ test('research: header and three cards link to their detail pages', async ({ pag
   await expect(cards).toHaveCount(3);
   for (const [i, card] of researchCards.entries()) {
     await expect(cards.nth(i)).toHaveAttribute('href', card.href);
-    await expect(cards.nth(i)).toContainText(card.pill);
-    await expect(cards.nth(i)).toContainText('Read more');
+    await expect(cards.nth(i).locator('p')).toHaveText([card.title, card.description]);
+    await expect(cards.nth(i)).toHaveAccessibleName(`${card.title} ${card.description}`);
+    await expect(cards.nth(i).locator('img')).toHaveAttribute('alt', '');
   }
 });
 
@@ -91,4 +92,25 @@ test('research detail: the old live URL redirects to the new one', async ({ page
 test('research detail: an unknown study is a 404', async ({ page }) => {
   const res = await page.goto('/research/not-a-study');
   expect(res?.status()).toBe(404);
+});
+
+test('research: paper is cream, descriptions stay within two lines and the logo clears the text', async ({ page }) => {
+  for (const width of [375, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/research');
+    const cards = page.locator('main a[href^="/research/"]');
+    for (let i = 0; i < 3; i++) {
+      const card = cards.nth(i);
+      await expect(card).toHaveCSS('background-color', 'rgb(255, 252, 245)');
+      const [title, desc] = await card.locator('p').all();
+      const lineHeight = parseFloat(await desc.evaluate((el) => getComputedStyle(el).lineHeight));
+      expect((await desc.boundingBox())!.height).toBeLessThanOrEqual(lineHeight * 2 + 1);
+      const box = (await card.boundingBox())!;
+      const logo = (await card.locator('img').boundingBox())!;
+      const text = (await title.boundingBox())!;
+      expect(box.x + box.width - (logo.x + logo.width)).toBeGreaterThanOrEqual(12);
+      expect(logo.y - box.y).toBeGreaterThanOrEqual(12);
+      expect(logo.y + logo.height).toBeLessThanOrEqual(text.y);
+    }
+  }
 });

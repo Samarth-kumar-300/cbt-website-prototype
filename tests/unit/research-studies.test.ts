@@ -14,10 +14,6 @@ describe('research studies', () => {
     expect(getStudy('not-a-study')).toBeUndefined();
   });
 
-  it('keeps the card pill and the page pill the same text', () => {
-    expect(STUDIES.map((s) => s.pill)).toEqual(researchCards.map((c) => c.pill));
-  });
-
   it('gives every study a title, a status line, a button and at least one heading', () => {
     for (const s of STUDIES) {
       expect(s.title).not.toBe('');

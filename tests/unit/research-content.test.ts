@@ -1,15 +1,20 @@
 import { describe, expect, it } from 'vitest';
+import { STUDIES } from '@/components/pages/research/studies';
 import { RESEARCH_HREF_PREFIX, researchCards, researchContent } from '@/components/pages/research/content';
 
 describe('research content', () => {
-  it('has the three research cards with the live titles and hrefs', () => {
+  it('has the three research cards with a short title, a takeaway and the live hrefs', () => {
     expect(researchCards).toHaveLength(3);
     expect(researchCards.map((c) => c.title)).toEqual([
-      'Effectiveness of Artificial Intelligence–Based Platform in Administering Therapies for Children With Autism Spectrum Disorder: 12-Month Observational Study',
-      'Application of AI-Based Learning Platform for Children with ASD, Developmental Delay and Intellectual Disability – A Prospective Cohort Study',
-      'Methods for Aiding Persons with Autism to Acquire Skills',
+      'AI therapy platform: 12-month study',
+      'AI learning platform: 90-day study',
+      'Patent for autism skill learning',
     ]);
-    expect(researchCards.map((c) => c.pill)).toEqual(['12-Month Observational Study', 'A Prospective Cohort Study', 'Granted Indian Patent • No. 586929']);
+    expect(researchCards.map((c) => c.description)).toEqual([
+      '43 children, ages 2-18. Social age rose 56.84% with the platform.',
+      '60 children, run at NIEPID. Developmental age rose 18.93%.',
+      'Indian Patent No. 586929, valid through 2039.',
+    ]);
     expect(researchCards.map((c) => c.href)).toEqual([
       '/research/effectiveness-of-artificial-intelligence-based-platform-in-administering-therapies-for-children-with-autism-spectrum-disorder-12-month-observational-study',
       '/research/application-of-ai-based-learning-platform-for-children-with-asd-developmental-delay-and-intellectual-disability-a-prospective-cohort-study',
@@ -20,6 +25,31 @@ describe('research content', () => {
   it('keeps every href under /research/', () => {
     for (const c of researchCards) expect(c.href.startsWith(RESEARCH_HREF_PREFIX)).toBe(true);
     expect(RESEARCH_HREF_PREFIX).toBe('/research/');
+  });
+
+  it('gives every card only an href, a short title and a short description', () => {
+    for (const c of researchCards) {
+      expect(Object.keys(c).sort()).toEqual(['description', 'href', 'title']);
+      expect(c.title.trim()).not.toBe('');
+      expect(c.title.length).toBeLessThanOrEqual(40);
+      expect(c.description.trim()).not.toBe('');
+      expect(c.description.length).toBeLessThanOrEqual(80);
+    }
+  });
+
+  it('keeps the formal paper title on each detail page, not on the card', () => {
+    for (const c of researchCards) {
+      const study = STUDIES.find((s) => s.slug === c.href.slice(RESEARCH_HREF_PREFIX.length));
+      expect(study).toBeDefined();
+      expect(study!.title.length).toBeGreaterThan(c.title.length);
+    }
+  });
+
+  it('has unique hrefs that each match a study slug', () => {
+    const hrefs = researchCards.map((c) => c.href);
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+    const slugs = STUDIES.map((s) => s.slug);
+    for (const c of researchCards) expect(slugs).toContain(c.href.slice(RESEARCH_HREF_PREFIX.length));
   });
 
   it('carries the page header and CTA copy', () => {
