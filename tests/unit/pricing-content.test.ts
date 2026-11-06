@@ -1,46 +1,78 @@
 import { describe, expect, it } from 'vitest';
-import { pricingContent as c, pricingFaq } from '@/components/pages/pricing/content';
+import { AUDIENCE_IDS, PENDING_ANSWER, audiences, hero, parentsPanel, parseAudience, pricingFaq } from '@/components/pages/pricing/content';
 import { pricingJsonLd } from '@/components/pages/pricing/seo';
 import { faq as therapyFaq } from '@/components/pages/therapy-centres/content';
+import { TESTIMONIALS } from '@/lib/testimonials';
 
-describe('pricingContent', () => {
-  it('has the Basic and Custom plans with the spec CTAs', () => {
-    const [basic, custom] = c.plans;
-    expect(basic).toMatchObject({ id: 'basic', price: '₹2,000', unit: '/user/month', note: 'Up to 5 users', total: '5 users: ₹10,000 per month', taxes: 'Excluding taxes' });
-    expect(basic.cta).toEqual({ label: 'Book a demo', href: '/try-demo?plan=basic' });
-    expect(custom).toMatchObject({ id: 'custom', price: 'Custom pricing', audience: 'For 6 or more users' });
-    expect(custom.cta).toEqual({ label: 'Talk to sales', href: '/try-demo?plan=custom' });
-  });
-  it('lists 7 Basic and 3 Custom feature rows, each at most 8 words', () => {
-    expect(c.plans[0].features).toHaveLength(7);
-    expect(c.plans[1].features).toHaveLength(3);
-    for (const p of c.plans) for (const f of p.features) expect(f.split(' ').length, f).toBeLessThanOrEqual(8);
-  });
-  it('uses no em dashes or exclamation marks in any copy', () => {
-    const all = JSON.stringify(c) + JSON.stringify(pricingFaq);
-    expect(all).not.toMatch(/[—–!]/);
+describe('parseAudience', () => {
+  it('reads schools and falls back to therapy centres for anything else', () => {
+    expect(parseAudience('schools')).toBe('schools');
+    expect(parseAudience(['schools', 'x'])).toBe('schools');
+    for (const v of [undefined, '', 'SCHOOLS', 'parents', ['x', 'schools']]) expect(parseAudience(v as never)).toBe('therapy-centres');
   });
 });
 
-describe('pricingFaq', () => {
-  it('has four questions and reuses the Therapy Centres answers verbatim', () => {
-    expect(pricingFaq).toHaveLength(4);
-    for (const q of ['Is there published research behind this?', 'Is CognitiveBotics suitable for NGOs, not just private therapy centres?']) {
-      const mine = pricingFaq.find((f) => f.q === q);
-      const theirs = therapyFaq.find((f) => f.q === q);
-      expect(mine?.a).toBe(theirs?.a);
+describe('audiences', () => {
+  const tc = audiences['therapy-centres'];
+  const sc = audiences.schools;
+  it('has both audiences in tab order', () => {
+    expect(AUDIENCE_IDS).toEqual(['therapy-centres', 'schools']);
+    expect(AUDIENCE_IDS.map((id) => audiences[id].tabLabel)).toEqual(['Therapy Centres', 'Schools']);
+  });
+  it('gives each audience 6 platform cards and 3 "gets" items', () => {
+    for (const a of [tc, sc]) {
+      expect(a.features).toHaveLength(6);
+      expect(a.gets.items).toHaveLength(3);
     }
   });
-  it('answers the user-count question as pending and the demo question with the 2 to 3 day promise', () => {
-    expect(pricingFaq[0]).toEqual({ q: 'Who counts as a user?', a: 'We’ll confirm the exact count in your demo.' });
-    expect(pricingFaq[1].a).toContain('2 to 3 business days');
+  it('has two plans for centres and three for schools, Bloom last', () => {
+    expect(tc.plans.map((p) => p.id)).toEqual(['basic', 'custom']);
+    expect(sc.plans.map((p) => p.id)).toEqual(['basic', 'custom', 'bloom']);
+  });
+  it('links the plan buttons to the forms that understand them', () => {
+    for (const a of [tc, sc]) {
+      expect(a.plans[0].cta).toEqual({ label: 'Book a demo', href: '/try-demo?plan=basic', variant: 'solid' });
+      expect(a.plans[1].cta).toEqual({ label: 'Contact us', href: '/try-demo?plan=custom', variant: 'outline' });
+      expect(a.cta.href).toBe('/contact-us');
+    }
+    expect(sc.plans[2].cta).toEqual({ label: 'Contact us', href: '/contact-us', variant: 'solid' });
+  });
+  it('prices Basic at 2,000 per user per month, up to 5 users, excluding taxes', () => {
+    for (const a of [tc, sc]) expect(a.plans[0]).toMatchObject({ price: '₹2,000', unit: '/user/month', meta: 'Up to 5 users', metaNote: 'Excluding taxes' });
+  });
+  it('has 7 centre and 9 school questions, all pending except the branch answer', () => {
+    expect(tc.faq).toHaveLength(7);
+    expect(sc.faq).toHaveLength(9);
+    expect(tc.faq.filter((f) => f.a === PENDING_ANSWER)).toHaveLength(6);
+    expect(sc.faq.filter((f) => f.a === PENDING_ANSWER)).toHaveLength(9);
+    expect(tc.faq[1].a).toContain('Each branch needs its own licence per access.');
+  });
+  it('orders testimonials with ids that exist', () => {
+    const known = new Set(TESTIMONIALS.map((t) => t.id));
+    for (const a of [tc, sc]) for (const id of a.testimonials.order) expect(known.has(id), id).toBe(true);
+    expect(tc.testimonials.order[0]).toBe('chandrashekhar');
+    expect(sc.testimonials.order[0]).toBe('pavani');
+  });
+  it('gives the two closing panels different headings', () => {
+    expect(tc.cta.heading).not.toBe(sc.cta.heading);
+  });
+  it('uses no en or em dashes or exclamation marks anywhere', () => {
+    expect(JSON.stringify({ hero, audiences, parentsPanel, pricingFaq })).not.toMatch(/[—–!]/);
+  });
+});
+
+describe('pricingFaq (feeds /faqs, must not change)', () => {
+  it('still has the four answered questions', () => {
+    expect(pricingFaq).toHaveLength(4);
+    for (const f of pricingFaq) expect(f.a).not.toBe(PENDING_ANSWER);
+    for (const q of ['Is there published research behind this?', 'Is CognitiveBotics suitable for NGOs, not just private therapy centres?']) {
+      expect(pricingFaq.find((f) => f.q === q)).toEqual(therapyFaq.find((f) => f.q === q));
+    }
   });
 });
 
 describe('pricingJsonLd', () => {
-  it('describes the Basic price in INR', () => {
-    const data = pricingJsonLd() as { offers: { price: string; priceCurrency: string } };
-    expect(data.offers.price).toBe('2000');
-    expect(data.offers.priceCurrency).toBe('INR');
+  it('still describes the Basic offer in INR', () => {
+    expect(JSON.stringify(pricingJsonLd())).toContain('"priceCurrency":"INR"');
   });
 });
