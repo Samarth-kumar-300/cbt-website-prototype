@@ -15,7 +15,8 @@ describe('closing panels on the Learn and Pricing pages', () => {
     testimonials: testimonialsContent.cta,
     blog: blogContent.cta,
     faqs: faqsContent.cta,
-    pricing: pricingContent.cta,
+    pricingCentres: pricingContent.audiences['therapy-centres'].cta,
+    pricingSchools: pricingContent.audiences.schools.cta,
   };
   it('each has a heading, a supporting line and a button', () => {
     for (const [page, cta] of Object.entries(panels)) {
