@@ -12,7 +12,7 @@ export function parseAudience(v: string | string[] | undefined): AudienceId {
   return first === 'schools' ? 'schools' : DEFAULT_AUDIENCE;
 }
 
-/** Shown until Sales confirms the answer. A unit test counts these so none ship by accident. */
+/** Shown until Sales confirms "Who counts as a user?". A unit test pins which answers are still pending. */
 export const PENDING_ANSWER = 'Answer coming soon.';
 const pending = (q: string): FaqCardItem => ({ q, a: PENDING_ANSWER });
 
@@ -26,7 +26,7 @@ export const hero = {
   proofs: [
     { claim: '59.57% more tasks done independently', source: 'NIEPID 90-day study' },
     { claim: '+56.8% social age in 12 months', source: 'JMIR Neurotechnology' },
-    { claim: 'Winner', source: 'UK-India HealthTech Accelerator 2025' },
+    { claim: 'Winner', source: 'UK–India HealthTech Accelerator 2025' },
     { claim: 'Winner', source: 'AP Govt MedTech Challenge' },
     { claim: 'ISO 27001 certified', source: 'DPDP Act readiness' },
   ],
@@ -81,7 +81,7 @@ export const audiences: Record<AudienceId, Audience> = {
       lede: 'Families stay when they see progress. Each therapist’s plan keeps working at home, between sessions.',
     },
     features: [
-      { title: 'Personalised learning plans for each child', body: 'AI-drafted in about 10-15 minutes, then reviewed and finalised by your therapist.', icon: 'plan' },
+      { title: 'Personalised learning plans for each child', body: 'AI-drafted in about 10–15 minutes, then reviewed and finalised by your therapist.', icon: 'plan' },
       { lead: '400+', title: 'learning objectives across 10 skill areas', body: 'From attending and imitation to social, expressive and receptive skills.', icon: 'objectives' },
       { title: 'Game-based activities and social stories', body: 'With gaze, pose and speech detection built in.', icon: 'games' },
       { title: 'Guided videos for home practice', body: 'Parent training videos and guided co-learning in the parent app.', icon: 'home' },
@@ -125,7 +125,7 @@ export const audiences: Record<AudienceId, Audience> = {
         tone: 'plain',
       },
     ],
-    testimonials: { heading: 'What centres and parents say', order: ['chandrashekhar', 'mounila', 'pavani', 'tejaswi'] },
+    testimonials: { heading: 'What centres and parents say', order: ['chandrashekhar', 'mounila'] },
     faqHeading: 'Questions centres ask before buying',
     faq: [
       pending('Who counts as a user?'),
@@ -133,11 +133,17 @@ export const audiences: Record<AudienceId, Audience> = {
         q: 'What if we need more than 5 users, or have more than one branch?',
         a: 'Teams of 6 or more users get custom pricing, based on team size. Each branch needs its own licence per access. Contact us and we will put it together.',
       },
-      pending('How quickly can our centre go live?'),
-      pending('Are prices inclusive of taxes?'),
-      pending('How does CognitiveBotics fit our existing therapy process?'),
-      pending('Will parents actually use it?'),
-      pending('Is children’s data safe?'),
+      { q: 'How quickly can our centre go live?', a: 'Therapy centres go live within a week.' },
+      { q: 'Are prices inclusive of taxes?', a: 'No. Prices exclude taxes.' },
+      {
+        q: 'How does CognitiveBotics fit our existing therapy process?',
+        a: 'It gives you one place for each child’s plan, home practice and progress, not another system to manage. The AI drafts and your therapists decide, with plans built on CARS, VSMS, DST and REEL.',
+      },
+      {
+        q: 'Will parents actually use it?',
+        a: 'Home activities are short, structured and guided, and the platform records time engaged, so your therapists can see what was practised.',
+      },
+      { q: 'Is children’s data safe?', a: 'CognitiveBotics is ISO 27001 certified, with DPDP Act readiness.' },
     ],
     cta: {
       heading: 'Find the right plan for your centre',
@@ -151,11 +157,11 @@ export const audiences: Record<AudienceId, Audience> = {
     tabLabel: 'Schools',
     intro: {
       heading: 'For schools: inclusion that works across class, home and special educator',
-      lede: 'Start with the 10-15% of learners who need structured support, then extend it to more.',
-      highlight: '10-15%',
+      lede: 'Start with the 10–15% of learners who need structured support, then extend it to more.',
+      highlight: '10–15%',
     },
     features: [
-      { title: 'Personalised learning plans (IEPs) for each child', body: 'AI-drafted in about 10-15 minutes, then finalised by your special educator. Plans adapt with each child’s performance.', icon: 'plan' },
+      { title: 'Personalised learning plans (IEPs) for each child', body: 'AI-drafted in about 10–15 minutes, then finalised by your special educator. Plans adapt with each child’s performance.', icon: 'plan' },
       { lead: '400+', title: 'learning objectives across 10 skill areas', body: 'Mapped to NCF Foundational Stage and ECCE.', icon: 'objectives' },
       { title: 'Classroom cues for class teachers', body: 'Simple cues tied to each child’s goals, ready to use in class.', icon: 'cues' },
       { title: 'Guided home practice', body: 'Daily IEP-aligned activities and take-home worksheets (sensory, motor, pencil control, drawing, cognitive) through the parent app.', icon: 'home' },
@@ -197,7 +203,7 @@ export const audiences: Record<AudienceId, Audience> = {
         features: [
           'Everything in Basic',
           'More users across your special educator and class teachers',
-          'Scale from the 10-15% towards more learners',
+          'Scale from the 10–15% towards more learners',
           'Live within 6 weeks',
         ],
         cta: contactCustom,
@@ -222,18 +228,21 @@ export const audiences: Record<AudienceId, Audience> = {
         tone: 'bloom',
       },
     ],
-    testimonials: { heading: 'What educators and parents say', order: ['pavani', 'tejaswi', 'mounila', 'chandrashekhar'] },
+    testimonials: { heading: 'What educators and parents say', order: ['pavani', 'tejaswi'] },
     faqHeading: 'Questions schools ask before buying',
     faq: [
       pending('Who counts as a user?'),
-      pending('What if we need more than 5 users?'),
-      pending('We don’t have a special educator. Can we still start?'),
-      pending('Can we start small?'),
-      pending('How quickly can our school go live?'),
-      pending('Are prices inclusive of taxes?'),
-      pending('Will this add work for our teachers?'),
-      pending('Will parents worry about labels?'),
-      pending('Is student data safe?'),
+      { q: 'What if we need more than 5 users?', a: 'Teams of 6 or more users get custom pricing, based on team size. Contact us and we will put it together.' },
+      {
+        q: 'We don’t have a special educator. Can we still start?',
+        a: 'Yes. BLOOM places a CognitiveBotics-trained resource person in your school, with everything in the platform. Every BLOOM deployment is tailored to your school.',
+      },
+      { q: 'Can we start small?', a: 'Yes. Start with the 10–15% of learners who need structured support, then extend it to more learners.' },
+      { q: 'How quickly can our school go live?', a: 'Schools go live within 6 weeks.' },
+      { q: 'Are prices inclusive of taxes?', a: 'No. Prices exclude taxes.' },
+      { q: 'Will this add work for our teachers?', a: 'No. Classroom cues arrive ready to use, and documentation happens as the work happens.' },
+      { q: 'Will parents worry about labels?', a: 'No exams and no labels. Progress is observed during activities and celebrated, never graded.' },
+      { q: 'Is student data safe?', a: 'CognitiveBotics is ISO 27001 certified, with DPDP Act readiness.' },
     ],
     cta: {
       heading: 'Find the right plan for your school',

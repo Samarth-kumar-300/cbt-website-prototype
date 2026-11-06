@@ -40,24 +40,35 @@ describe('audiences', () => {
   it('prices Basic at 2,000 per user per month, up to 5 users, excluding taxes', () => {
     for (const a of [tc, sc]) expect(a.plans[0]).toMatchObject({ price: '₹2,000', unit: '/user/month', meta: 'Up to 5 users', metaNote: 'Excluding taxes' });
   });
-  it('has 7 centre and 9 school questions, all pending except the branch answer', () => {
+  it('has 7 centre and 9 school questions; only "Who counts as a user?" is pending', () => {
     expect(tc.faq).toHaveLength(7);
     expect(sc.faq).toHaveLength(9);
-    expect(tc.faq.filter((f) => f.a === PENDING_ANSWER)).toHaveLength(6);
-    expect(sc.faq.filter((f) => f.a === PENDING_ANSWER)).toHaveLength(9);
+    for (const a of [tc, sc]) {
+      expect(a.faq.filter((f) => f.a === PENDING_ANSWER).map((f) => f.q)).toEqual(['Who counts as a user?']);
+    }
     expect(tc.faq[1].a).toContain('Each branch needs its own licence per access.');
+    expect(tc.faq[2].a).toBe('Therapy centres go live within a week.');
+    expect(sc.faq[2].a).toContain('BLOOM places a CognitiveBotics-trained resource person in your school');
+    expect(sc.faq[4].a).toBe('Schools go live within 6 weeks.');
   });
-  it('orders testimonials with ids that exist', () => {
+  it('shows the two quotes the content names for each audience, each once', () => {
     const known = new Set(TESTIMONIALS.map((t) => t.id));
-    for (const a of [tc, sc]) for (const id of a.testimonials.order) expect(known.has(id), id).toBe(true);
-    expect(tc.testimonials.order[0]).toBe('chandrashekhar');
-    expect(sc.testimonials.order[0]).toBe('pavani');
+    expect(tc.testimonials.order).toEqual(['chandrashekhar', 'mounila']);
+    expect(sc.testimonials.order).toEqual(['pavani', 'tejaswi']);
+    for (const a of [tc, sc]) {
+      for (const id of a.testimonials.order) expect(known.has(id), id).toBe(true);
+      expect(new Set(a.testimonials.order).size).toBe(a.testimonials.order.length);
+    }
   });
   it('gives the two closing panels different headings', () => {
     expect(tc.cta.heading).not.toBe(sc.cta.heading);
   });
-  it('uses no en or em dashes or exclamation marks anywhere', () => {
-    expect(JSON.stringify({ hero, audiences, parentsPanel, pricingFaq })).not.toMatch(/[—–!]/);
+  it('uses en dashes for ranges and no em dashes or exclamation marks', () => {
+    const all = JSON.stringify({ hero, audiences, parentsPanel, pricingFaq });
+    expect(all).not.toMatch(/[—!]/);
+    expect(all).not.toMatch(/\d-\d/);
+    expect(all).toContain('10–15%');
+    expect(all).toContain('UK–India');
   });
 });
 
@@ -74,5 +85,6 @@ describe('pricingFaq (feeds /faqs, must not change)', () => {
 describe('pricingJsonLd', () => {
   it('still describes the Basic offer in INR', () => {
     expect(JSON.stringify(pricingJsonLd())).toContain('"priceCurrency":"INR"');
+    expect(pricingJsonLd().offers.price).toBe('2000');
   });
 });

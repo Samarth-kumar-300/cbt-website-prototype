@@ -229,3 +229,12 @@ The old `Section0`–`Section3` in `pricing/sections` are deleted. `AudienceTabs
 2. **Store URLs** for Google Play and App Store.
 3. **400+ vs 450+:** the mocks say "400+ learning objectives"; the Schools page and the current pricing page say 450+. This spec follows the mocks. Confirm which figure is right so the site agrees with itself.
 4. **"Talk to our team" on Schools** could link to `/pricing?for=schools`. Out of scope unless asked.
+
+## Final content (2026-11-06)
+
+`illustrations/CognitiveBotics_Pricing_Page_Content.pdf` is the final copy and overrides the copy above where they differ:
+- 14 of 16 FAQ answers are supplied; "Who counts as a user?" stays pending on both tabs.
+- Testimonials: centres show Dr Chandrashekhar and Mounila; schools show Pavani and Tejaswi (after the video card).
+- Ranges use an en dash ("10–15%", "UK–India"). The copy test forbids em dashes and "!".
+- Store buttons follow the official badge look until the official badge files are supplied.
+- The PDF's brand notes (flat #E4F4F6 backgrounds, pastel card fills, #6E0074 purple) are not applied: the page keeps the site's existing visual language, as Samarth asked at the start. This is listed for Samarth to confirm.
