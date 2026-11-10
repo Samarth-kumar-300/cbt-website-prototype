@@ -25,7 +25,7 @@ const DRAWER_ITEMS: NavItem[] = [
 
 export function Header() {
   // The drawer is open only for the route it was opened on, so any navigation (a nav link, the logo,
-  // Try demo, the back button) closes it without an effect.
+  // Demo, the back button) closes it without an effect.
   const [drawerPath, setDrawerPath] = useState<string | null>(null);
   const [menu, setMenu] = useState(false);
   const [signIn, setSignIn] = useState(false);
@@ -87,7 +87,7 @@ export function Header() {
             ...(scrolled ? { backgroundColor: HEADER_SCROLLED_BG } : {}),
           } as CSSProperties
         }
-        // Below xl the glass bar is inset 16px and flush with the top, open or closed. `relative` anchors the Learn mega menu.
+        // Below xl the glass bar is inset 16px and flush with the top, open or closed. `relative` anchors the Inside CognitiveBotics mega menu.
         className={`relative has-[[data-menu-open=true]]:rounded-b-none has-[[data-menu-open=true]]:bg-white! mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,box-shadow] duration-300 xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
           scrolled
             ? 'shadow-[0px_12px_34px_-8px_rgba(16,73,76,0.22)]'
@@ -98,9 +98,9 @@ export function Header() {
           <Logo />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center justify-center gap-2 min-[1440px]:gap-3 xl:flex">
+        <nav aria-label="Primary" className="hidden items-center justify-center gap-1.5 min-[1440px]:gap-3 xl:flex">
           {NAV.map((item, i) => (
-            <span key={item.label} className="flex items-center gap-2 min-[1440px]:gap-3">
+            <span key={item.label} className="flex items-center gap-1.5 min-[1440px]:gap-3">
               {i > 0 ? <span aria-hidden="true" className="h-4 w-px bg-brand-teal/28" /> : null}
               {item.kind === 'menu' ? (
                 <NavMenu item={item} pathname={pathname} />
@@ -108,7 +108,7 @@ export function Header() {
                 <Link
                   href={item.href}
                   aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
-                  className={`nav-link inline-block whitespace-nowrap text-[12px] uppercase tracking-[0.5px] transition-colors min-[1440px]:text-[13px] min-[1440px]:tracking-[0.6px] ${
+                  className={`nav-link inline-block whitespace-nowrap text-[12px] uppercase tracking-[0.3px] transition-colors min-[1440px]:text-[13px] min-[1440px]:tracking-[0.6px] ${
                     isActivePath(pathname, item.href)
                       ? 'font-bold text-content-brand-secondary'
                       : 'font-semibold text-content-brand hover:text-brand-dark'
@@ -144,7 +144,7 @@ export function Header() {
             ) : null}
           </div>
           <Button href="/try-demo" size="nav">
-            Try demo
+            Demo
           </Button>
         </div>
 
@@ -224,7 +224,7 @@ export function Header() {
           ) : null}
           <div className="px-2 pb-2 pt-1" onClick={closeDrawer}>
             <Button href="/try-demo" size="md" className="w-full uppercase tracking-[0.6px]">
-              Try demo
+              Demo
             </Button>
           </div>
         </nav>

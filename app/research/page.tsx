@@ -3,7 +3,7 @@ import { ResearchPage } from '@/components/pages/research/ResearchPage';
 
 export const metadata: Metadata = {
   title: 'Research | CognitiveBotics',
-  description: 'Peer-reviewed research, validation studies and a granted patent showing how CognitiveBotics delivers measurable outcomes.',
+  description: 'Research with India’s clinical and government institutions, including NIEPID and JMIR Neurotechnology, measuring real progress in children using CognitiveBotics.',
   alternates: { canonical: '/research' },
 };
 

@@ -28,10 +28,10 @@ function PlayBadge() {
   );
 }
 
-function WatchNow() {
+function WatchNow({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center gap-2 text-[14px] font-semibold leading-[22px] text-content-brand">
-      Watch now
+      {label}
       <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform group-hover:translate-x-1">
         <path d="M4 12h16m0 0-6-6m6 6-6 6" />
       </svg>
@@ -44,10 +44,16 @@ export function VideoTestimonialCard({
   video,
   variant,
   buttonProps,
+  linkLabel = 'Watch now',
+  byline = false,
 }: {
   video: VideoTestimonial;
   variant: Variant;
   buttonProps?: ButtonHTMLAttributes<HTMLButtonElement> & { 'data-card'?: boolean };
+  /** Text of the call to action. Defaults to "Watch now". */
+  linkLabel?: string;
+  /** Show name and role under the title (already shown in the `grid` variant). */
+  byline?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
@@ -73,13 +79,13 @@ export function VideoTestimonialCard({
         </span>
         <span className={`flex flex-col items-start gap-3 ${variant === 'slide' ? 'px-5 pb-[22px] pt-4' : 'px-6 pb-6 pt-5'} ${grid ? 'lg:justify-center lg:gap-4 lg:px-8' : ''}`}>
           <span className={`font-heading font-semibold text-content-brand ${variant === 'rail' ? 'text-[20px] leading-[28px]' : grid ? 'text-[18px] leading-[26px] lg:text-[22px] lg:leading-[30px]' : 'text-[16px] leading-[24px]'}`}>{video.title}</span>
-          {grid ? (
+          {grid || byline ? (
             <span className="flex flex-col">
               <span className="font-heading text-[14px] font-bold text-brand-teal">{video.name}</span>
               <span className="text-[14px] leading-[21px] text-[#646871]">{video.role}</span>
             </span>
           ) : null}
-          <WatchNow />
+          <WatchNow label={linkLabel} />
         </span>
       </button>
       {open ? <VideoDialog src={video.src} poster={video.poster} title={video.title} onClose={close} /> : null}

@@ -23,7 +23,9 @@ export type CaseStudy = {
 };
 
 export const caseStudiesContent = {
-  title: 'Case studies',
+  eyebrow: 'Case studies',
+  title: 'Results from real centres and schools',
+  subtitle: 'See what changed after they started with CognitiveBotics.',
   filtersLabel: 'Case study groups',
   cta: { heading: 'Want this in your own centre or school?', body: 'Tell us about your team, then pick a time for your demo.', label: 'Book a demo', href: '/try-demo' },
 } as const;

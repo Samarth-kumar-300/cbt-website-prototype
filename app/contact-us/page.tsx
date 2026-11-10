@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ContactUsPage } from "@/components/pages/contact-us/ContactUsPage";
 
 export const metadata: Metadata = {
-  title: "Get in Touch | CognitiveBotics",
+  title: "Contact CognitiveBotics | CognitiveBotics",
   description:
-    "Have questions or need assistance? Our team is just a message away.",
+    "For therapy centres, schools and partners. Reach our offices in Madhapur, Hyderabad and Business Bay, Dubai.",
 };
 
 export default function Page() {

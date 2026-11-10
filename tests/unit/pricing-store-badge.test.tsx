@@ -15,4 +15,21 @@ describe('StoreBadge', () => {
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
+  it('is coded, not an image: live lettering, no img, Figma proportions', () => {
+    const { container, rerender } = render(<StoreBadge store="google" href="/coming-soon" label="Get it on Google Play" />);
+    expect(container.querySelector('img')).toBeNull();
+    expect(screen.getByText('GET IT ON')).toBeInTheDocument();
+    expect(screen.getByText('Google Play')).toBeInTheDocument();
+    const face = container.querySelector('a > span') as HTMLElement;
+    expect(face.style.getPropertyValue('--u')).toBe('1.5px');
+    expect(face.style.width).toBe('calc(var(--u) * 135)');
+    expect(face.style.height).toBe('calc(var(--u) * 40)');
+    rerender(<StoreBadge store="apple" href="/coming-soon" label="Download on the App Store" height={40} />);
+    expect(screen.getByText('Download on the')).toBeInTheDocument();
+    expect(screen.getByText('App Store')).toBeInTheDocument();
+    const apple = container.querySelector('a > span') as HTMLElement;
+    expect(apple.style.getPropertyValue('--u')).toBe('1px');
+    expect(apple.style.width).toBe('calc(var(--u) * 135)');
+    expect(apple.style.borderRadius).toBe(face.style.borderRadius);
+  });
 });

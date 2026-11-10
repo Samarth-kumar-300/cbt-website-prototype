@@ -3,7 +3,7 @@ import { BlogPage } from '@/components/pages/blog/BlogPage';
 
 export const metadata: Metadata = {
   title: 'Blog | CognitiveBotics',
-  description: 'Guides and news on autism and early support, from the CognitiveBotics team.',
+  description: 'What’s changing in early intervention, and how centres, schools and parents put it to work.',
   alternates: { canonical: '/blog' },
 };
 

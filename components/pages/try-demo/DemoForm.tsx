@@ -10,7 +10,6 @@ import {
   isSpam,
   ROLE_OPTIONS,
   showsOrganisation,
-  showsRoleOther,
   toRequest,
   USER_OPTIONS,
   usersHelper,
@@ -53,7 +52,6 @@ export function DemoForm({ plan, onSubmitted }: Props) {
     setValues((prev) => {
       const next = { ...prev, [name]: value };
       if (name === 'role' && !showsOrganisation(value)) next.organisation = '';
-      if (name === 'role' && !showsRoleOther(value)) next.roleOther = '';
       return next;
     });
     setErrors((prev) => {
@@ -89,21 +87,30 @@ export function DemoForm({ plan, onSubmitted }: Props) {
     <form className="relative flex flex-col gap-[18px] lg:gap-6" noValidate onSubmit={onSubmit}>
       <div className="flex flex-col gap-[18px] sm:flex-row sm:gap-5">
         <div className="flex flex-1 flex-col">
-          <label htmlFor="name" className={LABEL}>
-            Name
+          <label htmlFor="firstName" className={LABEL}>
+            First Name
             <Star />
           </label>
-          <input type="text" autoComplete="name" enterKeyHint="next" {...field('name')} />
-          <ErrorText id="name" message={errors.name} />
+          <input type="text" autoComplete="given-name" enterKeyHint="next" maxLength={80} {...field('firstName')} />
+          <ErrorText id="firstName" message={errors.firstName} />
         </div>
         <div className="flex flex-1 flex-col">
-          <label htmlFor="email" className={LABEL}>
-            Email
+          <label htmlFor="lastName" className={LABEL}>
+            Last Name
             <Star />
           </label>
-          <input type="email" autoComplete="email" inputMode="email" enterKeyHint="next" {...field('email')} />
-          <ErrorText id="email" message={errors.email} />
+          <input type="text" autoComplete="family-name" enterKeyHint="next" maxLength={80} {...field('lastName')} />
+          <ErrorText id="lastName" message={errors.lastName} />
         </div>
+      </div>
+
+      <div className="flex flex-col">
+        <label htmlFor="email" className={LABEL}>
+          Email
+          <Star />
+        </label>
+        <input type="email" autoComplete="email" inputMode="email" enterKeyHint="next" {...field('email')} />
+        <ErrorText id="email" message={errors.email} />
       </div>
 
       <div className="flex flex-col">
@@ -136,17 +143,6 @@ export function DemoForm({ plan, onSubmitted }: Props) {
         </label>
         <Select id="role" label="I am a" placeholder="Choose one" options={ROLE_OPTIONS} value={values.role} onChange={set('role')} error={errors.role} />
       </div>
-
-      {showsRoleOther(values.role) ? (
-        <div className="flex flex-col">
-          <label htmlFor="roleOther" className={LABEL}>
-            Please specify
-            <Star />
-          </label>
-          <input type="text" enterKeyHint="next" maxLength={80} {...field('roleOther')} />
-          <ErrorText id="roleOther" message={errors.roleOther} />
-        </div>
-      ) : null}
 
       {showsOrganisation(values.role) ? (
         <div className="flex flex-col">

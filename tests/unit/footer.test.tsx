@@ -47,12 +47,12 @@ describe('Footer', () => {
     for (const h of ['/case-studies', '/blog', '/testimonials', '/research', '/achievements']) expect(hrefs).toContain(h);
     expect(hrefs).not.toContain('/resources#blog');
   });
-  it('lists Research under Learn and the patent and certifications page under Company', () => {
+  it('lists Research under Learn and the awards page under Company', () => {
     const { container } = render(<Footer />);
     const mobile = container.querySelector('footer')!;
     const links = Array.from(mobile.querySelectorAll('a')).map((a) => [a.textContent?.trim(), a.getAttribute('href')]);
     expect(links).toContainEqual(['Research', '/research']);
-    expect(links).toContainEqual(['Patent and certifications', '/achievements']);
+    expect(links).toContainEqual(['Awards', '/achievements']);
   });
   it('shows the ISO badge unlinked, like the live site', () => {
     const { getAllByRole } = render(<Footer />);

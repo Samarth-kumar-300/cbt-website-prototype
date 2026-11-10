@@ -125,7 +125,7 @@ export function NavMenu({ item, pathname }: Props) {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={onClick}
-        className={`nav-link inline-flex items-center gap-1 whitespace-nowrap text-[12px] uppercase tracking-[0.5px] transition-colors min-[1440px]:text-[13px] min-[1440px]:tracking-[0.6px] ${
+        className={`nav-link inline-flex items-center gap-1 whitespace-nowrap text-[12px] uppercase tracking-[0.3px] transition-colors min-[1440px]:text-[13px] min-[1440px]:tracking-[0.6px] ${
           active ? 'font-bold text-content-brand-secondary' : 'font-semibold text-content-brand hover:text-brand-dark'
         }`}
       >
@@ -164,7 +164,10 @@ export function NavMenu({ item, pathname }: Props) {
             className="group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-2xl bg-brand-teal p-6 text-content-knockout focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal"
           >
             <PromoMascot />
-            <span className="relative block max-w-[62%] font-heading text-[22px] font-semibold normal-case leading-[30px] tracking-normal">{item.promo.heading}</span>
+            <span className="relative flex flex-col gap-2">
+              <span className="block text-balance font-heading text-[22px] font-semibold normal-case leading-[30px] tracking-normal">{item.promo.heading}</span>
+              {item.promo.body ? <span className="block max-w-[90%] text-[14px] font-normal normal-case leading-[20px] tracking-normal">{item.promo.body}</span> : null}
+            </span>
             <span className="relative flex items-center gap-3 text-[16px] font-semibold normal-case tracking-normal">
               <span className="flex size-10 items-center justify-center rounded-full bg-white text-brand-teal transition-transform group-hover:translate-x-1">
                 <Arrow />
@@ -219,6 +222,15 @@ export function MobileNavMenu({ item, pathname, onNavigate }: MobileProps) {
               </ul>
             </div>
           ))}
+          <Link
+            href={item.promo.href}
+            onClick={onNavigate}
+            className="mt-1 flex flex-col gap-1 rounded-xl bg-brand-teal px-4 py-3 text-content-knockout"
+          >
+            <span className="font-heading text-[16px] font-semibold leading-[22px]">{item.promo.heading}</span>
+            {item.promo.body ? <span className="text-[14px] leading-[20px]">{item.promo.body}</span> : null}
+            <span className="mt-1 text-[15px] font-semibold">{item.promo.label}</span>
+          </Link>
         </div>
       ) : null}
     </div>

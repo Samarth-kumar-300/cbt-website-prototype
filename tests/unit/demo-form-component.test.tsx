@@ -24,7 +24,8 @@ describe('DemoForm', () => {
     const user = userEvent.setup();
     render(<DemoForm plan={null} onSubmitted={onSubmitted} />);
     await user.click(sendButton());
-    expect(await screen.findByText('Name is required')).toBeInTheDocument();
+    expect(await screen.findByText('First Name is required')).toBeInTheDocument();
+    expect(screen.getByText('Last Name is required')).toBeInTheDocument();
     expect(screen.getByText('Number of users is required')).toBeInTheDocument();
     expect(submit).not.toHaveBeenCalled();
     expect(onSubmitted).not.toHaveBeenCalled();
@@ -36,7 +37,7 @@ describe('DemoForm', () => {
     await fillDemoForm(user);
     await user.click(sendButton());
     await waitFor(() => expect(onSubmitted).toHaveBeenCalledTimes(1));
-    expect(submit).toHaveBeenCalledWith({ name: 'Asha Rao', email: 'asha@example.com', phone: '+91 9876543210', role: 'Parent', roleOther: '', organisation: '', users: '3', plan: 'basic' });
+    expect(submit).toHaveBeenCalledWith({ firstName: 'Asha', lastName: 'Rao', email: 'asha@example.com', phone: '+91 9876543210', role: 'Therapy Centres', organisation: '', users: '3', plan: 'basic' });
   });
 
   it('shows the code box, blocks the send until a code is typed, and never sends the code', async () => {
@@ -71,41 +72,13 @@ describe('DemoForm', () => {
     const user = userEvent.setup();
     render(<DemoForm plan={null} onSubmitted={onSubmitted} />);
     expect(screen.queryByLabelText(/^Centre or school name/)).toBeNull();
-    await fillDemoForm(user, { role: 'School' });
+    await fillDemoForm(user, { role: 'Schools' });
     await user.type(screen.getByLabelText(/^Centre or school name/), 'Sunrise School');
-    await pick(user, /^I am a:/, 'Parent');
+    await pick(user, /^I am a:/, 'Individual Therapists');
     expect(screen.queryByLabelText(/^Centre or school name/)).toBeNull();
     await user.click(sendButton());
     await waitFor(() => expect(onSubmitted).toHaveBeenCalledTimes(1));
-    expect(onSubmitted.mock.calls[0][0]).toMatchObject({ role: 'Parent', organisation: '' });
-  });
-
-  it('asks what the visitor is when they pick Other, requires an answer, and sends it', async () => {
-    const user = userEvent.setup();
-    render(<DemoForm plan={null} onSubmitted={onSubmitted} />);
-    expect(screen.queryByLabelText(/^Please specify/)).toBeNull();
-    await fillDemoForm(user, { role: 'Other' });
-    const specify = screen.getByLabelText(/^Please specify/);
-    await user.click(sendButton());
-    expect(await screen.findByText('Tell us your role')).toBeInTheDocument();
-    expect(submit).not.toHaveBeenCalled();
-    await user.type(specify, '  Speech therapist ');
-    expect(screen.queryByText('Tell us your role')).toBeNull();
-    await user.click(sendButton());
-    await waitFor(() => expect(onSubmitted).toHaveBeenCalledTimes(1));
-    expect(onSubmitted.mock.calls[0][0]).toMatchObject({ role: 'Other', roleOther: 'Speech therapist' });
-  });
-
-  it('drops the typed role when the visitor switches away from Other', async () => {
-    const user = userEvent.setup();
-    render(<DemoForm plan={null} onSubmitted={onSubmitted} />);
-    await fillDemoForm(user, { role: 'Other' });
-    await user.type(screen.getByLabelText(/^Please specify/), 'Speech therapist');
-    await pick(user, /^I am a:/, 'Parent');
-    expect(screen.queryByLabelText(/^Please specify/)).toBeNull();
-    await user.click(sendButton());
-    await waitFor(() => expect(onSubmitted).toHaveBeenCalledTimes(1));
-    expect(onSubmitted.mock.calls[0][0]).toMatchObject({ role: 'Parent', roleOther: '' });
+    expect(onSubmitted.mock.calls[0][0]).toMatchObject({ role: 'Individual Therapists', organisation: '' });
   });
 
   it('sends one request and fires one event on a double click', async () => {

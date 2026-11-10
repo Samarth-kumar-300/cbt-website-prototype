@@ -22,3 +22,12 @@ describe('CtaPanel', () => {
     expect(screen.getByText('What happens next.')).toBeInTheDocument();
   });
 });
+
+describe('CtaPanel wide body', () => {
+  it('keeps the narrow column by default and widens it on desktop when asked', () => {
+    const { container, rerender } = render(<CtaPanel heading="H" body="Long line." label="Go" href="/x" />);
+    expect(container.querySelector('p')!.className).not.toMatch(/lg:max-w-\[1000px\]/);
+    rerender(<CtaPanel heading="H" body="Long line." label="Go" href="/x" wideBody />);
+    expect(container.querySelector('p')!.className).toMatch(/lg:max-w-\[1000px\]/);
+  });
+});

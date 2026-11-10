@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TESTIMONIALS, VIDEO_TESTIMONIAL, type Testimonial } from "@/lib/testimonials";
+import { TESTIMONIALS, VIDEO_TESTIMONIAL, type Testimonial, type VideoTestimonial } from "@/lib/testimonials";
 import { TestimonialCarousel } from "./TestimonialCarousel";
 import { TestimonialRail } from "./TestimonialRail";
 import { TextReveal } from "./TextReveal";
@@ -13,6 +13,11 @@ export function pickTestimonials(order?: readonly string[]): Testimonial[] {
     return t;
   });
 }
+
+const BACKGROUNDS = {
+  gradient: "linear-gradient(90deg, #f8eaf2 0%, #f4eff6 50%, #eaf5f2 100%)",
+  "flat-aqua": "var(--color-brand-subtle-bg)",
+} as const;
 
 function QuoteSlide({ q }: { q: Testimonial }) {
   return (
@@ -39,16 +44,24 @@ export function TestimonialsSection({
   railOrder,
   slideOrder = railOrder,
   showMark = false,
+  tone = "gradient",
+  video,
 }: {
   heading: string;
   railOrder?: readonly string[];
   slideOrder?: readonly string[];
   showMark?: boolean;
+  /** `flat-aqua` swaps the gradient for the flat pale teal brand-subtle-bg (Pricing). */
+  tone?: "gradient" | "flat-aqua";
+  /** Optional overrides for the video card (Pricing). Defaults to the shared video as is. */
+  video?: Partial<Pick<VideoTestimonial, "title" | "role">> & { linkLabel?: string; byline?: boolean };
 }) {
+  const { linkLabel, byline, ...videoOverrides } = video ?? {};
+  const v: VideoTestimonial = { ...VIDEO_TESTIMONIAL, ...videoOverrides };
   const rail = pickTestimonials(railOrder);
   const slides = pickTestimonials(slideOrder);
   return (
-    <section style={{ background: "linear-gradient(90deg, #f8eaf2 0%, #f4eff6 50%, #eaf5f2 100%)" }}>
+    <section style={{ background: BACKGROUNDS[tone] }}>
       <div className="hidden flex-col gap-10 py-[84px] lg:flex">
         <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-6 px-24">
           <TextReveal as="h2" split="words" trigger="scroll" media="(min-width: 1024px)" className="font-heading text-[48px] font-semibold leading-[58px] text-brand-teal">
@@ -56,7 +69,7 @@ export function TestimonialsSection({
           </TextReveal>
           {showMark ? <Image src="/images/homepage/home-cb-mark.webp" alt="" width={52} height={47} className="shrink-0" /> : null}
         </div>
-        <TestimonialRail quotes={rail} />
+        <TestimonialRail quotes={rail} video={v} linkLabel={linkLabel} byline={byline} />
       </div>
       <div className="mx-auto flex max-w-[1440px] flex-col items-start gap-6 px-5 py-14 lg:hidden">
         <TextReveal as="h2" split="words" trigger="scroll" media="(max-width: 1023px)" className="font-heading text-[24px] font-semibold leading-[32px] text-brand-teal">
@@ -64,7 +77,7 @@ export function TestimonialsSection({
         </TextReveal>
         <TestimonialCarousel
           slides={[
-            <VideoTestimonialCard key={VIDEO_TESTIMONIAL.id} video={VIDEO_TESTIMONIAL} variant="slide" />,
+            <VideoTestimonialCard key={v.id} video={v} variant="slide" linkLabel={linkLabel} byline={byline} />,
             ...slides.map((q) => <QuoteSlide key={q.id} q={q} />),
           ]}
         />

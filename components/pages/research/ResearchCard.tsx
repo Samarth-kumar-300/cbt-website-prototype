@@ -1,50 +1,99 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Button } from '@/components/shared/Button';
 import type { ResearchCardData } from './content';
+import { PartnerLogo } from './PartnerLogo';
 
-// One sheet of tinted ruled notepad paper. Each tone is a lighter shade of the badge colour the card
-// had before (teal #ddf3f4, amber #fff7de); the rules, margin line and edge are
-// slightly deeper shades of the same hue. `pocket` is the folder the paper is pulled from (ResearchGrid)
-// and also fills the read-time badge, with `badgeInk` as its text (7:1 or better).
-export const TONES = {
-  teal: { paper: '#eef9fa', rule: '#deeff1', margin: '#cfe6e9', edge: '#d3e9eb', pocket: '#cfe9ec', badgeInk: '#0f4a4e' },
-  amber: { paper: '#fffbef', rule: '#f8f0d9', margin: '#eee4c4', edge: '#f1e7cb', pocket: '#f6e8bb', badgeInk: '#5c4812' },
+// Soft top band per entity, from the brand palette (teal-100 and a light tint of the brand purple).
+const BAND = {
+  teal: 'bg-brand-teal-100',
+  purple: 'bg-[#f4e9f5]',
 } as const;
-const INK_SOFT = '#4a5658'; // over 7:1 on every paper tone
 
-// The rule interval doubles as the line-height of both text blocks (--rule is 28px on mobile, 32px
-// from lg), so each text line sits in exactly one ruled row. --rule-shift (-1px, 1px from lg) moves
-// the ruling so Nunito's baseline lands a few px above a rule and descenders (g, p, y) still clear it.
-// The gap between title and description is one full row (`--rule`), so both stay on the ruling.
-const ruledPaper = (rule: string, margin: string) =>
-  `linear-gradient(to right, transparent 43px, ${margin} 43px, ${margin} 44px, transparent 44px), linear-gradient(to bottom, transparent calc(var(--rule) - 1px), ${rule} calc(var(--rule) - 1px))`;
+// "+56.8% social age" splits into a figure and its label so the number can lead. A part with no leading figure is all label.
+const FIGURE = /^([+-]?\d[\d.,]*%)\s+(.+)$/;
 
-// ResearchGrid animates this card with GSAP (`paper-card`, `paper-clip`). The hover lift uses the CSS
-// `translate` property, so it never fights GSAP's `transform`.
-export function ResearchCard({ card }: { card: ResearchCardData }) {
-  const tone = TONES[card.tone];
+// The middot between the stats stays in the text for screen readers and tests; sighted readers see two outlined boxes instead.
+// Two equal columns, so a long label wraps inside its box and both cards put the second box in the same place.
+function OutputLine({ text }: { text: string }) {
+  const parts = text.split(' · ');
   return (
-    <Link
-      href={card.href}
-      className="paper-card relative flex min-h-[360px] w-full flex-1 flex-col rounded-[3px] pb-[calc(var(--rule)*2)] pl-[60px] pr-5 pt-[calc(var(--rule)*3)] shadow-[0_1px_2px_rgba(16,40,44,0.10),0_8px_20px_-8px_rgba(16,40,44,0.20)] outline-none transition-[translate,box-shadow] duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1 [--rule:28px] [--rule-shift:-1px] hover:shadow-[0_2px_4px_rgba(16,40,44,0.12),0_14px_28px_-10px_rgba(16,40,44,0.28)]! focus-visible:ring-2 focus-visible:ring-brand-teal focus-visible:ring-offset-2 lg:min-h-[460px] lg:[--rule:32px] lg:[--rule-shift:1px]"
-      style={{ backgroundColor: tone.paper, backgroundImage: ruledPaper(tone.rule, tone.margin), backgroundSize: '100% 100%, 100% var(--rule)', backgroundPositionY: '0, var(--rule-shift)', backgroundRepeat: 'no-repeat, repeat-y', border: `1px solid ${tone.edge}` }}
-    >
-      <svg viewBox="0 0 26 64" width="26" height="64" fill="none" stroke="#9aa1a6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="paper-clip pointer-events-none absolute -top-[18px] left-[18px] rotate-[4deg] drop-shadow-[0_1px_1px_rgba(16,40,44,0.25)]">
-        <path d="M8 44V9a5 5 0 0 1 10 0v40a8 8 0 0 1-16 0V14" />
-      </svg>
-      <Image src="/research/logo-symbol.webp" alt="" width={28} height={25} className="pointer-events-none absolute right-5 top-4 h-[25px] w-7" />
-      <p className="text-balance break-words font-heading text-[20px] font-semibold text-brand-teal lg:text-[24px]" style={{ lineHeight: 'var(--rule)' }}>
-        {card.title}
-      </p>
-      <p className="line-clamp-2 text-balance text-[15px] lg:text-[16px]" style={{ color: INK_SOFT, lineHeight: 'var(--rule)', marginTop: 'var(--rule)' }}>
-        {card.description}
-      </p>
-      {/* One ruled row under the description; the badge is centred in its own row so no rule crosses it. */}
-      <div className="flex items-center" style={{ height: 'var(--rule)', marginTop: 'var(--rule)' }}>
-        <span className="inline-flex items-center rounded-full px-3 py-[2px] font-heading text-[13px] font-semibold leading-4 lg:py-[3px] lg:leading-[18px]" style={{ background: tone.pocket, color: tone.badgeInk }}>
-          {card.minutes} min read
-        </span>
+    <p className="grid grid-cols-2 gap-[var(--rc-stat-gap)]">
+      {parts.map((part, i) => {
+        const m = FIGURE.exec(part);
+        return (
+          <span
+            key={part}
+            className={`flex flex-col gap-1.5 rounded-[var(--rc-box-radius)] border-[1.5px] px-[var(--rc-box-px)] py-[var(--rc-box-py)] ${
+              i === 0 ? 'border-content-brand/40' : 'border-content-brand-secondary/40'
+            }`}
+          >
+            {i > 0 ? <span className="sr-only" aria-hidden="true"> · </span> : null}
+            {m ? (
+              <>
+                <span className={`font-heading text-[length:var(--rc-stat-size)] font-bold leading-none ${i === 0 ? 'text-content-brand' : 'text-content-brand-secondary'}`}>{m[1]}</span>{' '}
+                <span className="text-[length:var(--rc-stat-label)] leading-[1.35] text-text-secondary">{m[2]}</span>
+              </>
+            ) : (
+              <span className="text-[length:var(--rc-stat-label)] font-semibold leading-[1.35] text-text-secondary">{part}</span>
+            )}
+          </span>
+        );
+      })}
+    </p>
+  );
+}
+
+// Every spacing and size on the card, in one place. Edit a number here. Phone value first, then the
+// desktop (1024px and up) value. They are Tailwind classes, so keep each one written out in full.
+const KNOBS = [
+  // Shape
+  '[--rc-radius:20px]',
+  // Header band: padding, gap between the logos, minimum height (desktop only, so both headlines line up), logo and partner sizes
+  '[--rc-band-py:16px]    lg:[--rc-band-py:22px]',
+  '[--rc-band-px:20px]    lg:[--rc-band-px:32px]',
+  '[--rc-band-gap:12px]   lg:[--rc-band-gap:20px]',
+  '[--rc-band-h:0px]      lg:[--rc-band-h:90px]',
+  '[--rc-logo-h:22px]     lg:[--rc-logo-h:26px]',
+  '[--rc-partner-size:15px] lg:[--rc-partner-size:18px]',
+  '[--rc-partner-logo-h:30px] lg:[--rc-partner-logo-h:36px]',
+  // Body: padding, headline size and line-height, gap from headline to stats
+  '[--rc-body-px:20px]    lg:[--rc-body-px:32px]',
+  '[--rc-body-py:22px]    lg:[--rc-body-py:28px]',
+  '[--rc-head-size:22px]  lg:[--rc-head-size:26px]',
+  '[--rc-head-lh:1.25]',
+  '[--rc-head-gap:28px]   lg:[--rc-head-gap:32px]',
+  // Stats: each metric (figure and label) sits in an outlined box. Figure size, label size, box padding and corner radius,
+  // gap between the two boxes, gap above the button
+  '[--rc-stat-size:22px]  lg:[--rc-stat-size:24px]',
+  '[--rc-stat-label:14px]',
+  '[--rc-box-px:12px]     lg:[--rc-box-px:16px]',
+  '[--rc-box-py:12px]     lg:[--rc-box-py:14px]',
+  '[--rc-box-radius:12px]',
+  '[--rc-stat-gap:12px]   lg:[--rc-stat-gap:16px]',
+  '[--rc-btn-gap:24px]    lg:[--rc-btn-gap:28px]',
+].join(' ');
+
+// The button is the only link; its ::after stretches over the card so the whole card is clickable.
+export function ResearchCard({ card }: { card: ResearchCardData }) {
+  return (
+    <article className={`${KNOBS} relative flex h-full flex-col overflow-hidden rounded-[var(--rc-radius)] border border-brand-teal/10 bg-white shadow-[0_1px_2px_rgba(16,40,44,0.06),0_12px_28px_-14px_rgba(16,40,44,0.18)] transition-shadow duration-200 focus-within:shadow-[0_2px_4px_rgba(16,40,44,0.08),0_18px_36px_-14px_rgba(16,40,44,0.26)] hover:shadow-[0_2px_4px_rgba(16,40,44,0.08),0_18px_36px_-14px_rgba(16,40,44,0.26)]`}>
+      {/* Phone: logos stack until there is room for one row (420px). */}
+      <div className={`flex flex-col items-start gap-2 px-[var(--rc-band-px)] py-[var(--rc-band-py)] min-h-[var(--rc-band-h)] min-[420px]:flex-row min-[420px]:items-center min-[420px]:gap-[var(--rc-band-gap)] ${BAND[card.tone]}`}>
+        <Image src="/brand/logo.svg" alt="CognitiveBotics" width={160} height={24} className="h-[var(--rc-logo-h)] w-auto shrink-0" />
+        <span aria-hidden="true" className="hidden h-8 w-px shrink-0 bg-brand-teal/25 min-[420px]:block" />
+        <PartnerLogo partner={card.partner} />
       </div>
-    </Link>
+      <div className="flex flex-1 flex-col px-[var(--rc-body-px)] py-[var(--rc-body-py)]">
+        <h2 className="text-balance font-heading text-[length:var(--rc-head-size)] font-bold leading-[var(--rc-head-lh)] text-brand-teal">{card.headline}</h2>
+        <div className="mt-[var(--rc-head-gap)]">
+          <OutputLine text={card.output} />
+        </div>
+        <div className="mt-auto pt-[var(--rc-btn-gap)]">
+          <Button href={card.href} size="md" variant="outline" arrow className="after:absolute after:inset-0 after:content-[''] focus-visible:after:rounded-[var(--rc-radius)]">
+            {card.button}
+          </Button>
+        </div>
+      </div>
+    </article>
   );
 }

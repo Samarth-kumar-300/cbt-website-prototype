@@ -24,28 +24,29 @@ afterEach(cleanup);
 
 const primary = () => screen.getByRole('navigation', { name: 'Primary' });
 
-describe('Header with the Learn menu', () => {
-  it('shows Learn as a button after Pricing and no Resources link', () => {
+describe('Header with the Inside CognitiveBotics menu', () => {
+  it('shows Inside CognitiveBotics as a button after Pricing and no Resources link', () => {
     render(<Header />);
     const labels = Array.from(primary().querySelectorAll('a, button')).map((el) => el.textContent?.trim());
-    expect(labels.slice(0, 5)).toEqual(['Therapy Centres', 'Schools', 'Parents', 'Pricing', 'Learn']);
+    expect(labels.slice(0, 5)).toEqual(['Therapy Centres', 'Schools', 'Parents', 'Pricing', 'Inside CognitiveBotics']);
     expect(within(primary()).queryByRole('link', { name: 'Resources' })).toBeNull();
   });
 
   it('keeps every menu link in the page even while the menu is closed', () => {
     render(<Header />);
     const hrefs = Array.from(primary().querySelectorAll('[hidden] a')).map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['/research', '/case-studies', '/achievements', '/testimonials', '/faqs', '/blog', 'https://support.cognitivebotics.com/support/solutions', '/contact-us', '/try-demo']);
-    expect(within(primary()).queryByRole('link', { name: /FAQs/ })).toBeNull(); // hidden, so out of the accessibility tree
+    expect(hrefs).toEqual(['/case-studies', '/testimonials', '/achievements', '/blog', '/webinars', '/research', 'https://support.cognitivebotics.com/support/solutions', '/contact-us']);
+    expect(within(primary()).queryByRole('link', { name: /Case studies/ })).toBeNull(); // hidden, so out of the accessibility tree
+    expect(hrefs).not.toContain('/faqs');
   });
 
   it('opens on click, closes on Escape and on an outside click', async () => {
     render(<Header />);
-    const button = within(primary()).getByRole('button', { name: /^learn/i });
+    const button = within(primary()).getByRole('button', { name: /^inside cognitivebotics/i });
     expect(button).toHaveAttribute('aria-expanded', 'false');
     await userEvent.click(button);
     expect(button).toHaveAttribute('aria-expanded', 'true');
-    expect(within(primary()).getByRole('link', { name: /FAQs/ })).toHaveAttribute('href', '/faqs');
+    expect(within(primary()).getByRole('link', { name: /Case studies/ })).toHaveAttribute('href', '/case-studies');
     await userEvent.keyboard('{Escape}');
     expect(button).toHaveAttribute('aria-expanded', 'false');
     await userEvent.click(button);
@@ -55,70 +56,70 @@ describe('Header with the Learn menu', () => {
 
   it('opens the knowledge base in a new tab from the menu and the drawer', async () => {
     render(<Header />);
-    await userEvent.click(within(primary()).getByRole('button', { name: /^learn/i }));
+    await userEvent.click(within(primary()).getByRole('button', { name: /^inside cognitivebotics/i }));
     const kb = within(primary()).getByRole('link', { name: /Knowledge base/ });
     expect(kb).toHaveAttribute('target', '_blank');
     expect(kb).toHaveAttribute('rel', 'noopener noreferrer');
     await userEvent.click(screen.getByRole('button', { name: /open menu/i }));
     const drawer = screen.getByRole('navigation', { name: 'Mobile' });
-    await userEvent.click(within(drawer).getByRole('button', { name: /^learn/i }));
+    await userEvent.click(within(drawer).getByRole('button', { name: /^inside cognitivebotics/i }));
     expect(within(drawer).getByRole('link', { name: 'Knowledge base' })).toHaveAttribute('target', '_blank');
   });
 
   it('groups the links under three headings', async () => {
     render(<Header />);
-    await userEvent.click(within(primary()).getByRole('button', { name: /^learn/i }));
-    for (const heading of ['Evidence', 'Questions and stories', 'Get support']) expect(within(primary()).getByText(heading)).toBeInTheDocument();
-    const quick = within(primary()).getByRole('list', { name: 'Questions and stories' });
-    expect(within(quick).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['/testimonials', '/faqs', '/blog']);
+    await userEvent.click(within(primary()).getByRole('button', { name: /^inside cognitivebotics/i }));
+    for (const heading of ['Company', 'Library', 'Product']) expect(within(primary()).getByText(heading)).toBeInTheDocument();
+    const library = within(primary()).getByRole('list', { name: 'Library' });
+    expect(within(library).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['/blog', '/webinars']);
   });
 
   it('shows the helper line under each label', async () => {
     render(<Header />);
-    await userEvent.click(within(primary()).getByRole('button', { name: /^learn/i }));
-    expect(within(primary()).getByText('Quick answers before you book')).toBeInTheDocument();
+    await userEvent.click(within(primary()).getByRole('button', { name: /^inside cognitivebotics/i }));
+    expect(within(primary()).getByText('Centre heads, experts and parents, in their own words')).toBeInTheDocument();
   });
 
-  it('marks Learn and the current page active on a child route', async () => {
-    pathnameMock.value = '/faqs';
+  it('marks Inside CognitiveBotics and the current page active on a child route', async () => {
+    pathnameMock.value = '/research';
     render(<Header />);
-    const button = within(primary()).getByRole('button', { name: /^learn/i });
+    const button = within(primary()).getByRole('button', { name: /^inside cognitivebotics/i });
     expect(button.className).toContain('text-content-brand-secondary');
     await userEvent.click(button);
-    expect(within(primary()).getByRole('link', { name: /FAQs/ })).toHaveAttribute('aria-current', 'page');
+    expect(within(primary()).getByRole('link', { name: /Research/ })).toHaveAttribute('aria-current', 'page');
   });
 
-  it('returns focus to the Learn button when Escape closes the menu from a link inside it', async () => {
+  it('returns focus to the Inside CognitiveBotics button when Escape closes the menu from a link inside it', async () => {
     render(<Header />);
-    const button = within(primary()).getByRole('button', { name: /^learn/i });
+    const button = within(primary()).getByRole('button', { name: /^inside cognitivebotics/i });
     await userEvent.click(button);
-    within(primary()).getByRole('link', { name: /FAQs/ }).focus();
+    within(primary()).getByRole('link', { name: /Case studies/ }).focus();
     await userEvent.keyboard('{Escape}');
     expect(button).toHaveAttribute('aria-expanded', 'false');
     expect(button).toHaveFocus();
   });
 
-  it('does not move focus to the Learn button on an outside click', async () => {
+  it('does not move focus to the Inside CognitiveBotics button on an outside click', async () => {
     render(<Header />);
-    const button = within(primary()).getByRole('button', { name: /^learn/i });
+    const button = within(primary()).getByRole('button', { name: /^inside cognitivebotics/i });
     await userEvent.click(button);
-    within(primary()).getByRole('link', { name: /FAQs/ }).focus();
+    within(primary()).getByRole('link', { name: /Case studies/ }).focus();
     await userEvent.click(document.body);
     expect(button).toHaveAttribute('aria-expanded', 'false');
     expect(button).not.toHaveFocus();
   });
 
-  it('shows Learn as an accordion in the mobile drawer and closes the drawer on a link', async () => {
+  it('shows Inside CognitiveBotics as an accordion in the mobile drawer and closes the drawer on a link', async () => {
     render(<Header />);
     await userEvent.click(screen.getByRole('button', { name: /open menu/i }));
     const drawer = screen.getByRole('navigation', { name: 'Mobile' });
-    const learn = within(drawer).getByRole('button', { name: /^learn/i });
-    expect(learn).toHaveAttribute('aria-expanded', 'false');
+    const inside = within(drawer).getByRole('button', { name: /^inside cognitivebotics/i });
+    expect(inside).toHaveAttribute('aria-expanded', 'false');
     expect(within(drawer).queryByRole('link', { name: 'Blog' })).toBeNull();
-    await userEvent.click(learn);
-    expect(learn).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(inside);
+    expect(inside).toHaveAttribute('aria-expanded', 'true');
     expect(within(drawer).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(
-      expect.arrayContaining(['/pricing', '/case-studies', '/faqs', '/blog', '/testimonials']),
+      expect.arrayContaining(['/pricing', '/case-studies', '/blog', '/testimonials', '/webinars', '/contact-us']),
     );
     await userEvent.click(within(drawer).getByRole('link', { name: 'Blog' }));
     expect(screen.queryByRole('navigation', { name: 'Mobile' })).toBeNull();

@@ -26,15 +26,20 @@ describe('blog posts', () => {
     }
   });
   it('lists audience chips in order, skipping empty ones', () => {
-    expect(blogAudiences()).toEqual(['Parents', 'Therapy centres', 'Schools']);
-    expect(blogAudiences(POSTS.filter((p) => !p.audiences.includes('Schools')))).toEqual(['Parents', 'Therapy centres']);
-    expect(blogAudiences(POSTS.filter((p) => p.audiences.length === 1))).toEqual(['Parents']);
+    expect(blogAudiences()).toEqual(['Therapy centres', 'Schools', 'Parents']);
+    expect(blogAudiences(POSTS.filter((p) => !p.audiences.includes('Schools')))).toEqual(['Therapy centres', 'Parents']);
+    expect(blogAudiences(POSTS.filter((p) => p.audiences[0] === 'Parents'))).toEqual(['Parents']);
   });
   it('tags every post with at least one audience, in sentence case', () => {
     for (const p of POSTS) {
       expect(p.audiences.length, p.slug).toBeGreaterThan(0);
       for (const a of p.audiences) expect(a, p.slug).toBe(a.charAt(0) + a.slice(1).toLowerCase());
     }
+  });
+  it('gives each post exactly one tag, with a post under every chip and not every post on the same tag', () => {
+    for (const p of POSTS) expect(p.audiences, p.slug).toHaveLength(1);
+    for (const a of blogAudiences()) expect(POSTS.filter((p) => p.audiences.includes(a)).length, a).toBeGreaterThan(0);
+    expect(new Set(POSTS.map((p) => p.audiences[0])).size).toBe(3);
   });
   it('picks three related posts, ones sharing an audience first, never the post itself', () => {
     const slug = POSTS[0].slug;

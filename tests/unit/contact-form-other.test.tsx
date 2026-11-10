@@ -11,20 +11,20 @@ async function pickTopic(user: ReturnType<typeof userEvent.setup>, option: strin
 }
 
 describe('Contact form, Other', () => {
-  it('shows a "Please specify" field only when Other is chosen', async () => {
+  it('shows a "Please specify" field only when Others is chosen', async () => {
     const user = userEvent.setup();
     render(<ContactForm />);
     expect(screen.queryByLabelText(/^Please specify/)).toBeNull();
-    await pickTopic(user, 'Other');
+    await pickTopic(user, 'Others');
     expect(screen.getByLabelText(/^Please specify/)).toBeInTheDocument();
-    await pickTopic(user, 'Parent');
+    await pickTopic(user, 'Schools');
     expect(screen.queryByLabelText(/^Please specify/)).toBeNull();
   });
 
-  it('asks for an answer when Other is chosen and the field is empty', async () => {
+  it('asks for an answer when Others is chosen and the field is empty', async () => {
     const user = userEvent.setup();
     render(<ContactForm />);
-    await pickTopic(user, 'Other');
+    await pickTopic(user, 'Others');
     await user.click(screen.getByRole('button', { name: /submit|send/i }));
     expect(await screen.findByText('Tell us who you are')).toBeInTheDocument();
     await user.type(screen.getByLabelText(/^Please specify/), 'Speech therapist');

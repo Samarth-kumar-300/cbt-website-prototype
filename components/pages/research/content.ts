@@ -1,31 +1,46 @@
 // Copy from reference/resources/copy.json (the "research" section of /resources).
 export const researchContent = {
   title: 'Research',
-  subtitle: 'Explore peer-reviewed research and validation studies showcasing how we deliver measurable outcomes',
+  subtitle: 'Research with India’s clinical and government institutions, measuring real progress in children using CognitiveBotics.',
   cta: { heading: 'See the platform behind the research', body: 'Pick a time and we’ll show you how it works in a centre or school.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 export const RESEARCH_HREF_PREFIX = '/research/';
 
-// The card shows a short plain-language title and a one-sentence takeaway. The formal paper titles
-// stay on the detail pages (studies.ts). Every figure below is taken from that study's own page.
-// `minutes` is the read time shown in the badge (the study text is about 120 words, so 1 min each).
-// `tone` picks the paper tint: a lighter shade of the colour each card's badge had (see ResearchCard).
-export const researchCards = [
+export type ResearchPartner = {
+  name: string;
+  subLabel?: string;
+  // Logo shown just beside the name. Drop the file into public/research/ and reference it here, e.g. '/research/jmir-logo.svg'.
+  // Until then the card shows the name alone.
+  src?: string;
+};
+
+export type ResearchCardData = {
+  href: string;
+  headline: string;
+  output: string;
+  button: string;
+  partner: ResearchPartner;
+  tone: 'teal' | 'purple';
+};
+
+// Each card names the third party behind the study, a headline for what was studied and a short
+// numeric output line. The formal paper titles stay on the detail pages (studies.ts).
+export const researchCards: readonly ResearchCardData[] = [
   {
     href: '/research/effectiveness-of-artificial-intelligence-based-platform-in-administering-therapies-for-children-with-autism-spectrum-disorder-12-month-observational-study',
-    title: 'AI therapy platform: 12-month study',
-    description: '43 children, ages 2-18. Social age rose 56.84% with the platform.',
-    minutes: 1,
+    headline: '12-month study, published in JMIR Neurotechnology',
+    output: '+56.8% social age · +46.5% developmental age',
+    button: 'Read the study',
+    partner: { name: 'JMIR Neurotechnology' },
     tone: 'teal',
   },
   {
     href: '/research/application-of-ai-based-learning-platform-for-children-with-asd-developmental-delay-and-intellectual-disability-a-prospective-cohort-study',
-    title: 'AI learning platform: 90-day study',
-    description: '60 children, run at NIEPID. Developmental age rose 18.93%.',
-    minutes: 1,
-    tone: 'amber',
+    headline: '90-day study at NIEPID, Govt of India',
+    output: '59.57% more tasks done independently · +18.93% developmental age',
+    button: 'Read the summary',
+    partner: { name: 'NIEPID', subLabel: 'Govt of India' },
+    tone: 'purple',
   },
-] as const;
-
-export type ResearchCardData = (typeof researchCards)[number];
+];

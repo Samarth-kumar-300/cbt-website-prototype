@@ -25,6 +25,8 @@ export function DemoPreview({ plan, initial }: { plan: Plan | null; initial: Pre
             headingRef={headingRef}
             url=""
             name="Asha Rao"
+            firstName="Asha"
+            lastName="Rao"
             email="asha@example.com"
             onBooked={() => setView('booked')}
             previewStatus={view === 'book' ? 'idle' : view}

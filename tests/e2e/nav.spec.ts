@@ -14,7 +14,7 @@ test('desktop nav fits on one line between the logo and the sign-in button', asy
     const signIn = await page.getByRole('button', { name: /^sign in/i }).first().boundingBox();
     expect(box!.x, `${width}px: nav starts after the logo`).toBeGreaterThanOrEqual(logo!.x + logo!.width);
     expect(box!.x + box!.width, `${width}px: nav ends before Sign in`).toBeLessThanOrEqual(signIn!.x);
-    // Compare vertical centres: the Learn button and the links differ in height by a pixel or two.
+    // Compare vertical centres: the Inside CognitiveBotics button and the links differ in height by a pixel or two.
     const spread = await nav.locator('a:visible, button:visible').evaluateAll((els) => {
       const centres = els.map((e) => {
         const r = e.getBoundingClientRect();
@@ -51,17 +51,17 @@ test.describe('mobile drawer closes once you navigate', () => {
     await expect(page.getByRole('button', { name: /open menu/i })).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test('after tapping a Learn page', async ({ page }) => {
+  test('after tapping an Inside CognitiveBotics page', async ({ page }) => {
     await open(page);
-    await drawer(page).getByRole('button', { name: 'Learn' }).click();
+    await drawer(page).getByRole('button', { name: 'Inside CognitiveBotics' }).click();
     await drawer(page).getByRole('link', { name: 'Blog' }).click();
     await expect(page).toHaveURL(/\/blog$/);
     await expect(drawer(page)).toHaveCount(0);
   });
 
-  test('after tapping Try demo in the drawer', async ({ page }) => {
+  test('after tapping Demo in the drawer', async ({ page }) => {
     await open(page);
-    await drawer(page).getByRole('link', { name: /try demo/i }).click();
+    await drawer(page).getByRole('link', { name: 'Demo', exact: true }).click();
     await expect(page).toHaveURL(/\/try-demo$/);
     await expect(drawer(page)).toHaveCount(0);
   });
@@ -83,9 +83,9 @@ test.describe('mobile drawer closes once you navigate', () => {
   });
 });
 
-test.describe('Learn menu opens on hover on desktop', () => {
+test.describe('Inside CognitiveBotics menu opens on hover on desktop', () => {
   test.use({ viewport: { width: 1440, height: 900 }, hasTouch: false });
-  const button = (page: import('@playwright/test').Page) => page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Learn' });
+  const button = (page: import('@playwright/test').Page) => page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Inside CognitiveBotics' });
 
   test('hovering opens it, moving onto the panel keeps it open, leaving closes it', async ({ page }) => {
     await page.goto('/');

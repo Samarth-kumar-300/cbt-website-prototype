@@ -6,15 +6,48 @@ const form = JSON.parse(readFileSync("reference/interactions.json", "utf8"))
   .contactForm as {
   inputs: { type: string; label: string; required: boolean }[];
 };
-const options = (JSON.parse(readFileSync("reference/interactions.json", "utf8"))
-  .contactSelect ?? []) as string[];
+const options = [
+  "Therapy Centres",
+  "Schools",
+  "Individual Therapists",
+  "Doctors – Psychiatrists",
+  "Doctors – Paediatricians",
+  "Parents",
+  "Others",
+];
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 
 test("contact matches the reference structure at all widths", async ({
   page,
 }) => {
-  await expectPageMatchesReference(page, "/contact-us");
+  await expectPageMatchesReference(page, "/contact-us", {
+    changedHeadings: ["We're Here to Help"],
+  });
+});
+
+test("heading, description and topic options follow the client copy", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/contact-us");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Contact CognitiveBotics" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "For therapy centres, schools and partners. Reach our offices in Madhapur, Hyderabad and Business Bay, Dubai.",
+    ),
+  ).toBeVisible();
+  await expect(page.getByLabel(/^First Name/)).toBeVisible();
+  await expect(page.getByLabel(/^Last Name/)).toBeVisible();
+  await page.getByRole("button", { name: /choose one/i }).click();
+  await expect(
+    page
+      .getByRole("listbox")
+      .filter({ hasText: "Individual Therapists" })
+      .getByRole("option"),
+  ).toHaveText(options);
 });
 
 test("empty submit shows errors and sends nothing", async ({ page }) => {
@@ -59,10 +92,8 @@ test("valid submit shows one confirmation even if clicked twice", async ({
           : "Test message";
     await f.fill(value);
   }
-  if (options.length) {
-    await page.getByRole("button", { name: /choose one/i }).click();
-    await page.getByRole("option", { name: options[0] }).click();
-  }
+  await page.getByRole("button", { name: /choose one/i }).click();
+  await page.getByRole("option", { name: options[0] }).click();
   const sent: string[] = [];
   page.on("request", (r) => {
     if (r.method() !== "GET") sent.push(`${r.method()} ${r.url()}`);
@@ -76,7 +107,6 @@ test("valid submit shows one confirmation even if clicked twice", async ({
 test("keyboard-only: the select can be opened and chosen without a mouse", async ({
   page,
 }) => {
-  test.skip(!options.length, "form has no custom select");
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/contact-us");
   await page.getByRole("button", { name: /choose one/i }).focus();

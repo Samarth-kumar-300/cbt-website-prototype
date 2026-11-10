@@ -23,9 +23,17 @@ export function PostCover({ post, className = '' }: { post: BlogPost; className?
   );
 }
 
-/** The post's main audience. One neutral style for every tag. */
+/** The post's one tag, in a neutral style, so a card found under a filter always shows that filter's tag. */
 export function CategoryPill({ post }: { post: BlogPost }) {
-  return <span className="inline-block w-fit rounded-full bg-brand-subtle-bg px-[10px] py-[5px] text-[14px] font-medium text-brand-dark">{post.audiences[0]}</span>;
+  return (
+    <>
+      {post.audiences.map((a) => (
+        <span key={a} className="inline-block w-fit rounded-full bg-brand-subtle-bg px-[10px] py-[5px] text-[14px] font-medium text-brand-dark">
+          {a}
+        </span>
+      ))}
+    </>
+  );
 }
 
 /** The tag with the read time beside it. */
@@ -53,7 +61,6 @@ export function PostCard({ post }: { post: BlogPost }) {
       <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
         <PostMeta post={post} />
         <h3 className="font-heading text-[18px] font-semibold leading-[24px] text-brand-dark group-hover:underline lg:text-[20px] lg:leading-[26px]">{post.title}</h3>
-        <p className="line-clamp-1 text-[14px] leading-[22px] text-content-secondary lg:text-[16px] lg:leading-[24px]">{post.excerpt}</p>
       </div>
     </Link>
   );

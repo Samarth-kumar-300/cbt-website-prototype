@@ -64,3 +64,18 @@ test('pricing: no horizontal overflow at any width, either audience', async ({ p
     }
   }
 });
+
+test('pricing: headings keep their spaces after switching audiences back and forth', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/pricing');
+  for (const tab of ['Schools', 'Therapy Centres', 'Schools', 'Therapy Centres', 'Schools']) {
+    await page.getByRole('tab', { name: tab }).click();
+    await page.waitForTimeout(300);
+  }
+  // Word-split headings in a panel that was hidden used to lose the spaces between words ("Plansforschools").
+  const heads = await page.locator('.pricing-panel h2').evaluateAll((els) => els.map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim()));
+  expect(heads).toContain('Plans for therapy centres');
+  expect(heads).toContain('Plans for schools');
+  expect(heads).toContain('Find the right plan for your school');
+  expect(heads.filter((t) => /[a-z]{14,}/.test(t) && !t.includes(' ')).length).toBe(0);
+});

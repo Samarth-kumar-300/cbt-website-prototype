@@ -7,7 +7,8 @@ import {
 } from "@/lib/contact-form";
 
 const FIELDS: Field[] = [
-  { name: "name", label: "Name", type: "text", required: true, maxLength: 80 },
+  { name: "firstName", label: "First Name", type: "text", required: true, maxLength: 80 },
+  { name: "lastName", label: "Last Name", type: "text", required: true, maxLength: 80 },
   { name: "email", label: "Email", type: "email", required: true },
   { name: "topic", label: "Topic", type: "select", required: true },
   {
@@ -19,7 +20,8 @@ const FIELDS: Field[] = [
   },
 ];
 const OK = {
-  name: "Asha",
+  firstName: "Asha",
+  lastName: "Rao",
   email: "asha@example.com",
   topic: "Schools",
   message: "Hello",
@@ -31,13 +33,20 @@ describe("validateFields", () => {
   });
   it("flags empty required fields", () => {
     const e = validateFields(
-      { name: "", email: "", topic: "", message: "" },
+      { firstName: "", lastName: "", email: "", topic: "", message: "" },
       FIELDS,
     );
-    expect(Object.keys(e).sort()).toEqual(["email", "name", "topic"]);
+    expect(Object.keys(e).sort()).toEqual(["email", "firstName", "lastName", "topic"]);
+  });
+  it("requires first and last name separately", () => {
+    const e = validateFields({ ...OK, lastName: "" }, FIELDS);
+    expect(e).toEqual({ lastName: "Last Name is required" });
+    expect(validateFields({ ...OK, firstName: "" }, FIELDS)).toEqual({
+      firstName: "First Name is required",
+    });
   });
   it("treats whitespace-only as empty", () => {
-    expect(validateFields({ ...OK, name: "   " }, FIELDS).name).toBeDefined();
+    expect(validateFields({ ...OK, firstName: "   " }, FIELDS).firstName).toBeDefined();
   });
   it("rejects malformed email", () => {
     ["nope", "a@b", "a b@c.com", "@x.com"].forEach((email) =>

@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { VideoTestimonialCard } from "@/components/shared/VideoTestimonialCard";
-import { TESTIMONIALS, VIDEO_TESTIMONIAL, type Testimonial } from "@/lib/testimonials";
+import { TESTIMONIALS, VIDEO_TESTIMONIAL, type Testimonial, type VideoTestimonial } from "@/lib/testimonials";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -34,7 +34,7 @@ function Chevron({ dir }: { dir: "left" | "right" }) {
 // Desktop testimonial row: the expert video card first, then the family quotes. A plain
 // overflow row (no JavaScript needed to scroll it) that bleeds off the right edge of the
 // screen; the arrows and dots only read and drive its scroll position.
-export function TestimonialRail({ quotes = TESTIMONIALS }: { quotes?: readonly Testimonial[] }) {
+export function TestimonialRail({ quotes = TESTIMONIALS, video = VIDEO_TESTIMONIAL, linkLabel, byline }: { quotes?: readonly Testimonial[]; video?: VideoTestimonial; linkLabel?: string; byline?: boolean }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState({ pages: 1, page: 0, canPrev: false, canNext: false });
   // Autoplay: the row drifts slowly sideways, then back, holding still while hovered or focused. It keeps drifting off-screen so it is mid-way when scrolled back to.
@@ -162,8 +162,10 @@ export function TestimonialRail({ quotes = TESTIMONIALS }: { quotes?: readonly T
         {(playing ? [0, 1] : [0]).map((copy) => (
           <Fragment key={copy}>
         <VideoTestimonialCard
-          video={VIDEO_TESTIMONIAL}
+          video={video}
           variant="rail"
+          linkLabel={linkLabel}
+          byline={byline}
           buttonProps={{ "data-card": true, ...(copy ? { "aria-hidden": true, tabIndex: -1 } : {}) }}
         />
         {quotes.map((q) => (

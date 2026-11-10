@@ -17,7 +17,8 @@ import { DIAL_CODES } from "@/lib/dial-codes";
  * so labels with `*` are treated as required. Labels here omit the asterisk (it is rendered separately).
  */
 const FIELDS: Field[] = [
-  { name: "name", label: "Name", type: "text", required: true, maxLength: 120 },
+  { name: "firstName", label: "First Name", type: "text", required: true, maxLength: 80 },
+  { name: "lastName", label: "Last Name", type: "text", required: true, maxLength: 80 },
   {
     name: "email",
     label: "Email",
@@ -62,15 +63,19 @@ const FIELDS: Field[] = [
 ];
 
 const TOPIC_OPTIONS = [
-  "Therapist",
-  "Parent",
-  "Therapy Centre Admin",
-  "Psychiatrist",
-  "Other",
+  "Therapy Centres",
+  "Schools",
+  "Individual Therapists",
+  "Doctors – Psychiatrists",
+  "Doctors – Paediatricians",
+  "Parents",
+  "Others",
 ] as const;
 
-// Shown only when the visitor picks "Other" in the Professional/Parent list.
-const TOPIC_OTHER: Field = {
+const TOPIC_OTHERS = "Others";
+
+// Shown only when the visitor picks "Others" in the Professional/Parent list.
+const TOPIC_OTHER_FIELD: Field = {
   name: "topicOther",
   label: "Professional/Parent",
   type: "text",
@@ -79,7 +84,7 @@ const TOPIC_OTHER: Field = {
 };
 
 const EMPTY: Record<string, string> = Object.fromEntries(
-  [...FIELDS, TOPIC_OTHER].map((f) => [f.name, ""]),
+  [...FIELDS, TOPIC_OTHER_FIELD].map((f) => [f.name, ""]),
 );
 
 const LABEL =
@@ -148,8 +153,8 @@ export function ContactForm() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const other = values.topic === "Other";
-    const errs = validateFields(values, other ? [...FIELDS, TOPIC_OTHER] : FIELDS);
+    const other = values.topic === TOPIC_OTHERS;
+    const errs = validateFields(values, other ? [...FIELDS, TOPIC_OTHER_FIELD] : FIELDS);
     if (other && !values.topicOther.trim()) errs.topicOther = "Tell us who you are";
     setErrors(errs);
     if (Object.keys(errs).length) return;
@@ -199,13 +204,23 @@ export function ContactForm() {
       <div className="flex flex-col gap-[18px] lg:gap-[22px]">
         <div className="flex flex-col gap-5 sm:flex-row">
           <div className="flex flex-1 flex-col">
-            <label htmlFor="name" className={LABEL}>
-              Name
+            <label htmlFor="firstName" className={LABEL}>
+              First Name
               <Star />
             </label>
-            <input type="text" autoComplete="name" enterKeyHint="next" {...bind("name")} />
-            <ErrorText id="name" message={errors.name} />
+            <input type="text" autoComplete="given-name" enterKeyHint="next" maxLength={80} {...bind("firstName")} />
+            <ErrorText id="firstName" message={errors.firstName} />
           </div>
+          <div className="flex flex-1 flex-col">
+            <label htmlFor="lastName" className={LABEL}>
+              Last Name
+              <Star />
+            </label>
+            <input type="text" autoComplete="family-name" enterKeyHint="next" maxLength={80} {...bind("lastName")} />
+            <ErrorText id="lastName" message={errors.lastName} />
+          </div>
+        </div>
+        <div className="flex flex-col gap-5 sm:flex-row">
           <div className="flex flex-1 flex-col">
             <label htmlFor="email" className={LABEL}>
               Email
@@ -279,13 +294,13 @@ export function ContactForm() {
               value={values.topic}
               onChange={(v) => {
                 set("topic")(v);
-                if (v !== "Other") set("topicOther")("");
+                if (v !== TOPIC_OTHERS) set("topicOther")("");
               }}
               error={errors.topic}
             />
           </div>
         </div>
-        {values.topic === "Other" ? (
+        {values.topic === TOPIC_OTHERS ? (
           <div className="flex flex-col">
             <label htmlFor="topicOther" className={LABEL}>
               Please specify

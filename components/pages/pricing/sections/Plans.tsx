@@ -5,9 +5,8 @@ import type { Audience, PlanCard } from '../content';
 import { Check } from './Check';
 
 const TONE: Record<PlanCard['tone'], string> = {
-  featured: 'border-brand-teal bg-white',
   plain: 'border-brand-teal-100 bg-white',
-  bloom: 'border-[#ead3ee] bg-[#f6e8f7]',
+  bloom: 'border-[#f0dca0] bg-[#FEF0C7]',
 };
 
 export function PlanGrid({ plans, prefix = 'therapy-centres' }: { plans: readonly PlanCard[]; prefix?: string }) {
@@ -36,7 +35,7 @@ export function PlanGrid({ plans, prefix = 'therapy-centres' }: { plans: readonl
               <p className="text-[16px] font-semibold leading-[24px] text-content-brand">{p.meta}</p>
               <p className="text-[15px] leading-[23px] text-text-secondary lg:text-[16px]">{p.metaNote}</p>
             </div>
-            <hr className={`my-6 ${p.tone === 'bloom' ? 'border-[#ead3ee]' : 'border-border-subtle'}`} />
+            <hr className={`my-6 ${p.tone === 'bloom' ? 'border-[#f0dca0]' : 'border-border-subtle'}`} />
             <ul className="flex flex-1 flex-col gap-3">
               {p.features.map((f) => (
                 <li key={f} className="flex gap-3 text-[16px] leading-[24px] text-text-default lg:text-[17px] lg:leading-[26px]">

@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
   await noConsentBanner(page);
 });
 
-test('both case study cards show thumbnail 03 as a loaded 16:9 image', async ({ page }) => {
+test('both case study cards show their own thumbnail as a loaded 16:9 image', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/case-studies');
   const covers = page.locator(COVER);
@@ -15,7 +15,8 @@ test('both case study cards show thumbnail 03 as a loaded 16:9 image', async ({ 
   for (let i = 0; i < 2; i++) {
     const img = covers.nth(i);
     expect(await img.evaluate((el) => el.tagName)).toBe('IMG');
-    expect(decodeURIComponent((await img.getAttribute('src'))!)).toContain('/images/blog/thumbnail-03.webp');
+    const src = decodeURIComponent((await img.getAttribute('src'))!);
+    expect(src).toMatch(/\/images\/case-studies\/(therapy-centre|school)\.webp/);
     await img.scrollIntoViewIfNeeded();
     await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBeGreaterThan(0);
     const box = (await img.boundingBox())!;

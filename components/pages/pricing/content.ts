@@ -16,6 +16,10 @@ export function parseAudience(v: string | string[] | undefined): AudienceId {
 export const PENDING_ANSWER = 'Answer coming soon.';
 const pending = (q: string): FaqCardItem => ({ q, a: PENDING_ANSWER });
 
+/** Colours from the client brand doc, scoped to the pricing page. The purple is the site's own secondary token. */
+export const PRICING_AQUA = '#E4F4F6';
+export const BLOOM_YELLOW = '#FEF0C7';
+
 export const hero = {
   eyebrow: 'PRICING',
   titleLead: 'One platform for each neurodivergent child’s plan, practice and ',
@@ -23,12 +27,15 @@ export const hero = {
   subtitle:
     'Therapy and teaching happen a few hours a week. CognitiveBotics, the AI-powered early intervention platform for therapy centres and schools, carries your plans into each child’s day and shows the progress back to you.',
   partner: 'Working with NIEPID (Govt of India) under an MoU',
-  proofs: [
-    { claim: '59.57% more tasks done independently', source: 'NIEPID 90-day study' },
-    { claim: '+56.8% social age in 12 months', source: 'JMIR Neurotechnology' },
-    { claim: 'Winner', source: 'UK–India HealthTech Accelerator 2025' },
-    { claim: 'Winner', source: 'AP Govt MedTech Challenge' },
-    { claim: 'ISO 27001 certified', source: 'DPDP Act readiness' },
+  // `tone` picks the figure or icon colour (TONES in sections/Hero.tsx).
+  stats: [
+    { figure: '59.57%', label: 'more tasks done independently', source: 'NIEPID 90-day study', tone: 'green' },
+    { figure: '+56.8%', label: 'social age in 12 months', source: 'JMIR Neurotechnology', tone: 'teal' },
+  ],
+  credentials: [
+    { title: 'Winner', source: 'UK–India HealthTech Accelerator 2025', icon: 'trophy', tone: 'amber' },
+    { title: 'Winner', source: 'AP Govt MedTech Challenge', icon: 'trophy', tone: 'pink' },
+    { title: 'ISO 27001 certified', source: 'DPDP Act readiness', icon: 'shield', tone: 'blue' },
   ],
 } as const;
 
@@ -51,7 +58,7 @@ export type PlanCard = {
   readonly metaNote: string;
   readonly features: readonly string[];
   readonly cta: { readonly label: string; readonly href: string; readonly variant: 'solid' | 'outline' };
-  readonly tone: 'featured' | 'plain' | 'bloom';
+  readonly tone: 'plain' | 'bloom';
 };
 
 export type Audience = {
@@ -111,7 +118,7 @@ export const audiences: Record<AudienceId, Audience> = {
           'Progress tracking and outcome reports',
         ],
         cta: bookDemo,
-        tone: 'featured',
+        tone: 'plain',
       },
       {
         id: 'custom',
@@ -191,7 +198,7 @@ export const audiences: Record<AudienceId, Audience> = {
           'Progress tracking and CBSE-compliant IEP documentation',
         ],
         cta: bookDemo,
-        tone: 'featured',
+        tone: 'plain',
       },
       {
         id: 'custom',
@@ -246,7 +253,7 @@ export const audiences: Record<AudienceId, Audience> = {
     ],
     cta: {
       heading: 'Find the right plan for your school',
-      body: 'Tell us about your team and the children you support. With or without a special educator, we’ll walk you through what’s included, how many users you need, whether the platform or BLOOM suits you, and how quickly your school can go live, with no pressure to decide on the call.',
+      body: 'Tell us about your team and the children you support. We’ll walk you through what’s included, whether the platform or BLOOM suits you, and how quickly your school can go live, with no pressure to decide on the call.',
       label: 'Contact us',
       href: '/contact-us',
     },

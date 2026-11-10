@@ -6,8 +6,8 @@ export type Audience = 'Parents' | 'Therapy centres' | 'Schools';
 export type BlogPost = {
   readonly slug: string;
   readonly title: string;
-  /** Filter chips on /blog and the tags on the post. The first is the main audience and shows on the card. */
-  readonly audiences: readonly [Audience, ...Audience[]];
+  /** The post's one tag: who it is for. Drives the filter chips on /blog and the tag on the card and the post. */
+  readonly audiences: readonly [Audience];
   readonly excerpt: string;
   readonly minutes: number;
   readonly body: readonly BlogBlock[];
@@ -17,7 +17,7 @@ export const POSTS: readonly BlogPost[] = [
   {
     "slug": "the-transformative-power-of-physical-activities-for-children-with-autism",
     "title": "The Transformative Power of Physical Activities for Children with Autism",
-    "audiences": ["Parents", "Therapy centres", "Schools"],
+    "audiences": ["Therapy centres"],
     "excerpt": "Autism spectrum disorder (ASD) is a neurodevelopmental disorder that affects how some children communicate and behave. But there is more to it – motor skills matter...",
     "minutes": 3,
     "body": [
@@ -102,7 +102,7 @@ export const POSTS: readonly BlogPost[] = [
   {
     "slug": "fun-ways-to-boost-motor-skills-of-children-with-autism",
     "title": "Fun Ways to Boost Motor Skills of Children with Autism",
-    "audiences": ["Parents", "Schools"],
+    "audiences": ["Schools"],
     "excerpt": "Engaging in physical activities holds a profound significance for the holistic well-being of children with autism, transcending beyond mere recreation to become a conduit for...",
     "minutes": 3,
     "body": [
@@ -362,7 +362,7 @@ export const POSTS: readonly BlogPost[] = [
   {
     "slug": "early-intervention-is-the-key-to-managing-autism",
     "title": "Early Intervention is the key to Managing Autism",
-    "audiences": ["Parents", "Therapy centres"],
+    "audiences": ["Therapy centres"],
     "excerpt": "The earlier autism is identified and addressed, the more a child’s brain plasticity can be put to work - here’s what early intervention means and why timing matters.",
     "minutes": 1,
     "body": [

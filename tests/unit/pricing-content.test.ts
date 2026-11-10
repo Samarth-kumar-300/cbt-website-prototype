@@ -88,3 +88,12 @@ describe('pricingJsonLd', () => {
     expect(pricingJsonLd().offers.price).toBe('2000');
   });
 });
+
+import { BLOOM_YELLOW, PRICING_AQUA } from '@/components/pages/pricing/content';
+
+describe('pricing brand tokens', () => {
+  it('uses the client doc colours', () => {
+    expect(PRICING_AQUA).toBe('#E4F4F6');
+    expect(BLOOM_YELLOW).toBe('#FEF0C7');
+  });
+});

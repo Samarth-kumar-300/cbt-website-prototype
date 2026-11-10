@@ -3,7 +3,7 @@ import { STUB_ROUTES } from '@/lib/stub-routes';
 
 describe('STUB_ROUTES', () => {
   it('covers every out-of-scope route', () => {
-    ['/developmental-checklist', '/privacy-policy', '/terms-of-use', '/medical-disclaimer'].forEach((r) =>
+    ['/developmental-checklist', '/privacy-policy', '/terms-of-use', '/medical-disclaimer', '/webinars'].forEach((r) =>
       expect(STUB_ROUTES).toContain(r),
     );
   });

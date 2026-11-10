@@ -9,10 +9,11 @@ async function pick(page: Page, button: RegExp, option: string) {
 }
 
 async function fill(page: Page) {
-  await page.getByLabel(/^Name/).fill('Asha Rao');
+  await page.getByLabel(/^First Name/).fill('Asha');
+  await page.getByLabel(/^Last Name/).fill('Rao');
   await page.getByLabel(/^Email/).fill('asha@example.com');
   await page.getByLabel(/^Phone number/).fill('9876543210');
-  await pick(page, /^I am a:/, 'Parent');
+  await pick(page, /^I am a:/, 'Therapy Centres');
   await pick(page, /^How many users:/, '3');
   await page.getByLabel(/^Enter code shown/).fill('VKNB62');
 }
@@ -38,16 +39,16 @@ test('try-demo: ?plan=custom preselects 6 or more, a bad plan preselects nothing
 test('try-demo: required fields block the submit', async ({ page }) => {
   await page.goto('/try-demo');
   await page.getByRole('button', { name: 'Submit & Book' }).click();
-  await expect(page.getByText('Name is required')).toBeVisible();
+  await expect(page.getByText('First Name is required')).toBeVisible();
   await expect(page.getByRole('heading', { name: /request received/i })).toHaveCount(0);
 });
 
-test('try-demo: the school name field appears for School only', async ({ page }) => {
+test('try-demo: the school name field appears for Schools and Therapy Centres only', async ({ page }) => {
   await page.goto('/try-demo');
   await expect(page.getByLabel(/^Centre or school name/)).toHaveCount(0);
-  await pick(page, /^I am a:/, 'School');
+  await pick(page, /^I am a:/, 'Schools');
   await expect(page.getByLabel(/^Centre or school name/)).toBeVisible();
-  await pick(page, /^I am a:/, 'Parent');
+  await pick(page, /^I am a:/, 'Individual Therapists');
   await expect(page.getByLabel(/^Centre or school name/)).toHaveCount(0);
 });
 
@@ -80,22 +81,6 @@ test('try-demo: the whole journey works without a Calendly link: form, sample ca
   // Then the visitor is sent back to the homepage after a short countdown.
   await expect(page.getByText(/Taking you to the homepage in/)).toBeVisible();
   await expect(page).toHaveURL(/\/$/, { timeout: 6000 });
-});
-
-test('try-demo: Other shows a field to write in, which is required and goes away for other roles', async ({ page }) => {
-  await page.goto('/try-demo');
-  await expect(page.getByLabel(/^Please specify/)).toHaveCount(0);
-  await pick(page, /^I am a:/, 'Other');
-  const specify = page.getByLabel(/^Please specify/);
-  await expect(specify).toBeVisible();
-  await fill(page); // sets Parent: the field must drop
-  await expect(specify).toHaveCount(0);
-  await pick(page, /^I am a:/, 'Other');
-  await page.getByRole('button', { name: 'Submit & Book' }).click();
-  await expect(page.getByText('Tell us your role')).toBeVisible();
-  await page.getByLabel(/^Please specify/).fill('Speech therapist');
-  await page.getByRole('button', { name: 'Submit & Book' }).click();
-  await expect(page.getByRole('button', { name: 'Book a time' })).toBeVisible();
 });
 
 test('try-demo: no horizontal overflow at any width', async ({ page }) => {

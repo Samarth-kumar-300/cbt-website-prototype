@@ -22,7 +22,7 @@ beforeEach(() => {
 });
 
 describe('Header', () => {
-  it('renders the nav links in order with the right hrefs, the Learn pages sitting inside its menu', () => {
+  it('renders the nav links in order with the right hrefs, the Inside CognitiveBotics pages sitting inside its menu', () => {
     render(<Header />);
     const nav = screen.getByRole('navigation', { name: 'Primary' });
     const links = Array.from(nav.querySelectorAll('a')).map((a) => [a.textContent, a.getAttribute('href')]);
@@ -31,22 +31,21 @@ describe('Header', () => {
       ['Schools', '/schools'],
       ['Parents', '/parents'],
       ['Pricing', '/pricing'],
-      ['ResearchPeer-reviewed studies on developmental outcomes', '/research'],
-      ['Case studiesHow centres and schools use CognitiveBotics', '/case-studies'],
-      ['Patent and certificationsOur granted patent and ISO 27001 certificate', '/achievements'],
-      ['TestimonialsFamilies and professionals, in their words', '/testimonials'],
-      ['FAQsQuick answers before you book', '/faqs'],
-      ['BlogGuides on autism and early support', '/blog'],
-      ['Knowledge baseGuides and troubleshooting for the platform', 'https://support.cognitivebotics.com/support/solutions'],
-      ['Get in touchTalk to our team', '/contact-us'],
-      ['See it in your centre or schoolBook a demo', '/try-demo'],
+      ['Case studiesHow centres and schools put CognitiveBotics to work', '/case-studies'],
+      ['TestimonialsCentre heads, experts and parents, in their own words', '/testimonials'],
+      ['AwardsOur wins in healthcare innovation, in India and the UK', '/achievements'],
+      ['BlogWhat’s changing in early intervention, and how centres, schools and parents put it to work', '/blog'],
+      ['WebinarsLive and recorded sessions on early intervention and the platform', '/webinars'],
+      ['ResearchStudies with NIEPID and in JMIR Neurotechnology', '/research'],
+      ['Knowledge baseHow the platform works, setup guides and answers to common questions', 'https://support.cognitivebotics.com/support/solutions'],
+      ['Questions about your centre or school?Talk to our team in Hyderabad about plans and setup.Contact us', '/contact-us'],
       ['About Us', '/about'],
     ]);
   });
-  it('links the logo home and has a Try Demo button', () => {
+  it('links the logo home and has a Demo button', () => {
     render(<Header />);
     expect(screen.getByRole('link', { name: /cognitivebotics home/i })).toHaveAttribute('href', '/');
-    expect(screen.getAllByRole('link', { name: /try demo/i })[0]).toHaveAttribute('href', '/try-demo');
+    expect(screen.getAllByRole('link', { name: 'Demo', exact: true })[0]).toHaveAttribute('href', '/try-demo');
   });
   it('opens and closes the drawer with the hamburger and Escape, locking body scroll', async () => {
     render(<Header />);
@@ -73,10 +72,10 @@ describe('Header', () => {
       expect(mobile()).toBeNull();
       expect(document.body.style.overflow).toBe('');
     });
-    it('closes when the Try demo button in the drawer is clicked', async () => {
+    it('closes when the Demo button in the drawer is clicked', async () => {
       render(<Header />);
       await openDrawer();
-      await userEvent.click(within(mobile()!).getByRole('link', { name: /try demo/i }));
+      await userEvent.click(within(mobile()!).getByRole('link', { name: 'Demo', exact: true }));
       expect(mobile()).toBeNull();
     });
     it('closes when the logo is clicked', async () => {

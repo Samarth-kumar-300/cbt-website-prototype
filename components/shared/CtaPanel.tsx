@@ -2,7 +2,8 @@ import { Button } from './Button';
 import { TextReveal } from './TextReveal';
 
 // The closing gradient panel used at the bottom of a page.
-export function CtaPanel({ heading, body, label, href }: { heading: string; body?: string; label: string; href: string }) {
+// `wideBody` lets a long supporting line run to two lines on desktop instead of wrapping into a narrow column.
+export function CtaPanel({ heading, body, label, href, wideBody = false }: { heading: string; body?: string; label: string; href: string; wideBody?: boolean }) {
   return (
     <section className="px-5 pb-14 pt-8 lg:px-[84px] lg:pb-[76px] lg:pt-0">
       <div className="mx-auto max-w-[1248px]">
@@ -13,7 +14,7 @@ export function CtaPanel({ heading, body, label, href }: { heading: string; body
           <TextReveal as="h2" split="words" trigger="scroll" className="font-heading text-[28px] font-semibold leading-[40px] text-brand-teal lg:text-[40px] lg:leading-[48px]">
             {heading}
           </TextReveal>
-          {body && <p className="max-w-[560px] text-[16px] leading-[24px] text-brand-dark lg:text-[18px] lg:leading-[27px]">{body}</p>}
+          {body && <p className={`text-[16px] leading-[24px] text-brand-dark lg:text-[18px] lg:leading-[27px] ${wideBody ? 'max-w-[560px] lg:max-w-[1000px] lg:text-balance' : 'max-w-[560px]'}`}>{body}</p>}
           <Button href={href} arrow>
             {label}
           </Button>

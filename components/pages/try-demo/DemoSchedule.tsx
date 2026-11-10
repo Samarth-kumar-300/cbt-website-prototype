@@ -9,7 +9,10 @@ import { SuccessIcon } from './SuccessIcon';
 type Props = {
   headingRef: RefObject<HTMLHeadingElement | null>;
   url: string;
+  /** Full name, joined from the first and last name. */
   name: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   onBooked: () => void;
   /** TEMPORARY (design preview): freeze the button in this state and never contact Calendly. */
@@ -26,7 +29,7 @@ function ArrowRight() {
 
 // Step two: the request is in, so the card confirms it and offers one next step. The button opens
 // Calendly as a popup over the page, and Calendly's own "booked" message moves the flow on.
-export function DemoSchedule({ headingRef, url, name, email, onBooked, previewStatus }: Props) {
+export function DemoSchedule({ headingRef, url, name, firstName, lastName, email, onBooked, previewStatus }: Props) {
   const [liveStatus, setStatus] = useState<'idle' | 'opening' | 'error'>('idle');
   const [protoOpen, setProtoOpen] = useState(false);
   const bookButton = useRef<HTMLButtonElement>(null);
@@ -59,7 +62,7 @@ export function DemoSchedule({ headingRef, url, name, email, onBooked, previewSt
       await loadCalendly();
       // The script ran but did not define the global: treat it as a failed load.
       if (!window.Calendly) throw new Error('Calendly missing');
-      window.Calendly.initPopupWidget({ url, prefill: { name, email } });
+      window.Calendly.initPopupWidget({ url, prefill: { name, firstName, lastName, email } });
       setStatus('idle');
     } catch {
       setStatus('error');

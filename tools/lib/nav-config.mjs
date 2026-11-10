@@ -9,7 +9,7 @@ function primaryHrefs() {
 }
 
 // Links the captured reference still lists but the site has dropped from its nav on purpose.
-// Resources became the Learn menu; Get in Touch was removed from the nav (the page and footer link remain).
+// Resources became the Inside CognitiveBotics menu; Get in Touch was removed from the nav (the page and footer link remain).
 const DROPPED_HREFS = ['/resources', '/contact-us'];
 
 export function buildNavConfig(i) {

@@ -2,13 +2,13 @@ import { POSTS, type Audience, type BlogPost } from './posts';
 
 export const blogContent = {
   title: 'Blog',
-  subtitle: 'Guides and news on autism and early support.',
+  subtitle: 'What’s changing in early intervention, and how centres, schools and parents put it to work.',
   chipsLabel: 'Blog audiences',
   cta: { heading: 'See it in your centre or school', body: 'Tell us about your team, then pick a time for your demo.', label: 'Book a demo', href: '/try-demo' },
 } as const;
 
 /** Chip order on /blog; an audience with no posts is left out. */
-const AUDIENCE_ORDER: readonly Audience[] = ['Parents', 'Therapy centres', 'Schools'];
+const AUDIENCE_ORDER: readonly Audience[] = ['Therapy centres', 'Schools', 'Parents'];
 
 export function blogAudiences(posts: readonly BlogPost[] = POSTS): Audience[] {
   return AUDIENCE_ORDER.filter((a) => posts.some((p) => p.audiences.includes(a)));

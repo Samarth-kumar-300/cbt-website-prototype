@@ -6,7 +6,7 @@ const STYLE_HREF = 'https://assets.calendly.com/assets/external/widget.css';
 declare global {
   interface Window {
     Calendly?: {
-      initPopupWidget(options: { url: string; prefill?: { name?: string; email?: string } }): void;
+      initPopupWidget(options: { url: string; prefill?: { name?: string; firstName?: string; lastName?: string; email?: string } }): void;
       closePopupWidget?(): void;
     };
   }

@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Chips } from '@/components/shared/Chips';
+import { AudienceSwitch } from './AudienceSwitch';
 import { DEFAULT_AUDIENCE, type AudienceId } from './content';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -39,7 +39,7 @@ export function AudienceTabs({ initial, tabs, panels }: { initial: AudienceId; t
   return (
     <>
       <div className="flex justify-center px-5 pt-10 lg:pt-14">
-        <Chips items={tabs} value={active} onChange={choose} label="Choose who the pricing is for" idPrefix="pricing" className="justify-center" />
+        <AudienceSwitch items={tabs} value={active} onChange={choose} label="Choose who the pricing is for" idPrefix="pricing" className="max-w-[360px] lg:max-w-[420px]" />
       </div>
       {tabs.map((t) => (
         <div

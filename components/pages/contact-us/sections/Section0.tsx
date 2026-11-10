@@ -14,11 +14,10 @@ export function Section0() {
       <div className="mx-auto flex max-w-[1248px] flex-col items-start justify-between gap-12 lg:flex-row">
         <div className="flex w-full max-w-[560px] flex-col items-center gap-6">
           <div className="flex w-full flex-col items-start gap-4">
-            <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">{"Get in touch with CognitiveBotics"}</TextReveal>
+            <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">{"Contact CognitiveBotics"}</TextReveal>
             <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
-              Have questions about CognitiveBotics or early intervention for your
-              child, therapy centre or school? Our team in Hyderabad is just a
-              message away.
+              For therapy centres, schools and partners. Reach our offices in
+              Madhapur, Hyderabad and Business Bay, Dubai.
             </p>
           </div>
           <Image

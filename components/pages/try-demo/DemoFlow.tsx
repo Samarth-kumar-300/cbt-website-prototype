@@ -41,7 +41,7 @@ export function DemoFlow({ plan }: { plan: Plan | null }) {
     <div className={DEMO_CARD}>
       {state.step === 'details' ? <DemoForm plan={plan} onSubmitted={onSubmitted} /> : null}
       {state.step === 'schedule' && request ? (
-        <DemoSchedule headingRef={headingRef} url={CALENDLY_URL} name={request.name} email={request.email} onBooked={onBooked} />
+        <DemoSchedule headingRef={headingRef} url={CALENDLY_URL} name={`${request.firstName} ${request.lastName}`.trim()} firstName={request.firstName} lastName={request.lastName} email={request.email} onBooked={onBooked} />
       ) : null}
       {state.step === 'done' ? <DemoDone headingRef={headingRef} /> : null}
     </div>

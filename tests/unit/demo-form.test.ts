@@ -5,14 +5,14 @@ import {
   isSpam,
   parsePlan,
   showsOrganisation,
-  showsRoleOther,
+  ROLE_OPTIONS,
   toRequest,
   usersHelper,
   validateDemo,
   type DemoValues,
 } from '@/lib/demo-form';
 
-const valid: DemoValues = { ...EMPTY_DEMO, name: 'Asha Rao', email: 'asha@example.com', phone: '9876543210', role: 'Parent', users: '2', captcha: 'VKNB62' };
+const valid: DemoValues = { ...EMPTY_DEMO, firstName: 'Asha', lastName: 'Rao', email: 'asha@example.com', phone: '9876543210', role: 'Therapy Centres', users: '2', captcha: 'VKNB62' };
 
 describe('parsePlan', () => {
   it('accepts exactly basic and custom', () => {
@@ -39,9 +39,9 @@ describe('initialValues', () => {
 
 describe('showsOrganisation', () => {
   it('is true for centre admins and schools only', () => {
-    expect(showsOrganisation('Therapy centre admin')).toBe(true);
-    expect(showsOrganisation('School')).toBe(true);
-    for (const r of ['Therapist', 'Parent', 'Other', '']) expect(showsOrganisation(r), r).toBe(false);
+    expect(showsOrganisation('Therapy Centres')).toBe(true);
+    expect(showsOrganisation('Schools')).toBe(true);
+    for (const r of ['Individual Therapists', '']) expect(showsOrganisation(r), r).toBe(false);
   });
 });
 
@@ -51,7 +51,8 @@ describe('validateDemo', () => {
   });
   it('asks for every required field on an empty form, and not for the school name', () => {
     expect(validateDemo(EMPTY_DEMO)).toEqual({
-      name: 'Name is required',
+      firstName: 'First Name is required',
+      lastName: 'Last Name is required',
       email: 'Email is required',
       phone: 'Phone number is required',
       role: 'Your role is required',
@@ -70,39 +71,31 @@ describe('validateDemo', () => {
   });
   it('checks the school name length only when the role shows that field', () => {
     const long = 'x'.repeat(121);
-    expect(validateDemo({ ...valid, role: 'School', organisation: long }).organisation).toBe('Centre or school name must be 120 characters or fewer');
-    expect(validateDemo({ ...valid, role: 'Parent', organisation: long }).organisation).toBeUndefined();
+    expect(validateDemo({ ...valid, role: 'Schools', organisation: long }).organisation).toBe('Centre or school name must be 120 characters or fewer');
+    expect(validateDemo({ ...valid, role: 'Individual Therapists', organisation: long }).organisation).toBeUndefined();
   });
 });
 
-describe('Other role', () => {
-  it('shows the field only for Other', () => {
-    expect(showsRoleOther('Other')).toBe(true);
-    for (const r of ['Parent', 'Therapist', 'School', 'Therapy centre admin', '']) expect(showsRoleOther(r)).toBe(false);
+describe('role options', () => {
+  it('offers exactly Therapy Centres, Schools and Individual Therapists, in that order', () => {
+    expect([...ROLE_OPTIONS]).toEqual(['Therapy Centres', 'Schools', 'Individual Therapists']);
+    for (const r of ['Parent', 'Other']) expect((ROLE_OPTIONS as readonly string[]).includes(r), r).toBe(false);
   });
-  it('requires an answer for Other, and nothing for the other roles', () => {
-    expect(validateDemo({ ...valid, role: 'Other' }).roleOther).toBe('Tell us your role');
-    expect(validateDemo({ ...valid, role: 'Other', roleOther: '   ' }).roleOther).toBe('Tell us your role');
-    expect(validateDemo({ ...valid, role: 'Other', roleOther: 'Speech therapist' })).toEqual({});
-    expect(validateDemo({ ...valid, role: 'Parent' }).roleOther).toBeUndefined();
-  });
-  it('caps the answer at 80 characters', () => {
-    expect(validateDemo({ ...valid, role: 'Other', roleOther: 'a'.repeat(81) }).roleOther).toBe('Your role must be 80 characters or fewer');
-  });
-  it('sends the trimmed answer only when the role is Other', () => {
-    expect(toRequest({ ...valid, role: 'Other', roleOther: ' Speech therapist ' }, '+91', null).roleOther).toBe('Speech therapist');
-    expect(toRequest({ ...valid, role: 'Parent', roleOther: 'left over' }, '+91', null).roleOther).toBe('');
+  it('requires first and last name separately', () => {
+    expect(validateDemo({ ...valid, firstName: ' ' }).firstName).toBe('First Name is required');
+    expect(validateDemo({ ...valid, lastName: '' }).lastName).toBe('Last Name is required');
+    expect(validateDemo({ ...valid, firstName: 'a'.repeat(81) }).firstName).toBe('First Name must be 80 characters or fewer');
   });
 });
 
 describe('toRequest', () => {
   it('trims values and joins the dial code and phone', () => {
-    const r = toRequest({ ...valid, name: '  Asha Rao ', email: ' asha@example.com ', phone: ' 9876543210 ' }, '+91', 'basic');
-    expect(r).toEqual({ name: 'Asha Rao', email: 'asha@example.com', phone: '+91 9876543210', role: 'Parent', roleOther: '', organisation: '', users: '2', plan: 'basic' });
+    const r = toRequest({ ...valid, firstName: '  Asha ', lastName: ' Rao ', email: ' asha@example.com ', phone: ' 9876543210 ' }, '+91', 'basic');
+    expect(r).toEqual({ firstName: 'Asha', lastName: 'Rao', email: 'asha@example.com', phone: '+91 9876543210', role: 'Therapy Centres', organisation: '', users: '2', plan: 'basic' });
   });
   it('drops a school name typed earlier when the role no longer shows that field', () => {
-    expect(toRequest({ ...valid, role: 'Parent', organisation: 'Sunrise School' }, '+91', null).organisation).toBe('');
-    expect(toRequest({ ...valid, role: 'School', organisation: ' Sunrise School ' }, '+91', null).organisation).toBe('Sunrise School');
+    expect(toRequest({ ...valid, role: 'Individual Therapists', organisation: 'Sunrise School' }, '+91', null).organisation).toBe('');
+    expect(toRequest({ ...valid, role: 'Schools', organisation: ' Sunrise School ' }, '+91', null).organisation).toBe('Sunrise School');
   });
 });
 

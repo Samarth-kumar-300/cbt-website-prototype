@@ -17,10 +17,37 @@ test('blog: index lists the posts and the chips filter them', async ({ page }) =
   await page.goto('/blog');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Blog');
   await expect(page.locator('main a[href^="/blog/"]')).toHaveCount(SLUGS.length);
-  await page.getByRole('tab', { name: 'Schools' }).click();
-  await expect(page.locator('main [role="tabpanel"] a[href^="/blog/"]')).toHaveCount(2);
-  await page.getByRole('tab', { name: 'Therapy centres' }).click();
-  await expect(page.locator('main [role="tabpanel"] a[href^="/blog/"]')).toHaveCount(2);
+  await expect(page.getByText('What’s changing in early intervention, and how centres, schools and parents put it to work.')).toBeVisible();
+  expect(await page.getByRole('tab').allTextContents()).toEqual(['All', 'Therapy centres', 'Schools', 'Parents']);
+  const cards = page.locator('main [role="tabpanel"] a[href^="/blog/"]');
+  // Each chip lists exactly the posts tagged with it, in post order, and every card shows that tag.
+  for (const [chip, slugs] of [
+    ['Therapy centres', [SLUGS[0], SLUGS[5]]],
+    ['Schools', [SLUGS[1]]],
+    ['Parents', [SLUGS[2], SLUGS[3], SLUGS[4]]],
+    ['All', SLUGS],
+  ] as const) {
+    await page.getByRole('tab', { name: chip, exact: true }).click();
+    await expect(page.getByRole('tab', { name: chip, exact: true })).toHaveAttribute('aria-selected', 'true');
+    await expect(cards).toHaveCount(slugs.length);
+    expect(await cards.evaluateAll((els) => els.map((el) => el.getAttribute('href')))).toEqual(slugs.map((s) => `/blog/${s}`));
+    if (chip !== 'All') await expect(page.locator('main [role="tabpanel"] a[href^="/blog/"]', { hasText: chip })).toHaveCount(slugs.length);
+  }
+});
+
+test('blog: a card shows no description under its title', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/blog');
+  await expect(page.locator('main a[href^="/blog/"] p')).toHaveCount(0);
+});
+
+test('blog: a post page shows only its own tags', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const [slug, tags] of [[SLUGS[0], ['Therapy centres']], [SLUGS[1], ['Schools']], [SLUGS[2], ['Parents']]] as const) {
+    await page.goto(`/blog/${slug}`);
+    const shown = await page.locator('main section').first().locator('span.rounded-full').allTextContents();
+    expect(shown, slug).toEqual(tags);
+  }
 });
 
 for (const slug of SLUGS) {
@@ -41,7 +68,9 @@ test('blog: an unknown slug is a 404', async ({ page }) => {
 test('case studies: the index lists only case studies, filters them and opens a detail page', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/case-studies');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Case studies');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Results from real centres and schools');
+  await expect(page.getByText('See what changed after they started with CognitiveBotics.')).toBeVisible();
+  await expect(page.locator('main header')).toHaveCSS('border-bottom-width', '1px');
   await expect(page.getByRole('link', { name: /Read more/ })).toHaveCount(2);
   // Nothing but the case studies: no research, achievements or closing panel.
   for (const name of ['Research', 'Achievements', 'Knowledge Base', 'Want results like these?']) {
@@ -78,19 +107,26 @@ test('testimonials: chips filter the quotes', async ({ page }) => {
   await expect(page.getByRole('figure')).toHaveCount(1);
 });
 
-test('learn nav: every menu link opens a real page, not the stub', async ({ page }) => {
+test('inside cognitivebotics nav: every menu link opens a real page, not the stub', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  for (const [label, path] of [['Case studies', '/case-studies'], ['FAQs', '/faqs'], ['Blog', '/blog'], ['Testimonials', '/testimonials']]) {
+  // Column Company: Case studies, Testimonials, Awards. Column Library: Blog, Webinars. Column Product: Research, Knowledge base.
+  const nav = page.getByRole('navigation', { name: 'Primary' });
+  for (const [label, path] of [['Case studies', '/case-studies'], ['Testimonials', '/testimonials'], ['Blog', '/blog']]) {
     await page.goto('/');
-    await page.getByRole('button', { name: 'Learn' }).click();
-    await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: new RegExp(`^${label}`) }).click();
+    await page.getByRole('button', { name: 'Inside CognitiveBotics' }).click();
+    await nav.getByRole('link', { name: new RegExp(`^${label}`) }).click();
     await expect(page).toHaveURL(new RegExp(`${path}$`));
     await expect(page.getByRole('heading', { level: 1 })).not.toHaveText('Coming soon');
   }
   await page.goto('/');
-  await page.getByRole('button', { name: 'Learn' }).click();
-  const kb = page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: /^Knowledge base/ });
-  await expect(kb).toHaveAttribute('href', 'https://support.cognitivebotics.com/support/solutions');
+  await page.getByRole('button', { name: 'Inside CognitiveBotics' }).click();
+  for (const label of ['Case studies', 'Testimonials', 'Awards', 'Blog', 'Webinars', 'Research', 'Knowledge base']) {
+    await expect(nav.getByRole('link', { name: new RegExp(`^${label}`) })).toBeVisible();
+  }
+  // FAQs left the dropdown; it stays reachable from the footer.
+  await expect(nav.getByRole('link', { name: /^FAQs/ })).toHaveCount(0);
+  const kb = nav.getByRole('link', { name: /^Knowledge base/ });
+  await expect(kb).toHaveAttribute('href', /^https:\/\/support\.cognitivebotics\.com/);
   await expect(kb).toHaveAttribute('target', '_blank');
 });
 

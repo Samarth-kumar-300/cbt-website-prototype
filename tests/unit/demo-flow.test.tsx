@@ -68,7 +68,7 @@ describe('DemoFlow', () => {
     const user = await reachSchedule();
     await user.click(screen.getByRole('button', { name: 'Book a time' }));
     await waitFor(() => expect(popup).toHaveBeenCalledTimes(1));
-    expect(popup.mock.calls[0][0]).toMatchObject({ url: URL, prefill: { name: 'Asha Rao', email: 'asha@example.com' } });
+    expect(popup.mock.calls[0][0]).toMatchObject({ url: URL, prefill: { name: 'Asha Rao', firstName: 'Asha', lastName: 'Rao', email: 'asha@example.com' } });
   });
 
   it('closes the popup and says "Demo booked" once, even when the booking message arrives twice', async () => {
