@@ -36,7 +36,7 @@ test("heading, description and topic options follow the client copy", async ({
   ).toBeVisible();
   await expect(
     page.getByText(
-      "For therapy centres, schools and partners. Reach our offices in Madhapur, Hyderabad and Business Bay, Dubai.",
+      "Tell us who you are and what you need. We have offices in Hyderabad and Dubai.",
     ),
   ).toBeVisible();
   await expect(page.getByLabel(/^First Name/)).toBeVisible();

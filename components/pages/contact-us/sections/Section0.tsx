@@ -16,8 +16,7 @@ export function Section0() {
           <div className="flex w-full flex-col items-start gap-4">
             <TextReveal as="h1" split="lines" trigger="load" className="font-heading text-[36px] font-semibold leading-[48px] text-brand-teal lg:text-[48px] lg:leading-[58px]">{"Contact CognitiveBotics"}</TextReveal>
             <p className="text-[14px] leading-[22px] text-text-default lg:text-[22px] lg:leading-[33px]">
-              For therapy centres, schools and partners. Reach our offices in
-              Madhapur, Hyderabad and Business Bay, Dubai.
+              Tell us who you are and what you need. We have offices in Hyderabad and Dubai.
             </p>
           </div>
           <Image
