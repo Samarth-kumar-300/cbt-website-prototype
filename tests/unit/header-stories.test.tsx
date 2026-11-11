@@ -119,8 +119,9 @@ describe('Header with the Inside CognitiveBotics menu', () => {
     await userEvent.click(inside);
     expect(inside).toHaveAttribute('aria-expanded', 'true');
     expect(within(drawer).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(
-      expect.arrayContaining(['/pricing', '/case-studies', '/blog', '/testimonials', '/webinars', '/contact-us']),
+      expect.arrayContaining(['/pricing', '/case-studies', '/blog', '/testimonials', '/webinars']),
     );
+    expect(within(drawer).queryByRole('link', { name: 'Contact us' })).toBeNull();
     await userEvent.click(within(drawer).getByRole('link', { name: 'Blog' }));
     expect(screen.queryByRole('navigation', { name: 'Mobile' })).toBeNull();
   });

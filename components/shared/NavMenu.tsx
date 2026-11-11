@@ -222,15 +222,6 @@ export function MobileNavMenu({ item, pathname, onNavigate }: MobileProps) {
               </ul>
             </div>
           ))}
-          <Link
-            href={item.promo.href}
-            onClick={onNavigate}
-            className="mt-1 flex flex-col gap-1 rounded-xl bg-brand-teal px-4 py-3 text-content-knockout"
-          >
-            <span className="font-heading text-[16px] font-semibold leading-[22px]">{item.promo.heading}</span>
-            {item.promo.body ? <span className="text-[14px] leading-[20px]">{item.promo.body}</span> : null}
-            <span className="mt-1 text-[15px] font-semibold">{item.promo.label}</span>
-          </Link>
         </div>
       ) : null}
     </div>
