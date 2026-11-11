@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { Button } from './Button';
+import { Button, SECONDARY_HOVER } from './Button';
 import { Logo } from './Logo';
 import { DRAWER_LINKS, HEADER_BG_IMAGE, HEADER_SCROLLED_BG, SIGN_IN_ITEMS } from './nav-config.generated';
 import { MobileNavMenu, NavMenu } from './NavMenu';
@@ -128,7 +128,7 @@ export function Header() {
               aria-haspopup="menu"
               aria-expanded={menu}
               onClick={() => setMenu((m) => !m)}
-              className="flex items-center gap-[6px] whitespace-nowrap rounded-full border-[1.5px] border-brand-teal py-[11px] pl-5 pr-4 text-[14px] font-semibold tracking-[0.5px] text-content-brand"
+              className={`flex items-center gap-[6px] whitespace-nowrap rounded-full border-[1.5px] border-brand-teal py-[11px] pl-5 pr-4 text-[14px] font-semibold tracking-[0.5px] text-content-brand transition-colors ${SECONDARY_HOVER}`}
             >
               Sign in
               <Chevron />
@@ -200,7 +200,7 @@ export function Header() {
                 type="button"
                 aria-expanded={signIn}
                 onClick={() => setSignIn((v) => !v)}
-                className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border-[1.5px] border-brand-teal px-6 text-[16px] font-semibold uppercase tracking-[0.6px] text-content-brand"
+                className={`flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border-[1.5px] border-brand-teal px-6 text-[16px] font-semibold uppercase tracking-[0.6px] text-content-brand transition-colors ${SECONDARY_HOVER}`}
               >
                 Sign in
                 <span className={`transition-transform duration-200 ${signIn ? 'rotate-180' : ''}`}>

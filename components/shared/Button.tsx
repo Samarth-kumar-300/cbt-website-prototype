@@ -18,9 +18,12 @@ const SIZE: Record<Size, string> = {
   md: 'gap-[8px] px-6 py-[14px] text-[16px] font-semibold',
   nav: 'px-[26px] py-[13px] text-[14px] font-bold tracking-[0.5px]',
 };
+/** Hover and keyboard-focus fill for every secondary (outline) button. Spread into hand-built secondary buttons too. */
+export const SECONDARY_HOVER = 'hover:bg-brand-teal-100 hover:text-brand-teal focus-visible:bg-brand-teal-100 focus-visible:text-brand-teal';
+
 const VARIANT: Record<Variant, string> = {
   solid: 'bg-brand-teal text-content-knockout hover:bg-[#0f4548]',
-  outline: 'border-[1.5px] border-brand-teal bg-transparent text-content-brand',
+  outline: `border-[1.5px] border-brand-teal bg-transparent text-content-brand ${SECONDARY_HOVER}`,
   // Text-only link: no fill or border, and no side padding so it lines up with the copy above it.
   tertiary: 'text-content-brand underline-offset-4 hover:underline focus-visible:underline',
 };

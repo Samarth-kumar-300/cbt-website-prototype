@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { SECONDARY_HOVER } from '@/components/shared/Button';
 import { Chips } from '@/components/shared/Chips';
 import { RevealStagger } from '@/components/shared/RevealStagger';
 import { CaseStudyCard } from './CaseStudyCard';
@@ -39,7 +40,7 @@ export function CaseStudyList({ studies }: { studies: readonly CaseStudy[] }) {
           <button
             type="button"
             onClick={() => setMore(true)}
-            className="btn mx-auto mt-12 flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-full border-[1.5px] border-brand-teal bg-transparent px-6 py-[14px] text-[16px] font-semibold text-content-brand transition-colors"
+            className={`btn mx-auto mt-12 flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-full border-[1.5px] border-brand-teal bg-transparent px-6 py-[14px] text-[16px] font-semibold text-content-brand transition-colors ${SECONDARY_HOVER}`}
           >
             Show more
           </button>

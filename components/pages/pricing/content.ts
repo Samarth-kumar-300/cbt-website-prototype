@@ -231,7 +231,7 @@ export const audiences: Record<AudienceId, Audience> = {
           'Makes sure home practice reaches parents',
           'Live within 6 weeks',
         ],
-        cta: { label: 'Contact us', href: '/contact-us', variant: 'solid' },
+        cta: { label: 'Contact us', href: '/contact-us', variant: 'outline' },
         tone: 'bloom',
       },
     ],

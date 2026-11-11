@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { SECONDARY_HOVER } from './Button';
 import { COOKIE_KEY } from './cookie-key';
 
 export function CookieBanner() {
@@ -80,7 +81,7 @@ export function CookieBanner() {
         </button>
       </p>
       <div className="flex gap-3">
-        <button type="button" onClick={() => choose('rejected')} className="flex-1 rounded-full border-[1.5px] transition-transform motion-safe:active:scale-[0.98] border-brand-teal min-h-[44px] py-[10px] text-[14px] font-semibold text-brand-teal">
+        <button type="button" onClick={() => choose('rejected')} className={`flex-1 rounded-full border-[1.5px] transition-[transform,color,background-color] motion-safe:active:scale-[0.98] border-brand-teal min-h-[44px] py-[10px] text-[14px] font-semibold text-brand-teal ${SECONDARY_HOVER}`}>
           Reject all
         </button>
         <button type="button" onClick={() => choose('accepted')} className="flex-1 rounded-full transition-transform motion-safe:active:scale-[0.98] bg-brand-teal min-h-[44px] py-[10px] text-[14px] font-semibold text-content-knockout hover:bg-[#0f4548]">

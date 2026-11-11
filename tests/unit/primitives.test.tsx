@@ -37,6 +37,13 @@ describe('Button', () => {
     render(<Button href="/s" variant="outline" size="nav">Sign in</Button>);
     expect(screen.getByRole('link', { name: 'Sign in' }).className).toContain('border-brand-teal');
   });
+  it('fills the outline variant with the pale teal on hover and focus', () => {
+    render(<Button href="/s" variant="outline">Contact us</Button>);
+    const cls = screen.getByRole('link', { name: 'Contact us' }).className;
+    for (const c of ['hover:bg-brand-teal-100', 'hover:text-brand-teal', 'focus-visible:bg-brand-teal-100', 'focus-visible:text-brand-teal']) {
+      expect(cls).toContain(c);
+    }
+  });
 });
 
 describe('Eyebrow', () => {

@@ -35,7 +35,7 @@ describe('audiences', () => {
       expect(a.plans[1].cta).toEqual({ label: 'Contact us', href: '/try-demo?plan=custom', variant: 'outline' });
       expect(a.cta.href).toBe('/contact-us');
     }
-    expect(sc.plans[2].cta).toEqual({ label: 'Contact us', href: '/contact-us', variant: 'solid' });
+    expect(sc.plans[2].cta).toEqual({ label: 'Contact us', href: '/contact-us', variant: 'outline' });
   });
   it('prices Basic at 2,000 per user per month, up to 5 users, excluding taxes', () => {
     for (const a of [tc, sc]) expect(a.plans[0]).toMatchObject({ price: '₹2,000', unit: '/user/month', meta: 'Up to 5 users', metaNote: 'Excluding taxes' });
