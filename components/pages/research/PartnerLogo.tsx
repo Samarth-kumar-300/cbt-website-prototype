@@ -6,7 +6,8 @@ import type { ResearchPartner } from './content';
 export function PartnerLogo({ partner }: { partner: ResearchPartner }) {
   const name = (
     <span className="flex min-w-0 flex-col leading-tight">
-      <span className="text-balance font-heading text-[length:var(--rc-partner-size)] font-bold text-brand-teal">{partner.name}</span>
+      {/* w-min wraps the name at every space, so "JMIR Neurotechnology" stacks on two lines as in the design. */}
+      <span style={partner.nameColor ? { color: partner.nameColor } : undefined} className="w-min font-heading text-[length:var(--rc-partner-size)] font-bold text-brand-teal">{partner.name}</span>
       {partner.subLabel ? <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-content-secondary">{partner.subLabel}</span> : null}
     </span>
   );

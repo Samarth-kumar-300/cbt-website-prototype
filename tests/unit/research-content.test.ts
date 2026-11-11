@@ -14,6 +14,7 @@ describe('research content', () => {
       '59.57% more tasks done independently · +18.93% developmental age',
     ]);
     expect(researchCards.map((c) => c.button)).toEqual(['Read the study', 'Read the summary']);
+    expect(researchCards.map((c) => c.readTime)).toEqual(['2 min read', '2 min read']);
     expect(researchCards.map((c) => c.href)).toEqual([
       '/research/effectiveness-of-artificial-intelligence-based-platform-in-administering-therapies-for-children-with-autism-spectrum-disorder-12-month-observational-study',
       '/research/application-of-ai-based-learning-platform-for-children-with-asd-developmental-delay-and-intellectual-disability-a-prospective-cohort-study',
@@ -21,7 +22,7 @@ describe('research content', () => {
   });
 
   it('names the third-party entity on each card', () => {
-    expect(researchCards.map((c) => c.partner)).toEqual([{ name: 'JMIR Neurotechnology' }, { name: 'NIEPID', subLabel: 'Govt of India' }]);
+    expect(researchCards.map((c) => c.partner)).toEqual([{ name: 'JMIR Neurotechnology', nameColor: '#1c2b57' },{ name: 'NIEPID', subLabel: 'Govt of India' }]);
   });
 
   it('keeps every href under /research/ and matching a study slug, uniquely', () => {

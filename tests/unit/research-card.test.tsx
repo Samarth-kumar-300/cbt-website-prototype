@@ -13,6 +13,7 @@ describe('ResearchCard', () => {
     if (card.partner.subLabel) expect(screen.getByText(card.partner.subLabel)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: card.headline })).toBeInTheDocument();
     expect(container.querySelector('p')?.textContent).toBe(card.output);
+    expect(screen.getByText(card.readTime)).toBeInTheDocument();
     const links = screen.getAllByRole('link');
     expect(links).toHaveLength(1);
     expect(screen.getByRole('link', { name: new RegExp(card.button) })).toHaveAttribute('href', card.href);
