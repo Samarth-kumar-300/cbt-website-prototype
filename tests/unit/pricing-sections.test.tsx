@@ -54,7 +54,8 @@ describe('pricing panel colours', () => {
     const { container } = render(<ParentsPanel />);
     expect(container.innerHTML).toContain('bg-[#f8f2f9]');
     const badges = screen.getByRole('link', { name: /Google Play/ }).closest('div')!;
-    expect(badges.className).toContain('flex-col');
-    expect(badges.className).not.toMatch(/flex-row|xl:/);
+    expect(badges.className).toContain('flex-row');
+    expect(badges.className).toContain('flex-wrap');
+    expect(badges.className).toContain('lg:flex-col');
   });
 });

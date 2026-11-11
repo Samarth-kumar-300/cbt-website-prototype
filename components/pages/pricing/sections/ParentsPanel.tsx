@@ -14,9 +14,9 @@ export function ParentsPanel() {
             <p className="text-[15px] leading-[24px] text-text-default lg:text-[17px] lg:leading-[26px]">{c.body}</p>
             <ShareLink label={c.share} text={c.shareText} path="/parents" />
           </div>
-          <div className="flex shrink-0 flex-col items-start gap-3">
-            <StoreBadge store="google" href={APP_LINKS.googlePlay} label={c.googlePlay} />
-            <StoreBadge store="apple" href={APP_LINKS.appStore} label={c.appStore} />
+          <div className="flex shrink-0 flex-row flex-wrap items-start gap-3 lg:flex-col">
+            <StoreBadge store="google" href={APP_LINKS.googlePlay} label={c.googlePlay} height={45} />
+            <StoreBadge store="apple" href={APP_LINKS.appStore} label={c.appStore} height={45} />
           </div>
         </div>
       </Reveal>
