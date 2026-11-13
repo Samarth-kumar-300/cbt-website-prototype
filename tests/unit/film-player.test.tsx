@@ -47,7 +47,7 @@ describe('FilmPlayer when played', () => {
     expect(frame()).toHaveFocus();
   });
 
-  it('keeps the poster until the frame has loaded, then removes the button and shows the frame', async () => {
+  it('keeps the poster until the frame has loaded, then hides the button from assistive technology and shows the frame', async () => {
     const user = userEvent.setup();
     render(<FilmPlayer film={film} />);
     await user.click(playButton());
@@ -56,6 +56,18 @@ describe('FilmPlayer when played', () => {
     fireEvent.load(frame()!);
     expect(screen.queryByRole('button', { name: /Play film/ })).toBeNull();
     expect(frame()).toHaveClass('opacity-100');
+  });
+
+  it('keeps the poster under the player once playing, so the fade is a crossfade and no page background shows through', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<FilmPlayer film={film} />);
+    await user.click(playButton());
+    fireEvent.load(frame()!);
+    expect(screen.getByAltText(film.posterAlt)).toBeInTheDocument();
+    const button = container.querySelector('button')!;
+    expect(button).toHaveAttribute('inert');
+    expect(button).toBeDisabled();
+    expect(button.querySelector('svg')).toBeNull(); // the play triangle is gone
   });
 
   it('shows the frame after the wait if it never reports loading (blocked or slow network)', () => {

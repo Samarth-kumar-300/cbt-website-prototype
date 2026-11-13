@@ -34,7 +34,7 @@ function Badge({ loading }: { loading: boolean }) {
 
 /**
  * A film card. It shows a poster and a play button; nothing from YouTube loads until the
- * visitor presses it. Then the player replaces the poster in the same box.
+ * visitor presses it. Then the player fades in over the poster, which stays underneath.
  * The button is the card itself, outside any clipping box, so its focus ring is never cut off.
  */
 export function FilmPlayer({ film }: { film: Film }) {
@@ -55,25 +55,26 @@ export function FilmPlayer({ film }: { film: Film }) {
 
   return (
     <div className="relative aspect-video rounded-[20px] shadow-[0px_6px_20px_0px_rgba(15,74,77,0.05)] lg:rounded-[24px]">
-      {status !== 'playing' ? (
-        <button
-          type="button"
-          onClick={() => setStatus('loading')}
-          disabled={status === 'loading'}
-          aria-label={`Play film: ${film.title}`}
-          className="group absolute inset-0 cursor-pointer overflow-hidden rounded-[inherit] bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-teal disabled:cursor-default"
-        >
-          {/* The zoom hangs off the button's hover, not a wrapper's: the badge sits beside the poster, so a wrapper-only hover would let go the moment the pointer reached it. */}
-          <Image
-            src={film.poster}
-            alt={film.posterAlt}
-            fill
-            sizes="(min-width: 1440px) 1248px, (min-width: 1024px) calc(100vw - 192px), 100vw"
-            className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-105"
-          />
-          <Badge loading={status === 'loading'} />
-        </button>
-      ) : null}
+      {/* Once playing, the poster stays under the fading player, inert and hidden from assistive technology: only the film is reachable, and no page background shows through mid-fade. */}
+      <button
+        type="button"
+        onClick={() => setStatus('loading')}
+        disabled={status !== 'idle'}
+        aria-hidden={status === 'playing' || undefined}
+        inert={status === 'playing'}
+        aria-label={`Play film: ${film.title}`}
+        className="group absolute inset-0 cursor-pointer overflow-hidden rounded-[inherit] bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-teal disabled:cursor-default"
+      >
+        {/* The zoom hangs off the button's hover, not a wrapper's: the badge sits beside the poster, so a wrapper-only hover would let go the moment the pointer reached it. */}
+        <Image
+          src={film.poster}
+          alt={film.posterAlt}
+          fill
+          sizes="(min-width: 1440px) 1248px, (min-width: 1024px) calc(100vw - 192px), 100vw"
+          className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-105"
+        />
+        {status !== 'playing' ? <Badge loading={status === 'loading'} /> : null}
+      </button>
       {status !== 'idle' ? (
         <iframe
           ref={frame}

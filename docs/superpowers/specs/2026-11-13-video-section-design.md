@@ -43,7 +43,7 @@ States: `idle`, `loading`, `playing`.
    `allow="autoplay; encrypted-media; picture-in-picture; fullscreen"`, `allowFullScreen`,
    `referrerPolicy="strict-origin-when-cross-origin"` (YouTube rejects embeds that send no referrer).
    Focus moves to the iframe, because the button that held it is gone.
-3. **playing.** On the iframe's `load` event, or after 6 seconds if it never fires, the iframe fades to opacity 1 and the poster and badge are removed. The 6-second fallback lets YouTube's own error message show instead of an endless spinner.
+3. **playing.** On the iframe's `load` event, or after 6 seconds if it never fires, the iframe fades to opacity 1 over the poster. The badge is removed; the poster stays underneath, inert and hidden from assistive technology, so the fade is a crossfade and no page background shows through. The 6-second fallback lets YouTube's own error message show instead of an endless spinner.
 
 `rel=0` limits end-of-video suggestions to the CognitiveBotics channel. No `modestbranding` (YouTube deprecated it) and no custom controls.
 
@@ -139,3 +139,5 @@ Found while writing the implementation plan. None changes what visitors see.
 2. **`TextReveal` gains an optional `id`.** The section's `aria-labelledby` needs an id on the heading, and `TextReveal` did not accept one. One optional prop; no caller changes.
 3. **Focus ring and border structure.** The border is a non-interactive overlay on the card, and the play button is the card itself. Putting the button inside a clipped, bordered box would cut off its focus ring.
 4. **Tests 7 to 11 added**, covering double presses, duplicate ids, server HTML, long words and id encoding. The preview page also gets top padding for the fixed header.
+5. **Poster zoom follows the button's hover**, not the `img-hover-zoom` class. That class only reacts to its own wrapper, and the play badge sits outside it, so the zoom let go when the pointer reached the badge. Same duration and easing.
+6. **Poster stays under the player once playing** (found in the final review). Removing it at the start of the fade let the page background show through for 300 ms.
