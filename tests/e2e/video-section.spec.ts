@@ -53,6 +53,14 @@ test('keyboard users can Tab to the play button', async ({ page }) => {
   await expect(play).toBeFocused();
 });
 
+test('the poster zooms while the pointer is over the play badge, not only over the rest of the card', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(ROUTE);
+  const play = page.getByRole('button', PLAY).first();
+  await play.hover(); // the centre of the card, where the badge sits
+  await expect(play.locator('img')).toHaveCSS('scale', '1.05');
+});
+
 for (const key of ['Enter', 'Space']) {
   test(`${key} plays the film in place`, async ({ page }) => {
     await stubPlayer(page);
