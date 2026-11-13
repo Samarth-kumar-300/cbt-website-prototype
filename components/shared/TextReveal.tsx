@@ -14,6 +14,8 @@ type Props = {
   trigger: 'load' | 'scroll';
   /** Only split while this media query matches, so a hidden desktop or mobile copy is never split. */
   media?: string;
+  /** Lets a section point aria-labelledby at its heading. */
+  id?: string;
   className?: string;
   style?: CSSProperties;
   children: ReactNode;
@@ -22,7 +24,7 @@ type Props = {
 // Reveals a heading's lines, words or sentences once. The heading is plain text in the server
 // HTML, so it reads without JavaScript. Reduced-motion users never get the split. aria: 'auto'
 // keeps the full sentence as the accessible name so screen readers don't read the pieces.
-export function TextReveal({ as: Tag, split, trigger, media, className, style, children }: Props) {
+export function TextReveal({ as: Tag, split, trigger, media, id, className, style, children }: Props) {
   const ref = useRef<HTMLHeadingElement>(null);
 
   useGSAP(
@@ -96,7 +98,7 @@ export function TextReveal({ as: Tag, split, trigger, media, className, style, c
   );
 
   return (
-    <Tag ref={ref} className={className} style={style}>
+    <Tag ref={ref} id={id} className={className} style={style}>
       {children}
     </Tag>
   );

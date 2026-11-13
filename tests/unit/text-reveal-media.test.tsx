@@ -34,3 +34,14 @@ describe('TextReveal props', () => {
     expect(h.style.color).toBe('rgb(1, 2, 3)');
   });
 });
+
+describe('TextReveal id', () => {
+  it('passes an id through so a section can name itself with its heading', () => {
+    render(
+      <TextReveal as="h2" split="words" trigger="scroll" id="film-heading">
+        Progress is Priceless
+      </TextReveal>,
+    );
+    expect(screen.getByRole('heading', { level: 2 })).toHaveAttribute('id', 'film-heading');
+  });
+});
