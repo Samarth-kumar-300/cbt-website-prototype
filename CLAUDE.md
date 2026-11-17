@@ -10,6 +10,19 @@
 - The remote is `https://github.com/Samarth-kumar-300/cbt-website-prototype.git`. Pushes only work from VS Code's integrated terminal (it holds the user's GitHub login); a plain agent shell has no credentials.
 - Commit messages end with the Co-Authored-By line given in the session's system reminder.
 
+## Grammar and mechanics (must follow)
+
+For any grammar, mechanics, voice, tone, capitalization, punctuation, numbers, dates, times, lists, abbreviations, pronouns, button or label text, error message or help text, **you must follow `guidelines/CBT-guidelines.md`** (the CognitiveBotics Grammar & Mechanics Guide). It is imported below, so it is loaded in every session.
+
+- Applies to all user-facing text you write, edit or review on the site: headings, body copy, buttons, nav, form labels, placeholders, validation and error messages, FAQs, blog and thumbnail copy, meta titles and descriptions, `content.ts` files.
+- Read the full guide before writing or editing copy. Run its checklist (section 11) before handing copy back.
+- Core rules in one line each: sentence case by default (Title Case only for branding and formal headers, never ALL CAPS); numerals for ages, percentages, counts and measurements (words for small numbers in narrative prose); dates as Month day, year; times as 12-hour with lowercase am/pm; active voice and affirmative wording; you/your in microcopy; no quotes around UI labels; specific, helpful error messages; no periods on buttons or menu items.
+- When a grammar rule and clarity conflict, choose clarity.
+- Scope: apply the guide to every line of copy you add or change. Do not bulk-rewrite existing copy that came from `reference/<slug>/copy.json` unless the user asks. If existing copy breaks the guide, flag it in your reply instead of silently changing it.
+- `guidelines/` is gitignored and exists only for Claude. Never commit it, never move it out of the ignored path, and never quote or link it in site content.
+
+@guidelines/CBT-guidelines.md
+
 ## What this is
 
 A pixel-and-behaviour replica of the CognitiveBotics marketing site, built as a prototype. It deploys to Vercel; `vercel.json` only pins the framework and build commands, since Vercel detects Next.js on its own.

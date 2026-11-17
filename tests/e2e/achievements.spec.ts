@@ -18,7 +18,7 @@ test('achievements: header and two certificate cards open in a new tab', async (
   await expect(page.getByText('ISO 27001 certified')).toBeVisible();
 });
 
-test('achievements: each card is one link with image, badge, title, one-line description and CTA', async ({ page }) => {
+test('achievements: each card is one link with image, badge, title, description and CTA', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/achievements');
   const cards = [
@@ -34,14 +34,12 @@ test('achievements: each card is one link with image, badge, title, one-line des
     await expect(card.getByText(c.badge, { exact: true })).toBeVisible();
     await expect(card.getByText(c.title, { exact: true })).toBeVisible();
     await expect(card.getByText('View Certificate', { exact: true })).toBeVisible();
-    // The description is the paragraph after the title; one line means its height is one line-height.
-    const desc = card.locator('p').nth(1);
-    const lines = await desc.evaluate((el) => Math.round(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)));
-    expect(lines).toBe(1);
   }
-  // The long patent description is cut off with an ellipsis.
-  const truncated = await page.locator(`a[href="${PATENT}"] p`).nth(1).evaluate((el) => el.scrollWidth > el.clientWidth);
-  expect(truncated).toBe(true);
+  // The long patent description wraps and shows in full, with no ellipsis cut-off.
+  const desc = page.locator(`a[href="${PATENT}"] p`).nth(1);
+  await expect(desc).toContainText('through 2039.');
+  const clipped = await desc.evaluate((el) => el.scrollWidth > el.clientWidth || getComputedStyle(el).textOverflow === 'ellipsis');
+  expect(clipped).toBe(false);
 });
 
 test('achievements: cards are equal height with the CTA at the bottom', async ({ page }) => {

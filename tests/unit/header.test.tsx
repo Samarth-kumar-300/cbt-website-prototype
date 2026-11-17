@@ -36,6 +36,7 @@ describe('Header', () => {
       ['AwardsOur wins in healthcare innovation, in India and the UK', '/achievements'],
       ['BlogWhat’s changing in early intervention, and how centres, schools and parents put it to work', '/blog'],
       ['WebinarsLive and recorded sessions on early intervention and the platform', '/webinars'],
+      ['Play a gameTry the games children practise with, no sign-in needed', '/games'],
       ['ResearchStudies with NIEPID and in JMIR Neurotechnology', '/research'],
       ['Knowledge baseHow the platform works, setup guides and answers to common questions', 'https://support.cognitivebotics.com/support/solutions'],
       ['Questions about your centre or school?Talk to our team in Hyderabad about plans and setup.Contact us', '/contact-us'],

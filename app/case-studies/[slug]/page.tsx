@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const study = getCaseStudy(slug);
   if (!study) return {};
   return {
-    title: `${study.org} case study | CognitiveBotics`,
-    description: study.summary,
+    title: study.metaTitle ?? `${study.org} case study | CognitiveBotics`,
+    description: study.metaDescription ?? study.summary,
     alternates: { canonical: `/case-studies/${study.slug}` },
     ...(study.placeholder ? { robots: { index: false } } : {}),
   };

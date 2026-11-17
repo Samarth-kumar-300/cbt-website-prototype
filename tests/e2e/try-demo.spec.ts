@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { CALENDLY_URL } from '../../lib/demo-config';
 import { noConsentBanner, overflowAt } from './helpers';
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
@@ -62,18 +63,48 @@ test('try-demo: submitting moves to the request-received step', async ({ page })
   await expect(page.getByRole('heading', { name: /request received/i })).toBeFocused();
 });
 
-test('try-demo: the whole journey works without a Calendly link: form, sample calendar, booked', async ({ page }) => {
+// Calendly is a third-party script and popup, so the browser test stands in for it. The stand-in opens
+// a frame on calendly.com (the only origin the page trusts) and posts the same booked message Calendly sends.
+async function stubCalendly(page: Page) {
+  await page.route('https://assets.calendly.com/assets/external/widget.css', (route) => route.fulfill({ contentType: 'text/css', body: '' }));
+  await page.route('https://assets.calendly.com/assets/external/widget.js', (route) =>
+    route.fulfill({
+      contentType: 'text/javascript',
+      body: `window.Calendly = {
+        initPopupWidget(options) {
+          window.__calendlyOptions = options;
+          const frame = document.createElement('iframe');
+          frame.id = 'calendly-stub';
+          frame.title = 'Calendly stand-in';
+          frame.src = 'https://calendly.com/stub-popup';
+          document.body.appendChild(frame);
+        },
+        closePopupWidget() { document.getElementById('calendly-stub')?.remove(); },
+      };`,
+    }),
+  );
+  await page.route('https://calendly.com/stub-popup', (route) =>
+    route.fulfill({
+      contentType: 'text/html',
+      body: `<button onclick="parent.postMessage({ event: 'calendly.event_scheduled' }, '*')">Schedule event</button>`,
+    }),
+  );
+}
+
+test('try-demo: the whole journey works with the Calendly link: form, Calendly popup, booked', async ({ page }) => {
+  await stubCalendly(page);
   await page.goto('/try-demo');
   await fill(page);
   await page.getByRole('button', { name: 'Submit & Book' }).click();
   await expect(page.getByRole('button', { name: 'Book a time' })).toBeVisible();
   await page.getByRole('button', { name: 'Book a time' }).click();
-  const dialog = page.getByRole('dialog', { name: 'Pick a time' });
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole('button', { name: 'Confirm time' })).toBeDisabled();
-  await dialog.getByRole('button', { name: /^(Mon|Tue|Wed|Thu|Fri),/ }).first().click();
-  await dialog.getByRole('button', { name: '2:00 pm' }).click();
-  await dialog.getByRole('button', { name: 'Confirm time' }).click();
+  // The popup opens on the Calendly link, prefilled with the visitor's details. The sample calendar stays out of it.
+  const popup = page.frameLocator('#calendly-stub');
+  await expect(popup.getByRole('button', { name: 'Schedule event' })).toBeVisible();
+  const options = await page.evaluate(() => (window as unknown as { __calendlyOptions: unknown }).__calendlyOptions);
+  expect(options).toMatchObject({ url: CALENDLY_URL, prefill: { name: 'Asha Rao', email: 'asha@example.com' } });
+  await expect(page.getByRole('dialog', { name: 'Pick a time' })).toHaveCount(0);
+  await popup.getByRole('button', { name: 'Schedule event' }).click();
   await expect(page.getByRole('heading', { name: 'Demo booked' })).toBeFocused();
   await expect(page.getByText('We’re excited to give you a demo.')).toBeVisible();
   // The confirmation card itself never pushes case studies (they stay in the nav and footer).

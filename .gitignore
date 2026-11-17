@@ -46,3 +46,6 @@ next-env.d.ts
 
 # local illustration assets (not pushed)
 /illustrations/
+
+# Claude-only writing guidelines (local, not pushed)
+/guidelines/

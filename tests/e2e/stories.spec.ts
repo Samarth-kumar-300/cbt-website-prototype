@@ -71,20 +71,33 @@ test('case studies: the index lists only case studies, filters them and opens a 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Results from real centres and schools');
   await expect(page.getByText('See what changed after they started with CognitiveBotics.')).toBeVisible();
   await expect(page.locator('main header')).toHaveCSS('border-bottom-width', '1px');
-  await expect(page.getByRole('link', { name: /Read more/ })).toHaveCount(2);
+  await expect(page.getByRole('link', { name: /Read more/ })).toHaveCount(1);
   // Nothing but the case studies: no research, achievements or closing panel.
   for (const name of ['Research', 'Achievements', 'Knowledge Base', 'Want results like these?']) {
     await expect(page.getByRole('heading', { name, exact: true })).toHaveCount(0);
   }
-  await page.getByRole('tab', { name: 'Schools' }).click();
+  await page.getByRole('tab', { name: 'Therapy centres' }).click();
   await expect(page.getByRole('link', { name: /Read more/ })).toHaveCount(1);
   await page.getByRole('tab', { name: 'All' }).click();
   await page.getByRole('link', { name: /Read more/ }).first().click();
-  await expect(page).toHaveURL(/\/case-studies\/sample-therapy-centre$/);
+  await expect(page).toHaveURL(/\/case-studies\/manasa-institute$/);
   await expect(page.getByRole('link', { name: 'Back' })).toHaveAttribute('href', '/case-studies');
   await expect(page.getByRole('heading', { name: 'Challenge' })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Next case study/ })).toBeVisible();
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  await expect(page.getByRole('link', { name: /Next case study/ })).toHaveCount(0);
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  await expect(page).toHaveTitle('Manasa Institute Case Study | CognitiveBotics');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Manasa Institute: 3.2× more weekly active users, and clearer progress for parents');
+  await expect(page.getByText('Hyderabad, Telangana', { exact: true })).toBeVisible();
+  await expect(page.locator('article ol > li')).toHaveCount(5);
+  await expect(page.getByRole('table')).toBeVisible();
+  await expect(page.getByRole('columnheader')).toHaveCount(4);
+  await expect(page.locator('blockquote')).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'About the organisation' })).toBeVisible();
+  for (const w of [375, 1440]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth), `overflow at ${w}px`).toBeLessThanOrEqual(0);
+  }
+  expect((await page.goto('/case-studies/sample-school'))?.status()).toBe(404);
 });
 
 test('case studies: the tile corners grow on hover', async ({ page }) => {
@@ -131,7 +144,7 @@ test('inside cognitivebotics nav: every menu link opens a real page, not the stu
 });
 
 test('stories pages: no horizontal overflow at any width', async ({ page }) => {
-  for (const route of ['/blog', `/blog/${SLUGS[0]}`, '/case-studies', '/case-studies/sample-school', '/testimonials']) {
+  for (const route of ['/blog', `/blog/${SLUGS[0]}`, '/case-studies', '/case-studies/manasa-institute', '/testimonials']) {
     for (const w of [375, 768, 1024, 1440]) {
       expect(await overflowAt(page, route, w), `${route} at ${w}px`).toBeLessThanOrEqual(0);
     }

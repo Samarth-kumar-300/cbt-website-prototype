@@ -25,6 +25,9 @@ export const KNOWLEDGE_BASE: NavPage = {
   external: true,
 };
 
+// The games listing. Not launch-gated: every game page is built, and games without a demo show a coming-soon state.
+export const GAMES: NavPage = { label: 'Play a game', href: '/games', helper: 'Try the games children practise with, no sign-in needed' };
+
 // No page is built for webinars yet: the stub route in lib/stub-routes.ts serves /coming-soon. Not a launch-gated page.
 export const WEBINARS: NavPage = { label: 'Webinars', href: '/webinars', helper: 'Live and recorded sessions on early intervention and the platform' };
 
@@ -41,7 +44,7 @@ export function menuPages(item: NavMenuItem): NavPage[] {
 
 /**
  * Inside CognitiveBotics replaces the old Resources link, in three columns: Company (proof and what others say),
- * Library (reading and sessions) and Product (research and the knowledge base). FAQs stay in the footer and at /faqs.
+ * Library (reading and sessions) and Product (games, research and the knowledge base). FAQs stay in the footer and at /faqs.
  * It lists every page; those not live yet open the coming-soon stub.
  */
 export function buildPrimaryNav(): NavItem[] {
@@ -51,7 +54,7 @@ export function buildPrimaryNav(): NavItem[] {
     columns: [
       { heading: 'Company', pages: [LEARN_PAGES.caseStudies, LEARN_PAGES.testimonials, LEARN_PAGES.achievements] },
       { heading: 'Library', pages: [LEARN_PAGES.blog, WEBINARS] },
-      { heading: 'Product', pages: [LEARN_PAGES.research, KNOWLEDGE_BASE] },
+      { heading: 'Product', pages: [GAMES, LEARN_PAGES.research, KNOWLEDGE_BASE] },
     ],
     promo: { heading: 'Questions about your centre or school?', body: 'Talk to our team in Hyderabad about plans and setup.', label: 'Contact us', href: '/contact-us' },
   };
