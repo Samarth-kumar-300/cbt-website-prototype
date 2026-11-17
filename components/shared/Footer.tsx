@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RevealStagger } from "./RevealStagger";
 import { Reveal } from "./Reveal";
-import { LEARN_PAGES, livePages } from "./nav-links";
+import { GAMES, LEARN_PAGES, livePages } from "./nav-links";
 import { LIVE_PAGES } from "@/lib/launch-gates";
 import { InstagramIcon, LinkedInIcon, XIcon, YouTubeIcon } from "./social-icons";
 
@@ -34,6 +34,7 @@ const COLUMNS: { heading: string; links: L[] }[] = [
       { label: "For therapy centres", href: "/therapy-centres" },
       { label: "For schools", href: "/schools" },
       { label: "Pricing", href: "/pricing" },
+      { label: GAMES.label, href: GAMES.href },
     ],
   },
   { heading: "LEARN", links: resourceLinks() },

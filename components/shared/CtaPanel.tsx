@@ -11,10 +11,10 @@ export function CtaPanel({ heading, body, label, href, wideBody = false }: { hea
           className="flex flex-col items-center gap-5 rounded-[24px] px-[22px] py-9 text-center lg:rounded-[32px] lg:py-[52px]"
           style={{ background: 'linear-gradient(90deg, #f6e8f7 0%, #ead3ee 55%, #ddecea 100%)' }}
         >
-          <TextReveal as="h2" split="words" trigger="scroll" className="font-heading text-[28px] font-semibold leading-[40px] text-brand-teal lg:text-[40px] lg:leading-[48px]">
+          <TextReveal as="h2" split="words" trigger="scroll" className="text-balance font-heading text-[28px] font-semibold leading-[40px] text-brand-teal lg:text-[40px] lg:leading-[48px]">
             {heading}
           </TextReveal>
-          {body && <p className={`text-[16px] leading-[24px] text-brand-dark lg:text-[18px] lg:leading-[27px] ${wideBody ? 'max-w-[560px] lg:max-w-[1000px] lg:text-balance' : 'max-w-[560px]'}`}>{body}</p>}
+          {body && <p className={`text-balance text-[16px] leading-[24px] text-brand-dark lg:text-[18px] lg:leading-[27px] ${wideBody ? 'max-w-[560px] lg:max-w-[1000px]' : 'max-w-[560px]'}`}>{body}</p>}
           <Button href={href} arrow>
             {label}
           </Button>

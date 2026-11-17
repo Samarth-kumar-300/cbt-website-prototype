@@ -19,7 +19,7 @@ export function CaseStudyList({ studies }: { studies: readonly CaseStudy[] }) {
   const shown = more ? list : list.slice(0, PAGE);
 
   return (
-    <div className="flex flex-col gap-8 lg:gap-12">
+    <div className="flex flex-col gap-6 lg:gap-8">
       <Chips
         items={chips}
         value={active}

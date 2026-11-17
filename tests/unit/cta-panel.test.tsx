@@ -31,3 +31,10 @@ describe('CtaPanel wide body', () => {
     expect(container.querySelector('p')!.className).toMatch(/lg:max-w-\[1000px\]/);
   });
 });
+
+describe('CtaPanel line breaks', () => {
+  it('balances the heading and the supporting line so no word is left alone on the last line', () => {
+    const { container } = render(<CtaPanel heading="See the full platform behind the games" body="Plans, home practice and progress tracking, for your centre or school." label="Go" href="/x" />);
+    expect(container.querySelector('p')!.className).toMatch(/\btext-balance\b/);
+  });
+});

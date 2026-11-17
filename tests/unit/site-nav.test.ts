@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPrimaryNav, isActivePath, LEARN_PAGES, livePages, menuPages, WEBINARS } from '@/components/shared/nav-links';
+import { buildPrimaryNav, isActivePath, GAMES, LEARN_PAGES, livePages, menuPages, WEBINARS } from '@/components/shared/nav-links';
 import { LIVE_PAGES } from '@/lib/launch-gates';
 
 describe('buildPrimaryNav', () => {
@@ -20,7 +20,7 @@ describe('buildPrimaryNav', () => {
     expect(item.columns.map((c) => [c.heading, c.pages.map((p) => p.label)])).toEqual([
       ['Company', ['Case studies', 'Testimonials', 'Awards']],
       ['Library', ['Blog', 'Webinars']],
-      ['Product', ['Research', 'Knowledge base']],
+      ['Product', ['Play a game', 'Research', 'Knowledge base']],
     ]);
     expect(item.promo).toEqual({
       heading: 'Questions about your centre or school?',
@@ -46,7 +46,7 @@ describe('buildPrimaryNav', () => {
   });
 
   it('gives every page a helper line of at most 15 words', () => {
-    for (const p of [...Object.values(LEARN_PAGES), WEBINARS]) expect(p.helper.split(' ').length).toBeLessThanOrEqual(15);
+    for (const p of [...Object.values(LEARN_PAGES), WEBINARS, GAMES]) expect(p.helper.split(' ').length).toBeLessThanOrEqual(15);
   });
 });
 

@@ -60,24 +60,43 @@ describe('blog posts', () => {
 
 describe('case studies', () => {
   it('flags sample entries so the pages can warn and stay out of search', () => {
-    expect(CASE_STUDIES.length).toBeGreaterThanOrEqual(2);
+    expect(CASE_STUDIES.length).toBeGreaterThanOrEqual(1);
     expect(hasPlaceholders()).toBe(CASE_STUDIES.some((c) => c.placeholder));
   });
-  it('links each study to the next, wrapping round', () => {
-    const [a, b] = CASE_STUDIES;
-    expect(nextCaseStudy(a.slug)?.slug).toBe(b.slug);
-    expect(nextCaseStudy(CASE_STUDIES[CASE_STUDIES.length - 1].slug)?.slug).toBe(a.slug);
+  it('has no next link while there is only one study', () => {
+    expect(CASE_STUDIES).toHaveLength(1);
+    expect(nextCaseStudy(CASE_STUDIES[0].slug)).toBeUndefined();
   });
   it('offers a filter row for each group that has a case study', () => {
-    expect(caseStudyGroups()).toEqual(['Therapy centres', 'Schools']);
-    expect(caseStudyGroups(CASE_STUDIES.filter((c) => c.group === 'Schools'))).toEqual(['Schools']);
+    expect(caseStudyGroups()).toEqual(['Therapy centres']);
+    expect(caseStudyGroups([...CASE_STUDIES, { ...CASE_STUDIES[0], group: 'Schools' }])).toEqual(['Therapy centres', 'Schools']);
   });
   it('shows a read time of at least one minute, rounded from 200 words a minute', () => {
     for (const c of CASE_STUDIES) expect(readMinutes(c), c.slug).toBeGreaterThanOrEqual(1);
     const words = (n: number) => Array(n).fill('word').join(' ');
-    const base = CASE_STUDIES[0];
-    expect(readMinutes({ ...base, summary: words(10), challenge: '', solution: '', features: [], quote: { ...base.quote, text: '' } })).toBe(1);
-    expect(readMinutes({ ...base, summary: words(600), challenge: '', solution: '', features: [], quote: { ...base.quote, text: '' } })).toBe(3);
+    const base = { ...CASE_STUDIES[0], challengeMore: undefined, coreNeed: undefined, steps: undefined, adoption: undefined, outcomes: undefined, about: undefined };
+    expect(readMinutes({ ...base, summary: words(10), challenge: '', solution: '', features: [], quote: undefined })).toBe(1);
+    expect(readMinutes({ ...base, summary: words(600), challenge: '', solution: '', features: [], quote: undefined })).toBe(3);
+  });
+  it('counts the steps, table and about text in the read time', () => {
+    const m = getCaseStudy('manasa-institute')!;
+    const words = (n: number) => Array(n).fill('word').join(' ');
+    const bare = { ...m, summary: '', challenge: '', challengeMore: undefined, coreNeed: undefined, solution: undefined, steps: undefined, adoption: undefined, outcomes: undefined, about: undefined, quote: undefined };
+    expect(readMinutes(bare)).toBe(1);
+    expect(readMinutes({ ...bare, steps: [words(600)] })).toBe(3);
+    expect(readMinutes({ ...bare, about: { heading: '', text: words(600) } })).toBe(3);
+  });
+  it('publishes Manasa Institute with real content and no sample entries', () => {
+    const m = getCaseStudy('manasa-institute')!;
+    expect(m.placeholder).toBe(false);
+    expect(m.users).toBeUndefined();
+    expect(m.quote).toBeUndefined();
+    expect(m.steps).toHaveLength(5);
+    expect(m.adoption?.rows.every((r) => r.length === 4)).toBe(true);
+    expect(m.metaTitle).toBe('Manasa Institute Case Study | CognitiveBotics');
+    expect(getCaseStudy('sample-school')).toBeUndefined();
+    expect(hasPlaceholders()).toBe(false);
+    expect(getCaseStudy('sample-therapy-centre')).toBeUndefined();
   });
   it('gives every study three metrics and finds it by slug', () => {
     for (const c of CASE_STUDIES) {

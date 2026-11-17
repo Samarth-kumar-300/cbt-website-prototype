@@ -28,7 +28,7 @@ export function AchievementCard({ item }: { item: Achievement }) {
       <p className="font-heading text-[18px] leading-[24px] lg:text-[20px] lg:leading-[26px] font-semibold" style={{ color: '#10494c' }}>
         {item.title}
       </p>
-      <p className="block w-full min-w-0 truncate text-[16px] leading-[24px] text-text-default lg:text-[18px] lg:leading-[27px]">
+      <p className="block w-full min-w-0 text-[16px] leading-[24px] text-text-default lg:text-[18px] lg:leading-[27px]">
         {item.body}
       </p>
       <span className="mt-auto flex items-center gap-[6px] text-[14px] font-semibold text-brand-teal">

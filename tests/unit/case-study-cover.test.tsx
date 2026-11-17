@@ -18,9 +18,8 @@ describe('case study card cover', () => {
     expect(cover.textContent).toBe('');
   });
 
-  it('uses a different thumbnail for the therapy centre and the school', () => {
-    expect(CASE_STUDIES.find((s) => s.group === 'Therapy centres')!.cover).toBe('/images/case-studies/therapy-centre.webp');
-    expect(CASE_STUDIES.find((s) => s.group === 'Schools')!.cover).toBe('/images/case-studies/school.webp');
+  it('uses the Manasa Institute thumbnail for the therapy centre', () => {
+    expect(CASE_STUDIES.find((s) => s.group === 'Therapy centres')!.cover).toBe('/images/case-studies/manasa-institute.webp');
   });
 
   it('is still one link to the study, with its tag, headline and Read more', () => {

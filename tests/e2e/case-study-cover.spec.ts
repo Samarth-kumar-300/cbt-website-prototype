@@ -16,7 +16,7 @@ test('both case study cards show their own thumbnail as a loaded 16:9 image', as
     const img = covers.nth(i);
     expect(await img.evaluate((el) => el.tagName)).toBe('IMG');
     const src = decodeURIComponent((await img.getAttribute('src'))!);
-    expect(src).toMatch(/\/images\/case-studies\/(therapy-centre|school)\.webp/);
+    expect(src).toMatch(/\/images\/case-studies\/(manasa-institute|school)\.webp/);
     await img.scrollIntoViewIfNeeded();
     await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBeGreaterThan(0);
     const box = (await img.boundingBox())!;
@@ -40,7 +40,7 @@ test('a case study still opens from its card, and the page does not overflow at 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/case-studies');
   await page.locator('.cs-card').first().click();
-  await expect(page).toHaveURL(/\/case-studies\/sample-therapy-centre$/);
+  await expect(page).toHaveURL(/\/case-studies\/manasa-institute$/);
   for (const w of [375, 768, 1024, 1440]) {
     expect(await overflowAt(page, '/case-studies', w), `/case-studies at ${w}px`).toBeLessThanOrEqual(0);
   }

@@ -1,6 +1,6 @@
 /**
- * The Calendly event link for demo bookings (open item 1 in the spec). While it is empty, the booking
- * step opens a sample calendar (PrototypeCalendar) so the whole journey can be walked. Set the link
- * before launch: the real Calendly popup then takes over and the sample calendar is never shown.
+ * The Calendly event link for demo bookings (open item 1 in the spec). The booking step opens it as
+ * Calendly's popup. If the link is ever emptied, the step falls back to a sample calendar
+ * (PrototypeCalendar) so the whole journey can still be walked.
  */
-export const CALENDLY_URL = '' as string;
+export const CALENDLY_URL = 'https://calendly.com/samarth-kumar-globalhealthx/30min' as string;

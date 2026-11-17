@@ -39,13 +39,20 @@ export function Section0({ plan, preview = null }: { plan: Plan | null; preview?
           <TestimonialCarousel slides={quotes.map((q) => <QuoteCard key={q.id} quote={q} clamp />)} />
           <ul aria-label="Credentials" className="flex flex-wrap items-center gap-2 lg:gap-3">
             {c.trust.map((t) => (
-              <li key={t.label} className="flex items-center gap-[10px] rounded-full border border-[#e4ded4] bg-white py-[6px] pl-[6px] pr-4">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: t.bg }}>
-                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: t.color }}>
-                    <path d={t.path} />
-                  </svg>
-                </span>
-                <span className="whitespace-nowrap text-[14px] leading-[21px] text-brand-teal">{t.label}</span>
+              <li key={t.label}>
+                <a
+                  href={t.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-[10px] rounded-full border border-[#e4ded4] bg-white py-[6px] pl-[6px] pr-4 transition-colors hover:border-brand-teal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal"
+                >
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: t.bg }}>
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: t.color }}>
+                      <path d={t.path} />
+                    </svg>
+                  </span>
+                  <span className="whitespace-nowrap text-[14px] leading-[21px] text-brand-teal">{t.label}</span>
+                </a>
               </li>
             ))}
           </ul>
