@@ -54,8 +54,12 @@ describe('Footer', () => {
     expect(links).toContainEqual(['Research', '/research']);
     expect(links).toContainEqual(['Awards', '/achievements']);
   });
-  it('shows the ISO badge unlinked, like the live site', () => {
+  it('shows the ISO and DPIIT badges unlinked, like the live site', () => {
     const { getAllByRole } = render(<Footer />);
-    getAllByRole('img', { name: 'ISO 27001 certified' }).forEach((el) => expect(el.closest('a')).toBeNull());
+    for (const name of ['ISO 27001 certified', 'DPIIT and Startup India']) {
+      const badges = getAllByRole('img', { name });
+      expect(badges).toHaveLength(2); // desktop layout and mobile layout
+      badges.forEach((el) => expect(el.closest('a')).toBeNull());
+    }
   });
 });

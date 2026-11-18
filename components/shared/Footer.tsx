@@ -92,16 +92,29 @@ function A({ l, className = "" }: { l: L; className?: string }) {
   );
 }
 
-function IsoBadge() {
+// The two badges sit on one row, centred. The ISO badge is 72px high on phones and tablets and 86px from lg.
+// The DPIIT card (1247 x 599, so 2.08 times wider than high) is 0.8x of that: 58px high (121px wide), then 69px high (144px wide) from lg.
+function Badges() {
   return (
-    <div className="relative h-[86px] w-[67px] shrink-0">
-      <Image
-        src="/brand/iso-27001.webp"
-        alt="ISO 27001 certified"
-        fill
-        sizes="67px"
-        className="object-contain"
-      />
+    <div className="flex items-center gap-3 lg:gap-4">
+      <div className="relative h-[72px] w-[56px] shrink-0 lg:h-[86px] lg:w-[67px]">
+        <Image
+          src="/brand/iso-27001.webp"
+          alt="ISO 27001 certified"
+          fill
+          sizes="(min-width: 1024px) 67px, 56px"
+          className="object-contain"
+        />
+      </div>
+      <div className="relative h-[58px] w-[121px] shrink-0 lg:h-[69px] lg:w-[144px]">
+        <Image
+          src="/brand/dpiit-startup-india.webp"
+          alt="DPIIT and Startup India"
+          fill
+          sizes="(min-width: 1024px) 144px, 121px"
+          className="object-contain"
+        />
+      </div>
     </div>
   );
 }
@@ -122,7 +135,7 @@ export function Footer() {
               children.
             </p>
           </div>
-          <Reveal><IsoBadge /></Reveal>
+          <Reveal><Badges /></Reveal>
         </div>
         <RevealStagger className="flex flex-wrap gap-16">
           {COLUMNS.map((c) => (
@@ -176,7 +189,9 @@ export function Footer() {
         </p>
       </div>
       <div className="grid w-full grid-cols-2 gap-x-4 gap-y-7 lg:hidden">
-        <IsoBadge />
+        <div className="col-span-2">
+          <Badges />
+        </div>
         {COLUMNS.map((c) => (
           <div key={c.heading} className="flex flex-col items-start gap-0">
             <p className="pb-1 text-[14px] font-semibold tracking-[1px] text-content-knockout/60">
