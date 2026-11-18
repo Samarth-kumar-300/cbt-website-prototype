@@ -4,18 +4,25 @@ import { describe, expect, it } from 'vitest';
 import { ACHIEVEMENTS, achievementsContent } from '@/components/pages/achievements/content';
 
 describe('achievements content', () => {
-  it('has the two cards with the original titles', () => {
-    expect(ACHIEVEMENTS).toHaveLength(2);
+  it('has the three cards, the first two with the original titles', () => {
+    expect(ACHIEVEMENTS).toHaveLength(3);
     expect(ACHIEVEMENTS.map((a) => a.title)).toEqual([
       'Methods for Aiding Persons with Autism to Acquire Skills',
       'ISO Certification',
+      'Certificate of Appreciation',
     ]);
   });
 
-  it('links both cards to https PDFs', () => {
-    for (const a of ACHIEVEMENTS) {
+  it('links the patent and ISO cards to https PDFs', () => {
+    for (const a of ACHIEVEMENTS.slice(0, 2)) {
       expect(a.href).toMatch(/^https:\/\/.+\.pdf$/);
     }
+  });
+
+  it('links the MedTech card to a certificate image that exists under public/', () => {
+    const medtech = ACHIEVEMENTS[2];
+    expect(medtech.href).toBe('/achievements/ap-govt-medtech-certificate.webp');
+    expect(existsSync(join(process.cwd(), 'public', medtech.href))).toBe(true);
   });
 
   it('names the patent number', () => {

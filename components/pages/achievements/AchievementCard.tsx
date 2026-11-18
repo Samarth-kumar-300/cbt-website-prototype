@@ -8,27 +8,27 @@ export function AchievementCard({ item }: { item: Achievement }) {
       href={item.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex h-full w-full flex-1 flex-col items-start gap-4 rounded-[20px] border-[1.5px] border-brand-teal-100 bg-white p-4 shadow-[0px_10px_24px_-6px_rgba(23,94,99,0.07)] card-lift hover:bg-background-brand-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal lg:p-5"
+      className="group flex h-full w-full flex-1 flex-col items-start gap-3 rounded-[16px] border-[1.5px] border-brand-teal-100 bg-white p-3 shadow-[0px_10px_24px_-6px_rgba(23,94,99,0.07)] card-lift hover:bg-background-brand-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal sm:gap-4 sm:rounded-[20px] sm:p-4 lg:p-5"
     >
-      <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-[14px] bg-background-brand-subtle">
+      <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-[10px] bg-background-brand-subtle sm:rounded-[14px]">
         <Image
           src={item.thumbnail.src}
           alt={item.thumbnail.alt}
           fill
-          sizes="(min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 1416px) 400px, (min-width: 1024px) calc((100vw - 216px) / 3), (min-width: 640px) calc((100vw - 64px) / 2), calc((100vw - 52px) / 2)"
           className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-[1.04] motion-safe:group-focus-visible:scale-[1.04]"
         />
       </div>
       <span
-        className="inline-block rounded-full px-[10px] py-[5px] text-[13px] max-lg:text-[14px] lg:text-[14px]"
+        className="inline-block rounded-[12px] px-[10px] py-[4px] text-[12px] leading-[16px] sm:rounded-full sm:py-[5px] sm:text-[14px] sm:leading-normal"
         style={{ backgroundColor: item.pillBg, color: item.pillColor }}
       >
         {item.pill}
       </span>
-      <p className="font-heading text-[18px] leading-[24px] lg:text-[20px] lg:leading-[26px] font-semibold" style={{ color: '#10494c' }}>
+      <p className="font-heading text-[16px] font-semibold leading-[22px] sm:text-[18px] sm:leading-[24px] lg:text-[20px] lg:leading-[26px]" style={{ color: '#10494c' }}>
         {item.title}
       </p>
-      <p className="block w-full min-w-0 text-[16px] leading-[24px] text-text-default lg:text-[18px] lg:leading-[27px]">
+      <p className="block w-full min-w-0 text-[13px] leading-[19px] text-text-default sm:text-[16px] sm:leading-[24px] lg:text-[18px] lg:leading-[27px]">
         {item.body}
       </p>
       <span className="mt-auto flex items-center gap-[6px] text-[14px] font-semibold text-brand-teal">

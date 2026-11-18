@@ -10,7 +10,7 @@ export function AchievementsPage() {
       <PageHero title={c.title} subtitle={c.subtitle} />
       <section className="px-5 py-12 lg:px-[84px] lg:py-[84px]">
         <div className="mx-auto max-w-[1248px]">
-          <RevealStagger className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+          <RevealStagger className="grid w-full grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
             {ACHIEVEMENTS.map((item) => (
               <AchievementCard key={item.id} item={item} />
             ))}
