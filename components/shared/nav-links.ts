@@ -43,8 +43,8 @@ export function menuPages(item: NavMenuItem): NavPage[] {
 }
 
 /**
- * Inside CognitiveBotics replaces the old Resources link, in three columns: Company (proof and what others say),
- * Library (reading and sessions) and Product (games, research and the knowledge base). FAQs stay in the footer and at /faqs.
+ * Inside CognitiveBotics replaces the old Resources link, in three columns, ordered by how close each is to a decision: Product (games, research and the knowledge base),
+ * Company (proof and what others say) and Library (reading and sessions). FAQs stay in the footer and at /faqs.
  * It lists every page; those not live yet open the coming-soon stub.
  */
 export function buildPrimaryNav(): NavItem[] {
@@ -52,9 +52,9 @@ export function buildPrimaryNav(): NavItem[] {
     kind: 'menu',
     label: 'Inside CognitiveBotics',
     columns: [
+      { heading: 'Product', pages: [GAMES, LEARN_PAGES.research, KNOWLEDGE_BASE] },
       { heading: 'Company', pages: [LEARN_PAGES.caseStudies, LEARN_PAGES.testimonials, LEARN_PAGES.achievements] },
       { heading: 'Library', pages: [LEARN_PAGES.blog, WEBINARS] },
-      { heading: 'Product', pages: [GAMES, LEARN_PAGES.research, KNOWLEDGE_BASE] },
     ],
     promo: { heading: 'Questions about your centre or school?', body: 'Talk to our team in Hyderabad about plans and setup.', label: 'Contact us', href: '/contact-us' },
   };

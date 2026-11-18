@@ -35,7 +35,7 @@ describe('Header with the Inside CognitiveBotics menu', () => {
   it('keeps every menu link in the page even while the menu is closed', () => {
     render(<Header />);
     const hrefs = Array.from(primary().querySelectorAll('[hidden] a')).map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['/case-studies', '/testimonials', '/achievements', '/blog', '/webinars', '/games', '/research', 'https://support.cognitivebotics.com/support/solutions', '/contact-us']);
+    expect(hrefs).toEqual(['/games', '/research', 'https://support.cognitivebotics.com/support/solutions', '/case-studies', '/testimonials', '/achievements', '/blog', '/webinars', '/contact-us']);
     expect(within(primary()).queryByRole('link', { name: /Case studies/ })).toBeNull(); // hidden, so out of the accessibility tree
     expect(hrefs).not.toContain('/faqs');
   });

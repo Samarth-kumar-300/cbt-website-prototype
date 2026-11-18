@@ -14,13 +14,13 @@ describe('buildPrimaryNav', () => {
     expect(item.label).toBe('Inside CognitiveBotics');
   });
 
-  it('groups the menu into Company, Library and Product, with a contact card', () => {
+  it('groups the menu into Product, Company and Library, with a contact card', () => {
     const item = buildPrimaryNav()[4];
     if (item.kind !== 'menu') throw new Error('expected a menu');
     expect(item.columns.map((c) => [c.heading, c.pages.map((p) => p.label)])).toEqual([
+      ['Product', ['Free games', 'Research', 'Knowledge base']],
       ['Company', ['Case studies', 'Testimonials', 'Awards']],
       ['Library', ['Blog', 'Webinars']],
-      ['Product', ['Free games', 'Research', 'Knowledge base']],
     ]);
     expect(item.promo).toEqual({
       heading: 'Questions about your centre or school?',
@@ -58,10 +58,10 @@ describe('Research and achievements rows', () => {
     expect(LEARN_PAGES.achievements.external).toBeUndefined();
   });
 
-  it('Case studies is the first link in the first column', () => {
+  it('Free games is the first link in the first column', () => {
     const item = buildPrimaryNav()[4];
     if (item.kind !== 'menu') throw new Error('expected a menu');
-    expect(menuPages(item)[0].href).toBe('/case-studies');
+    expect(menuPages(item)[0].href).toBe('/games');
   });
 });
 

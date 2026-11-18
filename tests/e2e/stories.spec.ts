@@ -122,7 +122,7 @@ test('testimonials: chips filter the quotes', async ({ page }) => {
 
 test('inside cognitivebotics nav: every menu link opens a real page, not the stub', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  // Column Company: Case studies, Testimonials, Awards. Column Library: Blog, Webinars. Column Product: Research, Knowledge base.
+  // Column Product: Free games, Research, Knowledge base. Column Company: Case studies, Testimonials, Awards. Column Library: Blog, Webinars.
   const nav = page.getByRole('navigation', { name: 'Primary' });
   for (const [label, path] of [['Case studies', '/case-studies'], ['Testimonials', '/testimonials'], ['Blog', '/blog']]) {
     await page.goto('/');
