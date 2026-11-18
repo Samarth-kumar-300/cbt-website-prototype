@@ -26,7 +26,7 @@ export const KNOWLEDGE_BASE: NavPage = {
 };
 
 // The games listing. Not launch-gated: every game page is built, and games without a demo show a coming-soon state.
-export const GAMES: NavPage = { label: 'Play a game', href: '/games', helper: 'Try the games children practise with, no sign-in needed' };
+export const GAMES: NavPage = { label: 'Free games', href: '/games', helper: 'Try the games children practise with, no sign-in needed' };
 
 // No page is built for webinars yet: the stub route in lib/stub-routes.ts serves /coming-soon. Not a launch-gated page.
 export const WEBINARS: NavPage = { label: 'Webinars', href: '/webinars', helper: 'Live and recorded sessions on early intervention and the platform' };

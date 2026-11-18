@@ -71,6 +71,15 @@ export const gamesContent = {
     { heading: 'For schools', body: 'Creating inclusive classrooms where every child belongs.', href: '/schools', color: '#0369a1' },
   ],
   cta: { heading: 'See the full platform behind the games', body: 'Plans, home practice and progress tracking, for your centre or school.', label: 'Book a demo', href: '/try-demo' },
+  /** Placeholder for the real game: a macOS-style microphone prompt, then a "Game started" overlay. */
+  startFlow: {
+    permissionTitle: '“CognitiveBotics” would like to access the microphone.',
+    permissionBody: 'The game uses the microphone to hear how your child responds.',
+    deny: 'Don’t allow',
+    allow: 'OK',
+    started: 'Game started',
+    close: 'Close',
+  },
   detail: {
     back: 'All games',
     start: 'Start the game',

@@ -3,11 +3,11 @@ import { noConsentBanner, overflowAt } from './helpers';
 
 test.beforeEach(async ({ page }) => noConsentBanner(page));
 
-test('games: listing shows 10 linked cards, Identify numbers third, and no coming-soon copy', async ({ page }) => {
+test('games: listing shows 10 cards, Identify numbers third, and no coming-soon copy', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/games');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Play the games children practise with on CognitiveBotics');
-  await expect(page.locator('a[data-game]')).toHaveCount(10);
+  await expect(page.locator('[data-game]')).toHaveCount(10);
   await expect(page.locator('[data-game]').nth(2)).toHaveAttribute('data-game', 'identify-numbers');
   await expect(page.getByText(/coming soon/i)).toHaveCount(0);
 });
@@ -28,11 +28,32 @@ test('games: desktop shows 3 cards in a row, and the last row has the 1 left ove
   expect(t[3]).toBeGreaterThan(t[2]);
 });
 
-test('games: a card opens its detail page, which shows the facts, related games and a way back', async ({ page }) => {
+test('games: Play now stays on the listing, asks for the microphone, then covers the screen with Game started', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/games');
-  await page.locator('a[data-game="learn-to-look"]').click();
-  await expect(page).toHaveURL(/\/games\/learn-to-look$/);
+  const card = page.locator('[data-game="learn-to-look"]');
+  await card.click();
+  await expect(page).toHaveURL(/\/games$/);
+  const prompt = page.getByRole('alertdialog');
+  await expect(prompt).toContainText('would like to access the microphone');
+  await prompt.getByRole('button', { name: 'Don’t allow' }).click();
+  await expect(prompt).toHaveCount(0);
+  await expect(page.getByTestId('game-started')).toHaveCount(0);
+  await card.click();
+  await page.getByRole('alertdialog').getByRole('button', { name: 'OK' }).click();
+  const overlay = page.getByTestId('game-started');
+  await expect(overlay).toContainText('Game started');
+  expect(await overlay.evaluate((el) => getComputedStyle(el).backgroundColor)).toMatch(/^(rgba\(0, 0, 0|oklab\(0 0 0 \/) ?,? ?0\.3/);
+  const box = (await overlay.boundingBox())!;
+  expect(box).toMatchObject({ x: 0, y: 0, width: 1440, height: 900 });
+  await page.keyboard.press('Escape');
+  await expect(overlay).toHaveCount(0);
+  await expect(page).toHaveURL(/\/games$/);
+});
+
+test('games: a game page shows the facts, related games and a way back', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/games/learn-to-look');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Learn to look');
   await expect(page.getByText('Attending · Gaze detection')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'What gets recorded' })).toBeVisible();
@@ -60,7 +81,7 @@ test('games: the mega menu links to the listing', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
   await page.getByRole('button', { name: /Inside CognitiveBotics/ }).first().click();
-  await expect(page.getByRole('link', { name: /Play a game/ }).first()).toHaveAttribute('href', '/games');
+  await expect(page.getByRole('link', { name: /Free games/ }).first()).toHaveAttribute('href', '/games');
 });
 
 for (const route of ['/games', '/games/learn-to-look', '/games/imitate-with-hands', '/games/identify-numbers']) {
@@ -128,7 +149,7 @@ test('games: therapy centres, parents and schools are three full-width cards, an
 test('games: the detail page reuses the listing card style for related games', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/games/learn-to-look');
-  await expect(page.locator('a[data-game]')).toHaveCount(3);
+  await expect(page.locator('[data-game]')).toHaveCount(3);
   expect(await page.locator('main section').first().evaluate((el) => getComputedStyle(el).borderBottomLeftRadius)).toBe('0px');
 });
 
@@ -216,7 +237,7 @@ test('games: the player and the facts card are the same height side by side, and
 test('games: cards say Play now, the player centres Start on a light black overlay, and the facts have clear headings', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/games');
-  await expect(page.locator('a[data-game]').getByText('Play now', { exact: true })).toHaveCount(10);
+  await expect(page.locator('[data-game]').getByText('Play now', { exact: true })).toHaveCount(10);
   await expect(page.getByText('Play the game', { exact: true })).toHaveCount(0);
   await expect(page.getByText('View game', { exact: true })).toHaveCount(0);
   for (const w of [1440, 375]) {

@@ -20,7 +20,7 @@ describe('buildPrimaryNav', () => {
     expect(item.columns.map((c) => [c.heading, c.pages.map((p) => p.label)])).toEqual([
       ['Company', ['Case studies', 'Testimonials', 'Awards']],
       ['Library', ['Blog', 'Webinars']],
-      ['Product', ['Play a game', 'Research', 'Knowledge base']],
+      ['Product', ['Free games', 'Research', 'Knowledge base']],
     ]);
     expect(item.promo).toEqual({
       heading: 'Questions about your centre or school?',

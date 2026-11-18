@@ -1,6 +1,9 @@
+'use client';
+
+import { useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { METHOD_SENTENCE, type Game, type Tint } from './content';
+import { GameStartFlow, type FlowStep } from './GameStartFlow';
 
 export const TINT: Record<Tint, string> = {
   yellow: 'bg-[#fdf0c9]',
@@ -35,26 +38,38 @@ function Pill({ children }: { children: string }) {
   return <span className="inline-block rounded-full bg-brand-subtle-bg px-[10px] py-[4px] text-[13px] font-medium text-brand-dark sm:py-[5px] sm:text-[14px]">{children}</span>;
 }
 
+// Play now starts the game on the spot, so the card is a button and never leaves the page.
 export function GameCard({ game }: { game: Game }) {
+  const [step, setStep] = useState<FlowStep | null>(null);
+  const card = useRef<HTMLButtonElement>(null);
+  const close = () => {
+    setStep(null);
+    card.current?.focus();
+  };
   return (
-    <Link
-      href={`/games/${game.slug}`}
-      data-game={game.slug}
-      className={`group ${CARD} card-lift hover:bg-background-brand-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal`}
-    >
-      <Tile game={game} />
-      <Pill>{game.skill}</Pill>
-      <p className="font-heading text-[16px] font-semibold leading-[22px] text-brand-dark sm:text-[18px] sm:leading-[24px] lg:text-[20px] lg:leading-[26px]">{game.name}</p>
-      <p className="hidden w-full min-w-0 text-[14px] leading-[22px] text-text-default sm:block lg:text-[16px] lg:leading-[24px]">
-        {game.summary}
-        {game.method ? ` ${METHOD_SENTENCE[game.method]}` : ''}
-      </p>
-      <span className="mt-auto flex items-center gap-[6px] text-[14px] font-semibold text-brand-teal">
-        Play now
-        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M4 12h16m0 0-6-6m6 6-6 6" />
-        </svg>
-      </span>
-    </Link>
+    <>
+      <button
+        ref={card}
+        type="button"
+        onClick={() => setStep('permission')}
+        data-game={game.slug}
+        className={`group text-left ${CARD} card-lift cursor-pointer hover:bg-background-brand-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal`}
+      >
+        <Tile game={game} />
+        <Pill>{game.skill}</Pill>
+        <span className="block font-heading text-[16px] font-semibold leading-[22px] text-brand-dark sm:text-[18px] sm:leading-[24px] lg:text-[20px] lg:leading-[26px]">{game.name}</span>
+        <span className="hidden w-full min-w-0 text-[14px] leading-[22px] text-text-default sm:block lg:text-[16px] lg:leading-[24px]">
+          {game.summary}
+          {game.method ? ` ${METHOD_SENTENCE[game.method]}` : ''}
+        </span>
+        <span className="mt-auto flex items-center gap-[6px] text-[14px] font-semibold text-brand-teal">
+          Play now
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M4 12h16m0 0-6-6m6 6-6 6" />
+          </svg>
+        </span>
+      </button>
+      {step && <GameStartFlow gameName={game.name} step={step} onAllow={() => setStep('started')} onDeny={close} onClose={close} />}
+    </>
   );
 }
