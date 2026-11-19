@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { GAMES, gameKicker, getGame, isEmbeddable, relatedGames } from '@/components/pages/games/content';
 
 describe('games content', () => {
-  it('lists 10 games with unique slugs', () => {
-    expect(GAMES).toHaveLength(10);
-    expect(new Set(GAMES.map((g) => g.slug)).size).toBe(10);
+  it('lists the 4 launch games with unique slugs', () => {
+    expect(GAMES).toHaveLength(4);
+    expect(new Set(GAMES.map((g) => g.slug)).size).toBe(4);
   });
 
   it('has no coming-soon copy anywhere in the games content', () => {
@@ -35,27 +35,21 @@ describe('games content', () => {
       expect(r).toHaveLength(3);
       expect(r.map((x) => x.slug)).not.toContain(g.slug);
     }
-    expect(relatedGames('learn-to-look').map((g) => g.slug)).toEqual(['label-common-objects', 'identify-numbers', 'identify-common-objects']);
+    expect(relatedGames('learn-to-look').map((g) => g.slug)).toEqual(['label-common-objects', 'identify-common-objects', 'imitate-with-hands']);
   });
 
   it('uses the agreed skill and game names, in card order', () => {
     expect(GAMES.map((g) => `${g.skill}: ${g.name}`)).toEqual([
       'Attending: Learn to look',
       'Expressive: Label common objects',
-      'Arithmetic: Identify numbers',
       'Receptive: Identify common objects',
       'Imitation: Imitate with hands',
-      'Visual: Associative matching',
-      'Play: Pretend play',
-      'Self-help: Brushing teeth',
-      'Social: Ask for actions',
-      'Reading and writing: Identify alphabets',
     ]);
   });
 
   it('builds the kicker in sentence case', () => {
     expect(gameKicker(GAMES[0])).toBe('Attending · Gaze detection');
-    expect(gameKicker(GAMES[5])).toBe('Visual');
+    expect(gameKicker(GAMES[3])).toBe('Imitation · Pose detection');
   });
 
   it('allows only https embed URLs', () => {
@@ -70,7 +64,7 @@ describe('game thumbnails', () => {
   it('gives every game its own 16:9 thumbnail file in public', async () => {
     const { existsSync, readFileSync } = await import('node:fs');
     const paths = GAMES.map((g) => g.thumbnail);
-    expect(new Set(paths).size).toBe(10);
+    expect(new Set(paths).size).toBe(4);
     for (const t of paths) {
       expect(t).toMatch(/^\/images\/games\/thumbs\/[a-z-]+\.webp$/);
       expect(existsSync(`public${t}`)).toBe(true);
@@ -89,14 +83,8 @@ describe('game tasks', () => {
     expect(tasks).toEqual({
       'learn-to-look': ['Look at the object 1', 'Look at the object 2', 'Look at the object 3', 'Look at the object 4', 'Look at the object 5'],
       'label-common-objects': ['Bubbles', 'Train', 'Cookies', 'Car', 'Banana'],
-      'identify-numbers': ['1', '2', '3', '4', '5'],
       'identify-common-objects': ['Bubbles', 'Train', 'Cookies', 'Car', 'Banana'],
       'imitate-with-hands': ['Hands on head', 'Hands on shoulder', 'Touch nose', 'Wave hand', 'Clap hands'],
-      'associative-matching': ['Fish', 'Toothbrush', 'Crayon', 'Bird', 'Shoe'],
-      'pretend-play': ['Doctor', 'Firefighter', 'Pirate', 'Teacher', 'Hairdresser'],
-      'brushing-teeth': ['Tooth brush', 'Tooth paste', 'Tooth brush with toothpaste', 'Water glass', 'Tap'],
-      'ask-for-actions': ['Run', 'Stop', 'Open', 'Jump', 'Hide'],
-      'identify-alphabets': ['A', 'B', 'C', 'D', 'E'],
     });
   });
 

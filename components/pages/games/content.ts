@@ -95,6 +95,8 @@ export const gamesContent = {
   },
 } as const;
 
+// Used by the paused games below; kept so they can be restored as they were.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const HOW_GENERIC = 'The game gives the child a prompt on screen and records how they respond.';
 
 // Card order is the order on the listing page.
@@ -125,6 +127,7 @@ export const GAMES: readonly Game[] = [
     howItWorks: 'Speech detection uses the device microphone to hear the word the child says.',
     permissionNote: 'This game asks for microphone access to hear the child’s answers.',
   },
+  /* Paused: not in the launch set of 4 skills. Restore by moving it out of this comment.
   {
     slug: 'identify-numbers',
     thumbnail: thumb('identify-numbers'),
@@ -137,6 +140,7 @@ export const GAMES: readonly Game[] = [
     tasks: ['1', '2', '3', '4', '5'],
     howItWorks: HOW_GENERIC,
   },
+  */
   {
     slug: 'identify-common-objects',
     thumbnail: thumb('identify-common-objects'),
@@ -162,6 +166,7 @@ export const GAMES: readonly Game[] = [
     howItWorks: 'Pose detection uses the device camera to check the child’s hand positions.',
     permissionNote: 'This game asks for camera access to detect hand movements.',
   },
+  /* Paused: not in the launch set of 4 skills. Restore by moving it out of this comment.
   {
     slug: 'associative-matching',
     thumbnail: thumb('associative-matching'),
@@ -174,6 +179,8 @@ export const GAMES: readonly Game[] = [
     tasks: ['Fish', 'Toothbrush', 'Crayon', 'Bird', 'Shoe'],
     howItWorks: HOW_GENERIC,
   },
+  */
+  /* Paused: not in the launch set of 4 skills. Restore by moving it out of this comment.
   {
     slug: 'pretend-play',
     thumbnail: thumb('pretend-play'),
@@ -186,6 +193,8 @@ export const GAMES: readonly Game[] = [
     tasks: ['Doctor', 'Firefighter', 'Pirate', 'Teacher', 'Hairdresser'],
     howItWorks: HOW_GENERIC,
   },
+  */
+  /* Paused: not in the launch set of 4 skills. Restore by moving it out of this comment.
   {
     slug: 'brushing-teeth',
     thumbnail: thumb('brushing-teeth'),
@@ -198,6 +207,8 @@ export const GAMES: readonly Game[] = [
     tasks: ['Tooth brush', 'Tooth paste', 'Tooth brush with toothpaste', 'Water glass', 'Tap'],
     howItWorks: HOW_GENERIC,
   },
+  */
+  /* Paused: not in the launch set of 4 skills. Restore by moving it out of this comment.
   {
     slug: 'ask-for-actions',
     thumbnail: thumb('ask-for-actions'),
@@ -210,6 +221,8 @@ export const GAMES: readonly Game[] = [
     tasks: ['Run', 'Stop', 'Open', 'Jump', 'Hide'],
     howItWorks: HOW_GENERIC,
   },
+  */
+  /* Paused: not in the launch set of 4 skills. Restore by moving it out of this comment.
   {
     slug: 'identify-alphabets',
     thumbnail: thumb('identify-alphabets'),
@@ -222,6 +235,7 @@ export const GAMES: readonly Game[] = [
     tasks: ['A', 'B', 'C', 'D', 'E'],
     howItWorks: HOW_GENERIC,
   },
+  */
 ];
 
 export function getGame(slug: string): Game | undefined {
