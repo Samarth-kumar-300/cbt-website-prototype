@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 import { isScheduledEvent, loadCalendly } from '@/lib/calendly';
+import type { DemoMeeting } from '@/lib/demo-meeting';
 import { tryDemoContent as c } from './content';
 import { PrototypeCalendar } from './PrototypeCalendar';
 import { SuccessIcon } from './SuccessIcon';
@@ -14,7 +15,8 @@ type Props = {
   firstName?: string;
   lastName?: string;
   email: string;
-  onBooked: () => void;
+  /** Calendly's booked message carries no date or time, so only the sample calendar passes a meeting. */
+  onBooked: (meeting?: DemoMeeting) => void;
   /** TEMPORARY (design preview): freeze the button in this state and never contact Calendly. */
   previewStatus?: 'idle' | 'opening' | 'error';
 };
@@ -98,9 +100,9 @@ export function DemoSchedule({ headingRef, url, name, firstName, lastName, email
       {protoOpen ? (
         <PrototypeCalendar
           onClose={closeProto}
-          onConfirm={() => {
+          onConfirm={(meeting) => {
             setProtoOpen(false);
-            onBooked();
+            onBooked(meeting);
           }}
         />
       ) : null}

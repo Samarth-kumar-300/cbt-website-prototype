@@ -18,6 +18,7 @@ vi.mock('@/lib/calendly', async (importOriginal) => {
 import { DemoFlow } from '@/components/pages/try-demo/DemoFlow';
 import { track } from '@/lib/analytics';
 import { loadCalendly } from '@/lib/calendly';
+import { clearBooking, dropBookingCache } from '@/lib/demo-booking';
 
 const load = vi.mocked(loadCalendly);
 const popup = vi.fn();
@@ -27,6 +28,17 @@ const fromCalendly = (data: unknown, origin = 'https://calendly.com') =>
   act(() => {
     window.dispatchEvent(new MessageEvent('message', { origin, data }));
   });
+
+const title = () => document.title;
+
+async function reachScheduleRendered(plan: 'basic' | 'custom' | null = null) {
+  const user = userEvent.setup();
+  const view = render(<DemoFlow plan={plan} />);
+  await fillDemoForm(user);
+  await user.click(screen.getByRole('button', { name: 'Submit & Book' }));
+  await screen.findByRole('button', { name: 'Book a time' });
+  return { ...view, user };
+}
 
 async function reachSchedule(plan: 'basic' | 'custom' | null = null) {
   const user = userEvent.setup();
@@ -38,6 +50,8 @@ async function reachSchedule(plan: 'basic' | 'custom' | null = null) {
 }
 
 beforeEach(() => {
+  sessionStorage.clear();
+  clearBooking();
   vi.mocked(track).mockClear();
   popup.mockReset();
   close.mockReset();
@@ -110,20 +124,50 @@ describe('DemoFlow', () => {
   it('never sends the visitor to case studies after a booking', async () => {
     await reachSchedule();
     fromCalendly({ event: 'calendly.event_scheduled' });
-    expect(await screen.findByRole('link', { name: 'Back to homepage' })).toHaveAttribute('href', '/');
+    expect(await screen.findByRole('link', { name: 'Go to homepage' })).toHaveAttribute('href', '/');
     expect(screen.queryByRole('link', { name: /case stud/i })).toBeNull();
   });
 
-  it('counts down from 3 and sends the visitor to the homepage', async () => {
+  it('stays on the confirmation until the visitor chooses to leave', async () => {
     await reachSchedule();
     vi.useFakeTimers();
     fromCalendly({ event: 'calendly.event_scheduled' });
-    expect(screen.getByText(/Taking you to the homepage in/)).toHaveTextContent('3s');
-    // Each tick is scheduled after the previous render, so step one second at a time.
-    for (let i = 0; i < 2; i++) act(() => void vi.advanceTimersByTime(1000));
-    expect(screen.getByText(/Taking you to the homepage in/)).toHaveTextContent('1s');
+    expect(screen.queryByText(/Taking you to the homepage/)).toBeNull();
+    act(() => void vi.advanceTimersByTime(60_000));
     expect(push).not.toHaveBeenCalled();
-    act(() => void vi.advanceTimersByTime(1000));
-    expect(push).toHaveBeenCalledExactlyOnceWith('/');
+    expect(screen.getByRole('heading', { name: 'Demo booked' })).toBeInTheDocument();
+  });
+
+  it('shows the confirmation again after a reload, and does not count the booking twice', async () => {
+    const { unmount } = (await reachScheduleRendered());
+    fromCalendly({ event: 'calendly.event_scheduled' });
+    expect(await screen.findByRole('heading', { name: 'Demo booked' })).toBeInTheDocument();
+    expect(title()).toBe('Demo booked | CognitiveBotics');
+    // A reload keeps nothing in memory but sessionStorage.
+    unmount();
+    dropBookingCache();
+    render(<DemoFlow plan={null} />);
+    expect(await screen.findByRole('heading', { name: 'Demo booked' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Submit & Book' })).toBeNull();
+    expect(tracked('demo_booked')).toHaveLength(1);
+  });
+
+  it('starts a fresh form once the visitor has left the page and come back', async () => {
+    const { unmount } = await reachScheduleRendered();
+    fromCalendly({ event: 'calendly.event_scheduled' });
+    await screen.findByRole('heading', { name: 'Demo booked' });
+    unmount();
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    render(<DemoFlow plan={null} />);
+    expect(await screen.findByRole('button', { name: 'Submit & Book' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Demo booked' })).toBeNull();
+  });
+
+  it('shows no date or time when Calendly does not provide one, and points to the email', async () => {
+    await reachSchedule();
+    fromCalendly({ event: 'calendly.event_scheduled' });
+    expect(await screen.findByText(/Check your email for the invite/)).toBeInTheDocument();
+    expect(screen.queryByText('Date')).toBeNull();
+    expect(screen.queryByText('Time')).toBeNull();
   });
 });

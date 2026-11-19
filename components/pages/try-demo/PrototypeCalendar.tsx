@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { formatMeetingDate, type DemoMeeting } from '@/lib/demo-meeting';
 
 // PROTOTYPE ONLY: stands in for Calendly while CALENDLY_URL is empty, so the whole journey can be
 // walked. Once the link is set, DemoSchedule opens Calendly and this file is never used. Delete it then.
@@ -25,7 +26,7 @@ const pill = (on: boolean) =>
     on ? 'bg-brand-teal text-content-knockout' : 'bg-transparent text-content-brand hover:bg-brand-subtle-bg'
   }`;
 
-type Props = { onConfirm: () => void; onClose: () => void; today?: Date };
+type Props = { onConfirm: (meeting: DemoMeeting) => void; onClose: () => void; today?: Date };
 
 export function PrototypeCalendar({ onConfirm, onClose, today = new Date() }: Props) {
   const [day, setDay] = useState<string | null>(null);
@@ -76,7 +77,10 @@ export function PrototypeCalendar({ onConfirm, onClose, today = new Date() }: Pr
           <button
             type="button"
             disabled={!day || !slot}
-            onClick={onConfirm}
+            onClick={() => {
+              const picked = days.find((d) => dayLabel(d) === day);
+              if (picked && slot) onConfirm({ date: formatMeetingDate(picked), time: `${slot} IST` });
+            }}
             className="btn inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-brand-teal px-6 py-[14px] text-[16px] font-semibold text-content-knockout transition-colors hover:bg-[#0f4548] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-teal"
           >
             Confirm time

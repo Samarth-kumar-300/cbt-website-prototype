@@ -34,7 +34,10 @@ export const tryDemoContent = {
   },
   done: {
     title: 'Demo booked',
+    pageTitle: 'Demo booked | CognitiveBotics',
     line: 'We’re excited to give you a demo. Check your email for the invite.',
-    redirect: 'Taking you to the homepage in',
+    dateLabel: 'Date',
+    timeLabel: 'Time',
+    home: 'Go to homepage',
   },
 } as const;

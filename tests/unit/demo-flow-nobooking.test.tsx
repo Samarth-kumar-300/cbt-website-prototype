@@ -1,6 +1,6 @@
 import { cleanup, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { fillDemoForm } from './demo-helpers';
 
 vi.mock('@/lib/demo-config', () => ({ CALENDLY_URL: '' }));
@@ -12,7 +12,12 @@ vi.mock('@/lib/calendly', async (importOriginal) => ({ ...(await importOriginal<
 import { DemoFlow } from '@/components/pages/try-demo/DemoFlow';
 import { track } from '@/lib/analytics';
 import { loadCalendly } from '@/lib/calendly';
+import { clearBooking } from '@/lib/demo-booking';
 
+beforeEach(() => {
+  sessionStorage.clear();
+  clearBooking();
+});
 afterEach(cleanup);
 
 async function reachBooking() {
@@ -46,6 +51,16 @@ describe('DemoFlow without a Calendly link (prototype)', () => {
     await user.click(confirm);
     expect(await screen.findByRole('heading', { name: 'Demo booked' })).toBeInTheDocument();
     expect(screen.queryByRole('dialog')).toBeNull();
+    // The card repeats what the visitor picked, in two rows: Month day, year (Weekday), and a 12-hour time.
+    const status = screen.getByRole('status');
+    expect(within(status).getByText('Date')).toBeInTheDocument();
+    expect(within(status).getByText(/^[A-Z][a-z]+ \d{1,2}, \d{4} \((Monday|Tuesday|Wednesday|Thursday|Friday)\)$/)).toBeInTheDocument();
+    expect(within(status).getByText('Time')).toBeInTheDocument();
+    expect(within(status).queryByText('Day')).toBeNull();
+    expect(within(status).getByText('11:30 am IST')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Go to homepage' })).toHaveAttribute('href', '/');
+    // Secondary style: the outlined button, not a plain text link.
+    expect(screen.getByRole('link', { name: 'Go to homepage' }).className).toContain('border-brand-teal');
     expect(track).toHaveBeenCalledWith('demo_booked');
   });
 

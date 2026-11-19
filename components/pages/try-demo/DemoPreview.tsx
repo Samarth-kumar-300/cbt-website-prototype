@@ -32,7 +32,7 @@ export function DemoPreview({ plan, initial }: { plan: Plan | null; initial: Pre
             previewStatus={view === 'book' ? 'idle' : view}
           />
         ) : null}
-        {view === 'booked' ? <DemoDone headingRef={headingRef} /> : null}
+        {view === 'booked' ? <DemoDone headingRef={headingRef} meeting={{ date: 'November 20, 2026 (Friday)', time: '3:30 pm IST' }} /> : null}
       </div>
       <div
         role="region"

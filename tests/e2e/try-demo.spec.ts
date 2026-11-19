@@ -109,9 +109,19 @@ test('try-demo: the whole journey works with the Calendly link: form, Calendly p
   await expect(page.getByText('We’re excited to give you a demo.')).toBeVisible();
   // The confirmation card itself never pushes case studies (they stay in the nav and footer).
   await expect(page.getByRole('status').getByRole('link', { name: /case stud/i })).toHaveCount(0);
-  // Then the visitor is sent back to the homepage after a short countdown.
-  await expect(page.getByText(/Taking you to the homepage in/)).toBeVisible();
-  await expect(page).toHaveURL(/\/$/, { timeout: 6000 });
+  // The visitor stays until they choose to leave, so there is time to read the page.
+  await expect(page.getByText(/Taking you to the homepage/)).toHaveCount(0);
+  await expect(page).toHaveTitle('Demo booked | CognitiveBotics');
+  // Reloading must not throw the confirmation away, or the visitor would submit the form again.
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Demo booked' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Submit & Book' })).toHaveCount(0);
+  // The secondary button leaves, and coming back starts a fresh form.
+  await page.getByRole('link', { name: 'Go to homepage' }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await page.getByRole('link', { name: /^demo$/i }).first().click();
+  await expect(page).toHaveURL(/\/try-demo/);
+  await expect(page.getByRole('button', { name: 'Submit & Book' })).toBeVisible();
 });
 
 test('try-demo: no horizontal overflow at any width', async ({ page }) => {
