@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { useLiquidThumb } from './useLiquidThumb';
 
 export type VerticalTabItem = {
   readonly id: string;
@@ -36,10 +37,28 @@ type Props = {
 // Row look from the design system (DS-CBT, "Vertical tabs" with the gray tab base): 14px semibold label,
 // optional 12px meta line, 8px radius, 12px / 8px padding. The current row takes the muted brand fill, others
 // are clear until hovered.
+//
+// The muted fill is one block that slides between rows (the liquid slide in useLiquidThumb, vertical axis),
+// so rows of different heights stretch it. The rows sit above it. Until the list has been measured the
+// current row paints the fill itself, which is what the server renders. Afterwards the row keeps the same
+// colour, but it only appears once the block has had time to arrive (delay), and it fades out at once when
+// the row stops being current, so the block never has a second copy of the fill jumping ahead of it.
 const ROW =
-  'flex w-full items-center rounded-[8px] px-2 py-3 text-left text-text-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal';
-const ROW_CURRENT = 'bg-brand-teal-100';
-const ROW_IDLE = 'bg-transparent hover:bg-[#f9fafb]';
+  'relative z-10 flex w-full items-center rounded-[8px] px-2 py-3 text-left text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal';
+const ROW_CURRENT = 'bg-brand-teal-100 transition-colors duration-0 delay-[650ms] motion-reduce:delay-0';
+const ROW_IDLE = 'bg-transparent transition-colors hover:bg-[#f9fafb]';
+
+// The sliding block. Hidden until measured, and whenever no row is current.
+function Thumb({ thumbRef, hidden }: { thumbRef: React.RefObject<HTMLSpanElement | null>; hidden: boolean }) {
+  return (
+    <span
+      ref={thumbRef}
+      aria-hidden="true"
+      data-rail-thumb=""
+      className={`pointer-events-none absolute inset-x-0 z-0 rounded-[8px] bg-brand-teal-100 opacity-0 [[data-liquid=ready]_&]:opacity-100 ${hidden ? 'invisible' : ''}`}
+    />
+  );
+}
 
 function Text({ item }: { item: VerticalTabItem }) {
   return (
@@ -51,7 +70,11 @@ function Text({ item }: { item: VerticalTabItem }) {
 }
 
 export function VerticalTabs({ items, value, onChange, label, layout = 'vertical', getHref, onLinkClick, idPrefix = 'vtabs', className = '' }: Props) {
-  const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const refs = useRef<(HTMLElement | null)[]>([]);
+  const trackRef = useRef<HTMLElement>(null);
+  const thumbRef = useRef<HTMLSpanElement>(null);
+  const activeIndex = items.findIndex((it) => it.id === value);
+  useLiquidThumb(trackRef, thumbRef, refs, Math.max(0, activeIndex), { axis: 'y' });
 
   if (layout === 'dropdown') {
     return (
@@ -77,13 +100,17 @@ export function VerticalTabs({ items, value, onChange, label, layout = 'vertical
 
   if (getHref) {
     return (
-      <nav aria-label={label} className={className}>
+      <nav ref={trackRef} aria-label={label} className={`relative ${className}`}>
+        <Thumb thumbRef={thumbRef} hidden={activeIndex < 0} />
         <ul className="m-0 flex list-none flex-col p-0">
-          {items.map((it) => {
+          {items.map((it, i) => {
             const current = it.id === value;
             return (
               <li key={it.id}>
                 <a
+                  ref={(el) => {
+                    refs.current[i] = el;
+                  }}
                   href={getHref(it.id)}
                   aria-current={current ? 'true' : undefined}
                   onClick={(e) => (onLinkClick ? onLinkClick(e, it.id) : onChange(it.id))}
@@ -112,7 +139,8 @@ export function VerticalTabs({ items, value, onChange, label, layout = 'vertical
   };
 
   return (
-    <div role="tablist" aria-orientation="vertical" aria-label={label} className={`flex flex-col ${className}`}>
+    <div ref={trackRef as React.RefObject<HTMLDivElement>} role="tablist" aria-orientation="vertical" aria-label={label} className={`relative flex flex-col ${className}`}>
+      <Thumb thumbRef={thumbRef} hidden={activeIndex < 0} />
       {items.map((it, i) => {
         const selected = it.id === value;
         return (

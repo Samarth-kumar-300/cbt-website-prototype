@@ -71,7 +71,7 @@ function EarlyDifferenceList() {
             <div
               key={c.title}
               data-active={isOpen}
-              className="overflow-hidden rounded-[18px] border-[1.5px] border-brand-teal-100 bg-white shadow-[0px_8px_20px_-6px_rgba(23,94,99,0.06)] transition-[border-color,box-shadow] duration-300 ease-in-out data-[active=true]:border-[var(--card-accent)] data-[active=true]:shadow-[0px_12px_26px_-8px_rgba(23,94,99,0.16)]"
+              className="overflow-hidden rounded-[18px] border-[1.5px] border-brand-teal-100 bg-white shadow-[0px_8px_20px_-6px_rgba(23,94,99,0.06)] transition-[border-color,box-shadow] duration-300 ease-in-out motion-reduce:transition-none data-[active=true]:border-[var(--card-accent)] data-[active=true]:shadow-[0px_12px_26px_-8px_rgba(23,94,99,0.16)]"
               style={{ "--card-accent": c.accent }}
             >
               <button
@@ -111,13 +111,13 @@ function EarlyDifferenceList() {
                   fill="none"
                   strokeLinecap="round"
                   aria-hidden="true"
-                  className={`shrink-0 text-content-brand-alt transition-transform duration-300 ease-in-out ${isOpen ? "rotate-90" : ""}`}
+                  className={`shrink-0 text-content-brand-alt transition-transform duration-300 ease-in-out motion-reduce:transition-none ${isOpen ? "rotate-90" : ""}`}
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
               <div
-                className={`grid transition-[grid-template-rows,opacity] duration-[350ms] ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                className={`grid transition-[grid-template-rows,opacity] duration-[350ms] ease-in-out motion-reduce:transition-none ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 inert={!isOpen}
               >
                 <div className="overflow-hidden">
@@ -174,7 +174,7 @@ export function EarlyDifferenceCards() {
               onMouseLeave={() => setOpen((o) => (o === i ? null : o))}
               onFocus={() => setOpen(i)}
               onBlur={() => setOpen((o) => (o === i ? null : o))}
-              className={`absolute flex flex-col rounded-[18px] border-[1.5px] bg-white p-6 shadow-[0px_8px_20px_-6px_rgba(23,94,99,0.06)] outline-none transition-[border-color,box-shadow] duration-300 ease-in-out focus-visible:border-[var(--card-accent)] ${isOpen ? "z-10 border-[var(--card-accent)] shadow-[0px_16px_32px_-8px_rgba(23,94,99,0.18)]" : "border-brand-teal-100"}`}
+              className={`absolute flex flex-col rounded-[18px] border-[1.5px] bg-white p-6 shadow-[0px_8px_20px_-6px_rgba(23,94,99,0.06)] outline-none transition-[border-color,box-shadow] duration-300 ease-in-out motion-reduce:transition-none focus-visible:border-[var(--card-accent)] ${isOpen ? "z-10 border-[var(--card-accent)] shadow-[0px_16px_32px_-8px_rgba(23,94,99,0.18)]" : "border-brand-teal-100"}`}
               style={{
                 left: `${c.left}%`,
                 top: `${c.top}%`,
@@ -207,7 +207,7 @@ export function EarlyDifferenceCards() {
                 </p>
               </div>
               <div
-                className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out motion-reduce:transition-none ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
               >
                 <div className="overflow-hidden">
                   <p className="pt-3 text-[18px] leading-[27px] text-text-muted">

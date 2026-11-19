@@ -54,7 +54,7 @@ export function GameStartFlow({ gameName, step, onAllow, onDeny, onClose }: { ga
           aria-labelledby="mic-permission-title"
           aria-describedby="mic-permission-body"
           data-testid="mic-permission"
-          className={`${MAC_FONT} flex w-[260px] flex-col items-center rounded-[14px] border border-black/10 bg-[#ececec]/85 px-5 pb-4 pt-5 text-center shadow-[0px_22px_70px_4px_rgba(0,0,0,0.3),0px_0px_0px_0.5px_rgba(0,0,0,0.25)] backdrop-blur-[40px] backdrop-saturate-150`}
+          className={`dialog-panel-in ${MAC_FONT} flex w-[260px] flex-col items-center rounded-[14px] border border-black/10 bg-[#ececec]/85 px-5 pb-4 pt-5 text-center shadow-[0px_22px_70px_4px_rgba(0,0,0,0.3),0px_0px_0px_0.5px_rgba(0,0,0,0.25)] backdrop-blur-[40px] backdrop-saturate-150`}
         >
           <span aria-hidden="true" className="flex size-[56px] items-center justify-center rounded-[13px] bg-gradient-to-b from-[#8e8e93] to-[#636366] shadow-[0px_1px_3px_rgba(0,0,0,0.25)]">
             <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -89,7 +89,7 @@ export function GameStartFlow({ gameName, step, onAllow, onDeny, onClose }: { ga
         </div>
       </div>
     ) : (
-      <div role="dialog" aria-modal="true" aria-label={`${gameName}: ${c.startFlow.started}`} data-testid="game-started" className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 bg-black/30 px-5 text-center">
+      <div role="dialog" aria-modal="true" aria-label={`${gameName}: ${c.startFlow.started}`} data-testid="game-started" className="dialog-backdrop-in fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 bg-black/30 px-5 text-center">
         <p className="font-heading text-[28px] font-semibold leading-[36px] text-white sm:text-[40px] sm:leading-[48px]">{c.startFlow.started}</p>
         <button
           ref={closeRef}

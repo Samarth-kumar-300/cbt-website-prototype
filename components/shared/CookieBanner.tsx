@@ -1,14 +1,20 @@
 'use client';
 
+import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import { SECONDARY_HOVER } from './Button';
 import { COOKIE_KEY } from './cookie-key';
+import { clampToggle } from './motion';
 
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  // details drives the button (aria-expanded and its text) at once. clamped drives the line-clamp classes,
+  // which clampToggle flips itself and which React only catches up with when the height ease has finished.
   const [details, setDetails] = useState(false);
+  const [clamped, setClamped] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
+  const copy = useRef<HTMLParagraphElement>(null);
 
   // Consent lives in localStorage, which only exists on the client. Reading it after mount keeps
   // server and first client render identical (banner hidden), avoiding a hydration mismatch.
@@ -34,6 +40,26 @@ export function CookieBanner() {
       root.style.setProperty('--cookie-h', '0px');
     };
   }, [visible]);
+
+  // Phone-only Details / Less: the copy eases to its new height instead of snapping.
+  const toggleDetails = () => {
+    const next = !details;
+    setDetails(next);
+    const el = copy.current;
+    if (!el) {
+      setClamped(!next);
+      return;
+    }
+    // A second tap mid-ease starts from the natural height, not from the half-eased inline one. The copy
+    // is clipped while it eases open so the lines still to come do not spill over what sits below.
+    gsap.killTweensOf(el);
+    el.style.removeProperty('height');
+    el.style.overflow = 'hidden';
+    clampToggle(el, ['line-clamp-2', 'sm:line-clamp-none'], next, () => {
+      el.style.removeProperty('overflow');
+      setClamped(!next);
+    });
+  };
 
   const choose = (value: 'accepted' | 'rejected') => {
     try {
@@ -66,16 +92,17 @@ export function CookieBanner() {
           </svg>
         </button>
       </div>
-      {/* On phones the copy is clamped to two lines; "Details" shows the rest. Same words either way. */}
-      <p className="relative text-[13px] leading-[18px] text-text-default sm:text-[12px]">
-        <span className={details ? '' : 'line-clamp-2 sm:line-clamp-none'}>
+      {/* On phones the copy is clamped to two lines; "Details" shows the rest. Same words either way. The clamp
+          sits on the paragraph so its height can ease; that clips to the box, so the focus ring is drawn inside it. */}
+      <p ref={copy} className={`relative text-[13px] leading-[18px] text-text-default sm:text-[12px] ${clamped ? 'line-clamp-2 sm:line-clamp-none' : ''}`}>
+        <span>
           We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking &quot;Accept All&quot;, you consent to our use of cookies.
         </span>
         <button
           type="button"
           aria-expanded={details}
-          onClick={() => setDetails((d) => !d)}
-          className={`font-semibold text-brand-teal underline sm:hidden ${details ? 'ml-1' : 'absolute bottom-0 right-0 bg-white pl-2'}`}
+          onClick={toggleDetails}
+          className={`font-semibold text-brand-teal underline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-teal sm:hidden ${details ? 'ml-1' : 'absolute bottom-0 right-0 bg-white pl-2'}`}
         >
           {details ? 'Less' : 'Details'}
         </button>

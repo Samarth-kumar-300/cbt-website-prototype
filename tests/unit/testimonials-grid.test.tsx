@@ -1,8 +1,9 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { TestimonialsGrid } from '@/components/pages/testimonials/TestimonialsGrid';
 import type { Testimonial } from '@/lib/testimonials';
+import './freeze-gsap';
 
 afterEach(cleanup);
 
@@ -23,5 +24,38 @@ describe('TestimonialsGrid', () => {
     expect(more).toHaveLength(1);
     await userEvent.click(more[0]);
     expect(screen.getByRole('button', { name: 'Show less' })).toHaveAttribute('aria-expanded', 'true');
+  });
+});
+
+describe('TestimonialsGrid read more', () => {
+  const clamped = () => screen.getAllByRole('figure').find((f) => f.querySelector('button'))!.querySelector('blockquote')!;
+
+  function mockMotion(reduce: boolean) {
+    window.matchMedia = vi.fn().mockImplementation((q: string) => ({ matches: reduce && q.includes('reduce'), media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent: () => false })) as unknown as typeof window.matchMedia;
+  }
+
+  it('lifts the clamp at once on Read more, and keeps aria-expanded and the text in step', async () => {
+    mockMotion(false);
+    render(<TestimonialsGrid quotes={QUOTES} />);
+    expect(clamped().className).toContain('line-clamp-4');
+    const more = screen.getByRole('button', { name: 'Read more' });
+    expect(more).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(more);
+    expect(clamped().className).not.toContain('line-clamp-4');
+    const less = screen.getByRole('button', { name: 'Show less' });
+    expect(less).toHaveAttribute('aria-expanded', 'true');
+    // The block is clipped while it eases, so the new lines do not spill over the button.
+    expect(clamped().style.overflow).toBe('hidden');
+  });
+
+  it('snaps open and shut under reduced motion, with the clamp back on Show less', async () => {
+    mockMotion(true);
+    render(<TestimonialsGrid quotes={QUOTES} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Read more' }));
+    expect(clamped().className).not.toContain('line-clamp-4');
+    expect(clamped().style.overflow).toBe('');
+    await userEvent.click(screen.getByRole('button', { name: 'Show less' }));
+    expect(clamped().className).toContain('line-clamp-4');
+    expect(screen.getByRole('button', { name: 'Read more' })).toHaveAttribute('aria-expanded', 'false');
   });
 });

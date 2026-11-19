@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
+import gsap from "gsap";
+import {
+  isMouse,
+  reducedMotion,
+  useIsoLayoutEffect,
+  useRowHighlight,
+} from "@/components/shared/motion";
 
 type Props = {
   id: string;
@@ -24,6 +31,42 @@ export function Select({
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const root = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const thumbRef = useRef<HTMLLIElement>(null);
+  const { show, hide } = useRowHighlight(listRef, thumbRef);
+
+  // The list drops in when it mounts (enter only: closing stays an instant unmount). Reduced motion skips it.
+  useIsoLayoutEffect(() => {
+    const list = listRef.current;
+    if (!open || !list || reducedMotion()) return;
+    gsap.fromTo(
+      list,
+      { opacity: 0, y: -8, scaleY: 0.96, transformOrigin: "top" },
+      {
+        opacity: 1,
+        y: 0,
+        scaleY: 1,
+        duration: 0.3,
+        ease: "power4.out",
+        clearProps: "opacity,transform,transformOrigin",
+      },
+    );
+    return () => {
+      gsap.killTweensOf(list);
+    };
+  }, [open]);
+
+  // One highlight follows the keyboard's active option. The mouse drives it from the rows (below). The
+  // row's own active fill stays in the markup, and turns itself off once the list has its highlight.
+  useEffect(() => {
+    const list = listRef.current;
+    if (!open || !list || active < 0) return;
+    show(list.querySelectorAll<HTMLElement>('[role="option"]')[active]);
+  }, [open, active, show]);
+
+  useEffect(() => {
+    if (!open) hide();
+  }, [open, hide]);
 
   useEffect(() => {
     const onDown = (e: MouseEvent) => {
@@ -94,17 +137,28 @@ export function Select({
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
-          className="shrink-0"
+          className={`shrink-0 transition-transform duration-300 ease-[var(--ease-out)] motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
         >
           <path d="m6 9 6 6 6-6" />
         </svg>
       </button>
       {open ? (
         <ul
+          ref={listRef}
           role="listbox"
           aria-label={label}
+          data-liquid="ready"
+          onPointerLeave={(e: PointerEvent) => {
+            if (isMouse(e)) hide();
+          }}
           className="absolute left-0 right-0 top-full z-10 mt-1 rounded-[8px] border border-brand-teal-100 bg-white py-1 shadow-[0px_0px_20px_rgba(10,13,18,0.14)]"
         >
+          <li
+            ref={thumbRef}
+            role="presentation"
+            aria-hidden="true"
+            className="pointer-events-none absolute bg-brand-subtle-bg opacity-0"
+          />
           {options.map((o, i) => (
             <li
               key={o}
@@ -112,7 +166,10 @@ export function Select({
               aria-selected={o === value}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => pick(o)}
-              className={`flex min-h-[48px] cursor-pointer items-center px-3 py-2 text-[16px] lg:min-h-0 lg:text-[14px] text-text-default ${i === active ? "bg-brand-subtle-bg" : ""}`}
+              onPointerEnter={(e) => {
+                if (isMouse(e)) show(e.currentTarget);
+              }}
+              className={`relative z-10 flex min-h-[48px] cursor-pointer items-center px-3 py-2 text-[16px] lg:min-h-0 lg:text-[14px] text-text-default ${i === active ? "bg-brand-subtle-bg in-data-[liquid=ready]:bg-transparent" : ""}`}
             >
               {o}
             </li>
@@ -120,7 +177,7 @@ export function Select({
         </ul>
       ) : null}
       {error ? (
-        <p role="alert" className="mt-1 text-[14px] text-error">
+        <p role="alert" className="error-in mt-1 text-[14px] text-error">
           {error}
         </p>
       ) : null}

@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react';
 import { CaptchaField } from '@/components/shared/CaptchaField';
+import { expandIn } from '@/components/shared/motion';
 import { Select } from '@/components/pages/contact-us/Select';
 import { useGuardedSubmit } from '@/lib/contact-form';
 import { DIAL_CODES } from '@/lib/dial-codes';
@@ -28,11 +29,17 @@ function Star() {
   return <span className="text-[14px] font-medium text-[#207d82]">*</span>;
 }
 
+// Mounts when a message appears. The wrapper eases its height open so the fields below slide down instead of
+// jumping; the text itself fades and rises (error-in). Stable identity, so the ref only fires on mount.
+const openIn = (el: HTMLElement | null) => expandIn(el);
+
 function ErrorText({ id, message }: { id: string; message?: string }) {
   return message ? (
-    <p id={`${id}-error`} role="alert" className="mt-1 text-[14px] text-error">
-      {message}
-    </p>
+    <div ref={openIn}>
+      <p id={`${id}-error`} role="alert" className="error-in mt-1 text-[14px] text-error">
+        {message}
+      </p>
+    </div>
   ) : null;
 }
 
@@ -145,7 +152,7 @@ export function DemoForm({ plan, onSubmitted }: Props) {
       </div>
 
       {showsOrganisation(values.role) ? (
-        <div className="flex flex-col">
+        <div ref={openIn} className="flex flex-col">
           <label htmlFor="organisation" className={LABEL}>
             Centre or school name
           </label>

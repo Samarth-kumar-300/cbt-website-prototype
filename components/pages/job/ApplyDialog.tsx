@@ -83,7 +83,7 @@ function Row({
       {label}
       {children}
       {error ? (
-        <p role="alert" className="mt-1 text-[14px] text-error">
+        <p role="alert" className="error-in mt-1 text-[14px] text-error">
           {error}
         </p>
       ) : null}
@@ -161,7 +161,7 @@ export function ApplyDialog({ job, view, onDismiss, onSubmitted }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[rgba(10,13,18,0.28)] p-4"
+      className="dialog-backdrop-in fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[rgba(10,13,18,0.28)] p-4"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onDismiss();
       }}
@@ -173,7 +173,7 @@ export function ApplyDialog({ job, view, onDismiss, onSubmitted }: Props) {
         aria-labelledby={
           view === "form" ? "apply-title" : "apply-success-title"
         }
-        className="w-full max-w-[584px] rounded-[24px] border border-white bg-brand-subtle-bg px-6 py-8 shadow-[0px_20px_48px_rgba(10,13,18,0.18)] lg:px-8"
+        className="dialog-panel-in w-full max-w-[584px] rounded-[24px] border border-white bg-brand-subtle-bg px-6 py-8 shadow-[0px_20px_48px_rgba(10,13,18,0.18)] lg:px-8"
       >
         {view === "form" ? (
           <>

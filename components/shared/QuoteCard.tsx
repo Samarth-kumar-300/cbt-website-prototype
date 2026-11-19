@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 import type { Testimonial } from '@/lib/testimonials';
 
 type Props = {
@@ -9,9 +9,11 @@ type Props = {
   after?: ReactNode;
   /** The 1.5px stroke the home page testimonial cards carry. */
   bordered?: boolean;
+  /** The quote text element, for a caller that eases its height when the clamp is lifted. */
+  textRef?: Ref<HTMLQuoteElement>;
 };
 
-export function QuoteCard({ quote, clamp = false, after, bordered = false }: Props) {
+export function QuoteCard({ quote, clamp = false, after, bordered = false, textRef }: Props) {
   return (
     <figure className={`m-0 flex h-full w-full flex-col gap-[14px] rounded-[20px] bg-white px-5 pb-[22px] pt-[34px] shadow-[0px_6px_20px_0px_rgba(15,74,77,0.05)] lg:px-6 ${bordered ? 'border-[1.5px] border-[#e4ded4]' : ''}`}>
       <span
@@ -21,7 +23,7 @@ export function QuoteCard({ quote, clamp = false, after, bordered = false }: Pro
       >
         “
       </span>
-      <blockquote className={`m-0 text-[14px] leading-[22px] text-text-default lg:text-[16px] lg:leading-[24px] ${clamp === 4 ? 'line-clamp-4' : clamp ? 'line-clamp-6' : ''}`}>
+      <blockquote ref={textRef} className={`m-0 text-[14px] leading-[22px] text-text-default lg:text-[16px] lg:leading-[24px] ${clamp === 4 ? 'line-clamp-4' : clamp ? 'line-clamp-6' : ''}`}>
         {quote.text}
       </blockquote>
       {after}

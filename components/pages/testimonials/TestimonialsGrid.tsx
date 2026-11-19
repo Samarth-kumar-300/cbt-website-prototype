@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import gsap from 'gsap';
+import { useRef, useState } from 'react';
 import { Chips } from '@/components/shared/Chips';
+import { clampToggle } from '@/components/shared/motion';
 import { QuoteCard } from '@/components/shared/QuoteCard';
 import { RevealStagger } from '@/components/shared/RevealStagger';
 import { VideoTestimonialCard } from '@/components/shared/VideoTestimonialCard';
@@ -9,19 +11,43 @@ import type { Testimonial, VideoTestimonial } from '@/lib/testimonials';
 import { LONG_QUOTE, testimonialGroups, testimonialsContent as c } from './content';
 
 function ExpandableQuote({ quote }: { quote: Testimonial }) {
+  // open drives the button (aria-expanded and its text) at once. clamped drives the line-clamp class, which
+  // clampToggle flips itself and which React only catches up with when the height ease has finished, so
+  // React never puts the clamp back while the block is still easing shut.
   const [open, setOpen] = useState(false);
+  const [clamped, setClamped] = useState(true);
+  const text = useRef<HTMLQuoteElement>(null);
   const long = quote.text.length > LONG_QUOTE;
+  const toggle = () => {
+    const next = !open;
+    setOpen(next);
+    const el = text.current;
+    if (!el) {
+      setClamped(!next);
+      return;
+    }
+    // A second click mid-ease starts from the natural height, not from the half-eased inline one. The text
+    // is clipped while it eases open so the lines still to come do not spill over the button below.
+    gsap.killTweensOf(el);
+    el.style.removeProperty('height');
+    el.style.overflow = 'hidden';
+    clampToggle(el, ['line-clamp-4'], next, () => {
+      el.style.removeProperty('overflow');
+      setClamped(!next);
+    });
+  };
   return (
     <QuoteCard
       bordered
       quote={quote}
-      clamp={long && !open ? 4 : false}
+      textRef={text}
+      clamp={long && clamped ? 4 : false}
       after={
         long ? (
           <button
             type="button"
             aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
+            onClick={toggle}
             className="-mt-1 inline-flex min-h-[44px] w-fit items-center text-[14px] font-semibold text-brand-teal hover:underline"
           >
             {open ? 'Show less' : 'Read more'}

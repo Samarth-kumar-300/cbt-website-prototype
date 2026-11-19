@@ -92,7 +92,7 @@ export function DemoSchedule({ headingRef, url, name, firstName, lastName, email
           {status === 'opening' ? null : <ArrowRight />}
         </button>
         {status === 'error' ? (
-          <p role="alert" className="text-[14px] leading-[22px] text-[#b42318]">
+          <p role="alert" className="error-in text-[14px] leading-[22px] text-[#b42318]">
             {c.schedule.error}
           </p>
         ) : null}

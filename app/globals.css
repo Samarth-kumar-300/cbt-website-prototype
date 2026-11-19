@@ -762,6 +762,13 @@ button[aria-expanded="true"] .faq-icon {
     transition: transform 120ms ease-out;
   }
 }
+/* Reduced motion: a press keeps its colour feedback but does not scale. */
+@media (hover: none) and (prefers-reduced-motion: reduce) {
+  [class*="hover:"]:active {
+    transform: none;
+    transition: none;
+  }
+}
 
 /* Phones: shorter travel and quicker reveals so fast scrolling never waits on animation. */
 @media (max-width: 1023px) {
@@ -838,11 +845,31 @@ button[aria-expanded="true"] .faq-icon {
   --cut: 22px;
 }
 
-/* Pricing audience switch: the newly chosen panel fades in. */
+/* Pricing audience switch: the newly chosen panel rises in as the pill settles. The delay holds it at
+   opacity 0 (still taking its space, so the page height never collapses) until the pill has arrived. */
 @keyframes pricing-panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pricing-panel[data-switched] { animation: pricing-panel-in 420ms var(--ease-out) 180ms both; }
+}
+
+/* Liquid motion: entrances shared by dialogs and inline error text. Enter only, so closing stays instant. */
+@keyframes dialog-fade {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+@keyframes dialog-rise {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes error-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
 @media (prefers-reduced-motion: no-preference) {
-  .pricing-panel[data-switched] { animation: pricing-panel-in 200ms ease-out; }
+  .dialog-backdrop-in { animation: dialog-fade 250ms ease-out both; }
+  .dialog-panel-in { animation: dialog-rise 420ms var(--ease-out) both; }
+  .error-in { animation: error-in 300ms var(--ease-out) 50ms both; }
 }

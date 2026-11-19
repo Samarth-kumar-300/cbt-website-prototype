@@ -2,16 +2,17 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Button, SECONDARY_HOVER } from './Button';
 import { Logo } from './Logo';
 import { DRAWER_LINKS, HEADER_BG_IMAGE, HEADER_SCROLLED_BG, SIGN_IN_ITEMS } from './nav-config.generated';
-import { MobileNavMenu, NavMenu } from './NavMenu';
+import { expandIn, staggerIn, useIsoLayoutEffect } from './motion';
+import { CHEVRON_TURN, killTweens, MobileNavMenu, NavMenu, resetPanel, revealPanel, RowHighlight, ROW_HOVER, useMenuRows } from './NavMenu';
 import { buildPrimaryNav, isActivePath, type NavItem } from './nav-links';
 
-function Chevron() {
+function Chevron({ className }: { className?: string }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
       <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -34,6 +35,43 @@ export function Header() {
   const drawer = drawerPath === pathname;
   const closeDrawer = () => setDrawerPath(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  const signInRef = useRef<HTMLDivElement>(null);
+  const signInRows = useMenuRows();
+  const signInEl = useRef<HTMLDivElement | null>(null);
+  const { setBox } = signInRows;
+  const setSignInMenu = useCallback(
+    (el: HTMLDivElement | null) => {
+      signInEl.current = el;
+      setBox(el);
+    },
+    [setBox],
+  );
+
+  // Enter-only motion for the mobile drawer and its Sign in accordion. Closing is still an instant unmount
+  // (and the cleanup stops anything still running); reduced motion skips the whole thing.
+  useIsoLayoutEffect(() => {
+    const nav = drawerRef.current;
+    if (!drawer || !nav) return;
+    expandIn(nav, { duration: 0.42 });
+    staggerIn(Array.from(nav.children), { y: 10, stagger: 0.03, delay: 0.05 });
+    return () => killTweens([nav, ...Array.from(nav.children)]);
+  }, [drawer]);
+  useIsoLayoutEffect(() => {
+    const list = signInRef.current;
+    if (!signIn || !list) return;
+    expandIn(list, { duration: 0.36 });
+    staggerIn(Array.from(list.children), { y: 0, x: -8, stagger: 0.05, delay: 0.08, duration: 0.35 });
+    return () => killTweens([list, ...Array.from(list.children)]);
+  }, [signIn]);
+  // The desktop Sign in menu clip-reveals like the mega panel. It mounts only while open, so mounting is the cue.
+  useIsoLayoutEffect(() => {
+    const menuEl = signInEl.current;
+    if (!menu || !menuEl) return;
+    const rows = Array.from(menuEl.querySelectorAll('[role="menuitem"]'));
+    revealPanel(menuEl, rows, '16px');
+    return () => resetPanel(menuEl, rows);
+  }, [menu]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -88,7 +126,7 @@ export function Header() {
           } as CSSProperties
         }
         // Below xl the glass bar is inset 16px and flush with the top, open or closed. `relative` anchors the Inside CognitiveBotics mega menu.
-        className={`relative has-[[data-menu-open=true]]:rounded-b-none has-[[data-menu-open=true]]:bg-white! mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,box-shadow] duration-300 xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
+        className={`relative has-[[data-menu-open=true]]:rounded-b-none has-[[data-menu-open=true]]:bg-white! mx-4 flex w-[calc(100%-2rem)] items-center justify-between rounded-b-[16px] rounded-t-none border-[1.5px] border-white/65 bg-[image:var(--header-bg)] px-4 py-3 backdrop-blur-[14px] transition-[background-color,border-radius,box-shadow] duration-300 ease-[var(--ease-out)] motion-reduce:transition-none xl:mx-0 xl:w-full xl:px-16 min-[1440px]:px-[calc((100%-1392px)/2+40px)] ${
           scrolled
             ? 'shadow-[0px_12px_34px_-8px_rgba(16,73,76,0.22)]'
             : 'shadow-[0px_12px_34px_-8px_rgba(214,251,254,0.16)]'
@@ -131,12 +169,13 @@ export function Header() {
               className={`flex items-center gap-[6px] whitespace-nowrap rounded-full border-[1.5px] border-brand-teal py-[11px] pl-5 pr-4 text-[14px] font-semibold tracking-[0.5px] text-content-brand transition-colors ${SECONDARY_HOVER}`}
             >
               Sign in
-              <Chevron />
+              <Chevron className={`${CHEVRON_TURN} ${menu ? 'rotate-180' : ''}`} />
             </button>
             {menu && SIGN_IN_ITEMS.length > 0 ? (
-              <div role="menu" className="menu-in absolute right-0 top-full mt-2 min-w-[220px] rounded-2xl bg-white p-2 shadow-[0px_0px_20px_rgba(10,13,18,0.14)]">
+              <div ref={setSignInMenu} role="menu" {...signInRows.boxProps} className="absolute right-0 top-full mt-2 min-w-[220px] rounded-2xl bg-white p-2 shadow-[0px_0px_20px_rgba(10,13,18,0.14)]">
+                <RowHighlight thumbRef={signInRows.thumbRef} />
                 {SIGN_IN_ITEMS.map((it) => (
-                  <a key={it.href + it.label} role="menuitem" href={it.href} target="_blank" rel="noopener noreferrer" className="block rounded-xl px-4 py-3 text-[14px] font-semibold text-content-brand hover:bg-brand-subtle-bg">
+                  <a key={it.href + it.label} role="menuitem" href={it.href} target="_blank" rel="noopener noreferrer" {...signInRows.rowProps} className={`relative z-10 block rounded-xl px-4 py-3 text-[14px] font-semibold text-content-brand ${ROW_HOVER}`}>
                     {it.label}
                   </a>
                 ))}
@@ -172,6 +211,7 @@ export function Header() {
 
       {drawer ? (
         <nav
+          ref={drawerRef}
           id="mobile-nav"
           aria-label="Mobile"
           className="mx-4 mt-2 flex max-h-[calc(100dvh-110px)] w-[calc(100%-2rem)] max-w-[1392px] flex-col gap-1 overflow-y-auto rounded-3xl bg-white p-4 shadow-[0px_0px_20px_rgba(10,13,18,0.14)] xl:hidden"
@@ -203,12 +243,13 @@ export function Header() {
                 className={`flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border-[1.5px] border-brand-teal px-6 text-[16px] font-semibold uppercase tracking-[0.6px] text-content-brand transition-colors ${SECONDARY_HOVER}`}
               >
                 Sign in
-                <span className={`transition-transform duration-200 ${signIn ? 'rotate-180' : ''}`}>
+                <span className={`${CHEVRON_TURN} ${signIn ? 'rotate-180' : ''}`}>
                   <Chevron />
                 </span>
               </button>
-              {signIn
-                ? SIGN_IN_ITEMS.map((it) => (
+              {signIn ? (
+                <div ref={signInRef} className="flex flex-col gap-1">
+                  {SIGN_IN_ITEMS.map((it) => (
                     <a
                       key={it.href + it.label}
                       href={it.href}
@@ -218,8 +259,9 @@ export function Header() {
                     >
                       {it.label}
                     </a>
-                  ))
-                : null}
+                  ))}
+                </div>
+              ) : null}
             </div>
           ) : null}
           <div className="px-2 pb-2 pt-1" onClick={closeDrawer}>

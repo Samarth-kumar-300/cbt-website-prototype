@@ -1,6 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useLiquidThumb } from './useLiquidThumb';
 
 export type SwitchItem = { readonly id: string; readonly label: string };
 
@@ -17,10 +18,16 @@ type Props = {
 
 // A segmented control: one grey track, equal-width segments, and a white thumb that slides under the
 // active label. Same tab semantics and arrow-key behaviour as Chips, for choices that swap a whole view.
+// The thumb moves with the liquid slide in useLiquidThumb.
 export function SegmentedSwitch({ items, value, onChange, label, idPrefix, className = '' }: Props) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLSpanElement>(null);
   const count = items.length;
   const activeIndex = Math.max(0, items.findIndex((it) => it.id === value));
+  // The server-rendered position. Frozen so React never rewrites the style GSAP is animating.
+  const [initialIndex] = useState(activeIndex);
+  useLiquidThumb(trackRef, thumbRef, refs, activeIndex);
 
   const onKeyDown = (e: React.KeyboardEvent, i: number) => {
     let next = -1;
@@ -36,16 +43,22 @@ export function SegmentedSwitch({ items, value, onChange, label, idPrefix, class
 
   return (
     <div
+      ref={trackRef}
       role="tablist"
       aria-label={label}
+      data-active-index={activeIndex}
       className={`relative grid w-full rounded-[18px] bg-[#f3f4f6] p-1.5 ${className}`}
       style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
     >
       <span
+        ref={thumbRef}
         aria-hidden="true"
         data-switch-thumb=""
-        className="pointer-events-none absolute inset-y-1.5 left-1.5 rounded-[14px] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.06),0_2px_8px_rgba(16,24,40,0.08)] transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
-        style={{ width: `calc((100% - 12px) / ${count})`, transform: `translateX(${activeIndex * 100}%)` }}
+        className="pointer-events-none absolute inset-y-1.5 rounded-[14px] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.06),0_2px_8px_rgba(16,24,40,0.08)]"
+        style={{
+          left: `calc(6px + ${initialIndex} * (100% - 12px) / ${count})`,
+          right: `calc(6px + ${count - 1 - initialIndex} * (100% - 12px) / ${count})`,
+        }}
       />
       {items.map((it, i) => {
         const selected = it.id === value;
@@ -63,8 +76,8 @@ export function SegmentedSwitch({ items, value, onChange, label, idPrefix, class
             tabIndex={selected ? 0 : -1}
             onClick={() => onChange(it.id)}
             onKeyDown={(e) => onKeyDown(e, i)}
-            className={`relative z-10 min-h-[48px] rounded-[14px] px-2 text-[14px] font-semibold leading-[22px] sm:px-3 sm:text-[15px] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal lg:min-h-[56px] lg:px-6 lg:text-[18px] ${
-              selected ? 'text-text-default' : 'text-[#5b6470] hover:text-text-default'
+            className={`relative z-10 min-h-[48px] rounded-[14px] px-2 text-[14px] font-semibold leading-[22px] sm:px-3 sm:text-[15px] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-teal lg:min-h-[56px] lg:px-6 lg:text-[18px] ${
+              selected ? 'text-text-default delay-[110ms] motion-reduce:delay-0' : 'text-[#5b6470] hover:text-text-default'
             }`}
           >
             {it.label}

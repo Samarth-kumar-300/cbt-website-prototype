@@ -171,7 +171,7 @@ export function FaqCards({
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  className={`faq-plus-bar origin-center transition-transform duration-300 ease-out ${isOpen ? "scale-y-0" : ""}`}
+                  className={`faq-plus-bar origin-center transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? "scale-y-0" : ""}`}
                 />
               </svg>
             </button>
@@ -181,7 +181,7 @@ export function FaqCards({
               role="region"
               aria-labelledby={buttonId}
               inert={!isOpen}
-              className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+              className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
             >
               <div className="overflow-hidden">
                 <div className="mt-3 flex flex-col gap-3 pl-10 lg:mt-4 lg:pl-[52px]">

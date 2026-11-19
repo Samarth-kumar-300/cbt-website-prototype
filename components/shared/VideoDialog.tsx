@@ -23,8 +23,8 @@ export function VideoDialog({ src, poster, title, onClose }: Props) {
   }, [onClose]);
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/80 p-3 sm:p-6" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div role="dialog" aria-modal="true" aria-label={title} className="relative w-full max-w-[1100px]">
+    <div className="dialog-backdrop-in fixed inset-0 z-[80] flex items-center justify-center bg-black/80 p-3 sm:p-6" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <div role="dialog" aria-modal="true" aria-label={title} className="dialog-panel-in relative w-full max-w-[1100px]">
         <button
           ref={closeRef}
           type="button"

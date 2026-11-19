@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CookieBanner } from '@/components/shared/CookieBanner';
 import { COOKIE_KEY } from '@/components/shared/cookie-key';
+import './freeze-gsap';
 
 beforeEach(() => localStorage.clear());
 afterEach(() => {
@@ -81,5 +82,39 @@ describe('CookieBanner exit', () => {
     });
     expect(screen.queryByRole('dialog', { name: 'Cookie preferences' })).toBeNull();
     vi.unstubAllGlobals();
+  });
+});
+
+describe('CookieBanner details toggle', () => {
+  function mockMotion(reduce: boolean) {
+    vi.stubGlobal('matchMedia', (q: string) => ({ matches: reduce && q.includes('reduce'), media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} }));
+  }
+  const copy = () => screen.getByRole('dialog', { name: 'Cookie preferences' }).querySelector('p.relative') as HTMLElement;
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('clamps the copy to two lines on phones until Details is pressed, and the words never change', async () => {
+    mockMotion(true);
+    render(<CookieBanner />);
+    await screen.findByText('We value your privacy');
+    const text = copy().textContent;
+    expect(copy().className).toContain('line-clamp-2');
+    const details = screen.getByRole('button', { name: 'Details' });
+    expect(details).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(details);
+    expect(screen.getByRole('button', { name: 'Less' })).toHaveAttribute('aria-expanded', 'true');
+    expect(copy().className).not.toContain('line-clamp-2');
+    await userEvent.click(screen.getByRole('button', { name: 'Less' }));
+    expect(copy().className).toContain('line-clamp-2');
+    expect(copy().textContent).toBe(text);
+  });
+
+  it('lifts the clamp at once and clips the copy while it eases open', async () => {
+    mockMotion(false);
+    render(<CookieBanner />);
+    await screen.findByText('We value your privacy');
+    await userEvent.click(screen.getByRole('button', { name: 'Details' }));
+    expect(copy().className).not.toContain('line-clamp-2');
+    expect(copy().style.overflow).toBe('hidden');
+    expect(screen.getByRole('button', { name: 'Less' })).toHaveAttribute('aria-expanded', 'true');
   });
 });

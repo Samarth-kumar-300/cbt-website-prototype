@@ -34,7 +34,7 @@ export function FAQ({ items }: { items: readonly FaqItem[] }) {
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  className={`faq-plus-bar origin-center transition-transform duration-300 ease-out ${isOpen ? 'scale-y-0' : ''}`}
+                  className={`faq-plus-bar origin-center transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? 'scale-y-0' : ''}`}
                 />
               </svg>
             </button>
@@ -43,7 +43,7 @@ export function FAQ({ items }: { items: readonly FaqItem[] }) {
               id={id}
               role="region"
               inert={!isOpen}
-              className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+              className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
             >
               <div className="overflow-hidden">
                 <div className="pb-5 text-[14px] leading-[22px] text-text-default lg:text-[18px] lg:leading-[27px] lg:text-text-secondary">

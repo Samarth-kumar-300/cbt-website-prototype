@@ -10,14 +10,14 @@ const items = [
 afterEach(cleanup);
 
 describe('SegmentedSwitch', () => {
-  it('marks the active tab and slides the thumb under it', () => {
+  it('marks the active tab and tracks the active index for the thumb', () => {
     const { container, rerender } = render(<SegmentedSwitch items={items} value="a" onChange={() => {}} label="Pick" idPrefix="t" />);
-    const thumb = container.querySelector('[data-switch-thumb]') as HTMLElement;
+    const track = container.querySelector('[role="tablist"]') as HTMLElement;
     expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveAttribute('aria-selected', 'true');
-    expect(thumb.style.transform).toBe('translateX(0%)');
+    expect(track).toHaveAttribute('data-active-index', '0');
     rerender(<SegmentedSwitch items={items} value="b" onChange={() => {}} label="Pick" idPrefix="t" />);
     expect(screen.getByRole('tab', { name: 'Beta' })).toHaveAttribute('aria-selected', 'true');
-    expect(thumb.style.transform).toBe('translateX(100%)');
+    expect(track).toHaveAttribute('data-active-index', '1');
   });
 
   it('calls onChange on click and with the arrow keys', () => {
