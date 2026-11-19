@@ -12,14 +12,14 @@ type Props = {
   meeting?: DemoMeeting | null;
 };
 
-// Same lilac card as the confirmation email, so the page and the inbox read as one message.
+// Light teal card (brand-subtle-bg), the same tint as the icon ring above it.
 function MeetingCard({ meeting }: { meeting: DemoMeeting }) {
   const rows = [
     [c.done.dateLabel, meeting.date],
     [c.done.timeLabel, meeting.time],
   ] as const;
   return (
-    <dl className="m-0 flex w-full flex-col gap-2 rounded-[16px] border border-[#f4e4f5] bg-[#f4e4f5] p-5 text-left">
+    <dl className="m-0 flex w-full flex-col gap-2 rounded-[16px] border border-brand-subtle-bg bg-brand-subtle-bg p-5 text-left">
       {rows.map(([label, value]) => (
         <div key={label} className="flex gap-4">
           <dt className="w-14 shrink-0 text-[16px] leading-[26px] text-[#4b5563]">{label}</dt>
